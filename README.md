@@ -9,6 +9,7 @@ A **development prototype** of an interactive, Moodle-compatible learning experi
 - Nine learning modules aligned to the supplied WRHA participant manual and training proposal.
 - Blended delivery: online Modules 1–3, facilitated in-person Modules 4–7, then online Modules 8–9.
 - Mobile-friendly lessons, interactive scenarios, module knowledge checks, feedback and progress.
+- Premium institutional design in `premium.css`, with light editorial layout and accessible animation in `motion.js` (`prefers-reduced-motion` respected).
 - A module-by-module reading library with exact references to the WRHA participant manual and links to public Jamaican MOHW/WHO resources.
 - A standalone **Guidelines & PDFs** page linking to Ministry-hosted downloadable files, with dates, scopes and warnings about older sources.
 - A written [2026 guideline alignment review](CLINICAL-GUIDELINE-ALIGNMENT-2026.md), including clinical safety items for WRHA sign-off. Private training manuals are not published here.
