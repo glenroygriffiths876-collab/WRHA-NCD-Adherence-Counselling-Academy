@@ -25,9 +25,17 @@
     lesson: 1,
     selected: null,
     review: null,
-    filter: "all",
     libraryFilter: "all"
   };
+  const units=[
+    {id:1,title:"Understanding NCD care",desc:"Chronic conditions, the meaning of adherence, and common barriers to care.",modules:[1,2,3]},
+    {id:2,title:"Counselling with confidence",desc:"Supportive conversations, motivational interviewing, the 5 A's, and safe referrals.",modules:[4,5,6,7]},
+    {id:3,title:"Supporting continuity of care",desc:"Practical self-management, documentation, referrals, and follow-up.",modules:[8,9]}
+  ];
+  function unitFor(id){return units.find(u=>u.modules.includes(Number(id)));}
+  function unlocked(id){return Number(id)===1||modules.filter(m=>m.id<Number(id)).every(m=>state.completed.includes(m.id));}
+  function nextLesson(){return modules.find(m=>!state.completed.includes(m.id))||null;}
+  function continueLearning(){const next=nextLesson();if(next)openModule(next.id);else nav("assessment");}
   function htmlEscape(str) { return String(str).replace(/[&<>"']/g, char => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[char])); }
   function persist() {
     const data = {completed: state.completed.slice().sort((a,b)=>a-b), reviewScore:state.reviewScore};
@@ -41,6 +49,16 @@
     $("#hero-percent").textContent = pct + "%";
     $("#hero-progress").style.width = pct + "%";
     $(".ring-outer").style.setProperty("--progress-angle", (pct * 3.6) + "deg");
+    const next=nextLesson();
+    $("#continue-course").innerHTML=next?(count===0?'Start learning <span aria-hidden="true">↗</span>':'Continue learning <span aria-hidden="true">↗</span>'):'Knowledge review ↗';
+    $("#next-lesson-title").textContent=next?'Module '+next.id+' · '+next.title:'All nine modules completed';
+    $("#next-lesson-description").textContent=next?next.summary:'Your official examination and observed skills evaluation are separate completion requirements.';
+    $("#home-progress-caption").textContent=count+' of 9 modules completed';
+    $("#home-progress-bar").style.width=pct+'%';
+    $("#home-next-button").textContent=next?(count===0?'Begin Module 1 →':'Continue Module '+next.id+' →'):'Open knowledge review →';
+    $("#content-continue").textContent=next?'Continue →':'Review →';
+    $("#course-progress-caption").textContent=count+' of 9 activities completed';
+    $("#course-progress-bar").style.width=pct+'%';
   }
   function nav(screen) {
     const target = ["home","modules","resources","lesson","assessment","certificate"].includes(screen) ? screen : "home";
@@ -52,24 +70,42 @@
       if (active) el.setAttribute("aria-current","page"); else el.removeAttribute("aria-current");
     });
     if (target === "home") {renderCards(); updateProgress();}
-    if (target === "modules") renderCards();
+    if (target === "modules") {renderCards();updateProgress();}
     if (target === "resources") renderLibrary();
     if (target === "assessment") renderAssessments();
     if (target === "certificate") renderCertificate();
     window.scrollTo({top:0,behavior:"instant"});
     try {history.replaceState({}, "", "#" + (target === "lesson" ? "module-" + state.lesson : target));} catch (_) {}
   }
-  function card(module) {
-    const done = state.completed.includes(module.id);
-    return '<article class="module-card">' +
-      '<div class="module-top"><span class="module-icon" aria-hidden="true">' + module.icon + '</span><span class="status-tag ' + (done?'done':'') + '">' + (done ? "✓ Reviewed":"Module " + String(module.id).padStart(2,"0")) + '</span></div>' +
-      '<h3>' + htmlEscape(module.title) + '</h3><p>' + htmlEscape(module.summary) + '</p>' +
-      '<div class="module-foot"><small>' + htmlEscape(module.phase) + '</small><button type="button" data-open-module="' + module.id + '" aria-label="Open module ' + module.id + ': ' + htmlEscape(module.title) + '">Explore ↗</button></div></article>';
+  function renderCards(){renderHomeUnits();renderCourseOutline();}
+  function renderHomeUnits(){
+    $("#home-unit-preview").innerHTML=units.map(unit=>{
+      const done=unit.modules.filter(id=>state.completed.includes(id)).length;
+      const next=unit.modules.find(id=>unlocked(id)&&!state.completed.includes(id));
+      return '<article class="unit-preview-card"><div class="unit-preview-top"><span class="unit-index">UNIT '+String(unit.id).padStart(2,"0")+'</span><span class="unit-preview-count">'+done+'/'+unit.modules.length+' complete</span></div>'+
+        '<h3>'+htmlEscape(unit.title)+'</h3><p>'+htmlEscape(unit.desc)+'</p>'+
+        '<div class="unit-preview-footer"><span>'+unit.modules.length+' interactive lessons</span>'+
+        (next?'<button type="button" class="unit-preview-action" data-open-module="'+next+'">Study this unit →</button>':'<button type="button" class="unit-preview-action" data-nav="modules">View syllabus →</button>')+'</div></article>';
+    }).join("");
   }
-  function renderCards() {
-    $("#home-modules").innerHTML = modules.map(card).join("");
-    $("#all-modules").innerHTML = modules.filter(m => state.filter === "all" || m.phase === state.filter).map(card).join("");
-    $$(".phase-filter").forEach(el => el.classList.toggle("active", el.dataset.filter === state.filter));
+  function activityRow(module){
+    const done=state.completed.includes(module.id),lock=!unlocked(module.id);
+    const status=done?"Completed":lock?"Locked":"Ready to learn",cls=done?"complete":lock?"locked":"available";
+    return '<div class="course-activity '+cls+'"><span class="activity-icon" aria-hidden="true">'+(done?'✓':lock?'⌑':'▤')+'</span>'+
+      '<div class="activity-description"><div class="activity-kicker">MODULE '+String(module.id).padStart(2,"0")+' · INTERACTIVE LESSON</div><h3>'+htmlEscape(module.title)+'</h3><p>'+htmlEscape(module.summary)+'</p><span class="activity-duration">◷ '+htmlEscape(module.duration)+'</span></div>'+
+      '<div class="activity-action"><span class="module-status '+cls+'">'+status+'</span>'+
+      '<button class="activity-open" type="button" data-open-module="'+module.id+'" '+(lock?'disabled aria-label="Module '+module.id+' locked until earlier lessons are completed"':'')+'>'+
+      (done?'Review lesson ↗':lock?'Locked':'Start lesson →')+'</button></div></div>';
+  }
+  function renderCourseOutline(){
+    $("#course-sections").innerHTML=units.map(unit=>{
+      const done=unit.modules.filter(id=>state.completed.includes(id)).length;
+      return '<details class="unit-panel" id="unit-'+unit.id+'" open><summary class="unit-summary"><span class="unit-number">0'+unit.id+'</span><span class="unit-name"><small>UNIT '+unit.id+' · '+unit.modules.length+' LESSONS</small><strong>'+htmlEscape(unit.title)+'</strong><span>'+htmlEscape(unit.desc)+'</span></span>'+
+      '<span class="unit-completion">'+done+'/'+unit.modules.length+' completed</span><span class="section-chevron" aria-hidden="true">⌄</span></summary><div class="unit-activities">'+unit.modules.map(id=>activityRow(modules.find(m=>m.id===id))).join("")+'</div></details>';
+    }).join("");
+    $("#course-index-links").innerHTML='<button type="button" class="index-link" data-scroll-to="course-orientation"><span>✦</span> Getting started</button>'+
+      units.map(u=>'<button type="button" class="index-link" data-scroll-to="unit-'+u.id+'"><span>0'+u.id+'</span>'+htmlEscape(u.title)+'</button>').join("")+
+      '<button type="button" class="index-link" data-scroll-to="course-completion"><span>✓</span> Assessment & certificate</button>';
   }
   function renderLibrary() {
     const all = Array.isArray(window.WRHA_GUIDELINE_LIBRARY) ? window.WRHA_GUIDELINE_LIBRARY : [];
@@ -124,14 +160,15 @@
   }
   function openModule(id) {
     const module = modules.find(m => m.id === Number(id)); if (!module) return;
+    if(!unlocked(module.id)){nav("modules");return;}
     state.lesson = module.id; state.selected = null;
-    $("#lesson-phase").textContent = module.phase;
+    $("#lesson-phase").textContent = "Self-paced · Unit "+unitFor(module.id).id;
     $("#lesson-number").textContent = "MODULE " + String(module.id).padStart(2,"0") + " · " + course.theme.toUpperCase();
     $("#lesson-title").textContent = module.title;
     $("#lesson-description").textContent = module.summary;
     $("#lesson-duration").textContent = module.duration;
-    $("#lesson-status").textContent = state.completed.includes(module.id) ? "Reviewed" : "Practice check required";
-    $("#lesson-list").innerHTML = modules.map(m => '<button class="lesson-side-link '+(m.id===module.id?'current ':'')+(state.completed.includes(m.id)?'completed':'')+'" data-open-module="'+m.id+'"><span>' + (state.completed.includes(m.id) ? "✓" : m.id) + '</span>' + htmlEscape(m.title) + '</button>').join("");
+    $("#lesson-status").textContent = state.completed.includes(module.id) ? "Completed" : "Complete the knowledge check to advance";
+    $("#lesson-list").innerHTML=modules.map(m=>{const locked=!unlocked(m.id);return '<button class="lesson-side-link '+(m.id===module.id?'current ':'')+(state.completed.includes(m.id)?'completed':'')+'" data-open-module="'+m.id+'" '+(locked?'disabled title="Complete previous lessons to unlock"':'')+'><span>'+(state.completed.includes(m.id)?'✓':locked?'•':m.id)+'</span>'+htmlEscape(m.title)+'</button>';}).join("");
     $("#lesson-content").innerHTML =
       '<section class="learning-objectives"><strong>After this module, you should be able to:</strong><ul>' +
       module.objectives.map(o => '<li>' + htmlEscape(o) + '</li>').join("") + '</ul></section>' +
@@ -140,7 +177,9 @@
     $("#scenario-block").innerHTML = '<div class="scenario-kicker">✧ '+htmlEscape(scenario.type).toUpperCase()+'</div><h2>Put it into practice</h2><p class="scenario-question">'+htmlEscape(scenario.prompt)+'</p><div class="choices" id="module-choices">'+
       scenario.choices.map((c,i)=>'<button type="button" class="choice" data-answer="'+i+'">'+htmlEscape(c.text)+'</button>').join("")+'</div><div id="module-feedback" aria-live="polite"></div>';
     $("#previous-module").disabled = module.id === 1;
-    $("#next-module").textContent = module.id === 9 ? "Go to assessments →" : "Next module →";
+    $("#next-module").textContent = module.id === 9 ? "Go to knowledge review →" : "Continue to Module "+(module.id+1)+" →";
+    $("#next-module").disabled = !state.completed.includes(module.id);
+    $("#next-module").title = state.completed.includes(module.id)?"Continue learning":"Complete the knowledge check correctly to unlock the next lesson";
     nav("lesson");
   }
   function chooseModuleAnswer(index) {
@@ -154,17 +193,22 @@
     $("#module-feedback").innerHTML = '<div class="scenario-feedback ' + (choice.correct?'':'warning')+'"><strong>'+(choice.correct?'✓ Good decision':'Consider this again')+'</strong><div>'+htmlEscape(choice.feedback)+'</div></div>';
     if (choice.correct && !state.completed.includes(module.id)) {
       state.completed.push(module.id);persist();
-      $("#lesson-status").textContent="Reviewed";
+      $("#lesson-status").textContent="Completed";
+      $("#next-module").disabled=false;
+      $("#next-module").title="Continue learning";
       $("#lesson-list").querySelector('[data-open-module="'+module.id+'"]').classList.add("completed");
     }
   }
   function renderAssessments() {
     const last = state.reviewScore;
+    $("#start-review").disabled=state.completed.length!==9;
+    $("#start-review").textContent=state.completed.length===9?"Start knowledge review →":"Complete all nine lessons first";
     $("#review-result").innerHTML = last === null
       ? '<small>Practice review not completed yet.</small>'
       : '<strong>Last practice score: ' + last + ' of 9 (' + Math.round(last/9*100) + '%)</strong><small>This does not replace a formal Moodle examination.</small>';
   }
   function startReview() {
+    if(state.completed.length!==9)return;
     state.review = {index:0,selected:null,score:0,submitted:false};
     $("#review-panel").hidden=false;
     renderReview();
@@ -207,14 +251,15 @@
   document.addEventListener("click",ev=>{
     const navEl=ev.target.closest("[data-nav]");if(navEl){nav(navEl.dataset.nav);return;}
     const lessonEl=ev.target.closest("[data-open-module]");if(lessonEl){openModule(lessonEl.dataset.openModule);return;}
-    const filterEl=ev.target.closest("[data-filter]");if(filterEl){state.filter=filterEl.dataset.filter;renderCards();return;}
+    const more=ev.target.closest('[data-action="continue-learning"]');if(more){continueLearning();return;}
+    const section=ev.target.closest("[data-scroll-to]");if(section){nav("modules");const dest=document.getElementById(section.dataset.scrollTo);if(dest)dest.scrollIntoView({behavior:"smooth",block:"start"});return;}
     const libEl=ev.target.closest("[data-library-filter]");if(libEl){state.libraryFilter=libEl.dataset.libraryFilter;renderLibrary();return;}
     const answerEl=ev.target.closest("[data-answer]");if(answerEl){chooseModuleAnswer(Number(answerEl.dataset.answer));return;}
     const revEl=ev.target.closest("[data-review-answer]");if(revEl){selectReviewAnswer(Number(revEl.dataset.reviewAnswer));return;}
     if(ev.target.closest("#start-review") || ev.target.closest("#retry-review")) {startReview();return;}
     if(ev.target.closest("#review-next")) {nextReview();return;}
     if(ev.target.closest("#previous-module")) {openModule(state.lesson-1);return;}
-    if(ev.target.closest("#next-module")) {if(state.lesson===9)nav("assessment");else openModule(state.lesson+1);return;}
+    if(ev.target.closest("#next-module")) {if(!state.completed.includes(state.lesson))return;if(state.lesson===9)nav("assessment");else openModule(state.lesson+1);return;}
   });
   $("#name-preview").addEventListener("input",ev=>{
     const clean=ev.target.value.trim().slice(0,70);
