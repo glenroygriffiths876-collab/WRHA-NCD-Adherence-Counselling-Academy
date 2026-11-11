@@ -12,12 +12,14 @@ The academy prioritises observable patient-centred counselling, motivational int
 | OARS skills demonstration | [Watch](https://www.youtube.com/watch?v=_KNIPGV7Xyg) | [World Bank basic MI training manual (Activity 6)](https://documents1.worldbank.org/curated/en/344641554477204100/pdf/Motivational-Interviewing-in-HIV-Counseling-and-Testing-A-Basic-Training-Manual-for-Community-Based-Organizations.pdf) | 4, 5, **6** |
 | Motivational Interviewing — Good Example | [Watch](https://www.youtube.com/watch?v=_VlvanBFkvI) | [IRETA](https://ireta.org/resources/motivational-interviewing-good-example/) | 4, 5 |
 | Teach-Back — contrasting scenarios | [Watch](https://www.youtube.com/watch?v=4KORO7FwqX0) | [Health Literacy Solutions](https://www.healthliteracysolutions.org/library-communication/post/teach-back-improving-patient-understanding-q9caWutGAtWJUNO) | 2, 4, **8**, 9 |
+| CDC: Recognize the Signs and Symptoms of Stroke | [Watch](https://www.youtube.com/watch?v=mkpbbWZvYmw) | [Washington State Department of Health stroke-education video toolkit](https://doh.wa.gov/sites/default/files/legacy/Documents/Pubs//346056.pdf) | **7** |
 | Help Patients Take Blood Pressure Medicines as Directed | [Watch](https://www.youtube.com/watch?v=J_qVaO9pnqY) | [CDC Million Hearts](https://millionhearts.hhs.gov/tools-protocols/tools/medication-adherence.html) | **1, 2, 3, 9**, 6, 8 |
 | Tips for Taking Blood Pressure Medicines as Directed | [Watch](https://www.youtube.com/watch?v=jyzjgIXTKzE) | [CDC Million Hearts](https://millionhearts.hhs.gov/tools-protocols/tools/medication-adherence.html) | 2, 3, 8 |
 
 **Bolded module IDs** represent priority viewing placements. The platform may show no more than two videos within a lesson to protect the learning experience from overcrowding.
 
 ## Why these were chosen
+- **Urgent signs:** The stroke recognition video adds a practical danger-signs example to Module 7. It is US-produced and may say “call 911”; WRHA must specify Jamaica’s correct emergency response and referral process before approval.
 - **Medication adherence:** The CDC/Million Hearts videos give a grounded context for common barriers, team-based action and follow-up. US-specific rates and systems are not appropriate as Jamaica data.
 - **Counselling demonstrations:** The motivational interviewing role plays allow CHAs to recognise open questions, reflections, empathy, and change talk. They are not models for prescribing.
 - **Teach-back:** The Penobscot video shows ineffective and more effective explanations; the improved example begins at approximately **5:16** according to Health Literacy Solutions.
