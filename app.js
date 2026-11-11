@@ -89,24 +89,16 @@
   function renderCards(){renderHomeUnits();renderCourseOutline();}
   function chaVisualFor(moduleId){
     const v=(window.WRHA_MODULE_VISUALS || {})[moduleId];
-    if(!v || !/^assets\/cha-scenes\/cha-[a-z-]+\.webp$/.test(v.src||""))return null;
+    if(!v || !/^assets\/cha-hd\/cha-[a-z0-9-]+\.webp$/.test(v.src||""))return null;
     return v;
   }
   function chaImage(src,alt,cls,lazy){
-    if(!/^assets\/cha-scenes\/cha-[a-z-]+\.webp$/.test(src||""))return "";
-    const hdSrc=src.replace("/cha-scenes/","/cha-hd/");
-    // Original crop stays as a safe fallback until the HD file is available.
-    return '<img class="'+cls+'" src="'+htmlEscape(hdSrc)+'" data-fallback-src="'+htmlEscape(src)+'" alt="'+htmlEscape(alt||"")+'" loading="'+(lazy?"lazy":"eager")+'" decoding="async">';
+    if(!/^assets\/cha-hd\/cha-[a-z0-9-]+\.webp$/.test(src||""))return "";
+    // Direct HD image references: no obsolete low-resolution crop fallback.
+    // Versioned URLs bypass previously cached low-resolution image responses.
+    const hdSrc=src+"?version=hd-20261111";
+    return '<img class="'+cls+'" src="'+htmlEscape(hdSrc)+'" alt="'+htmlEscape(alt||"")+'" loading="'+(lazy?"lazy":"eager")+'" decoding="async" width="1448" height="1086">';
   }
-  document.addEventListener("error",event=>{
-    const img=event.target;
-    if(!(img instanceof HTMLImageElement))return;
-    const fallback=img.getAttribute("data-fallback-src");
-    if(fallback && /^assets\/cha-scenes\/cha-[a-z-]+\.webp$/.test(fallback)){
-      img.removeAttribute("data-fallback-src");
-      img.src=fallback;
-    }
-  },true);
   function displayLessonIllustration(module){
     const v=chaVisualFor(module.id),el=$("#lesson-figure");
     if(!v){el.hidden=true;el.innerHTML="";return}
