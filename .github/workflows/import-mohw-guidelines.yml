@@ -1,0 +1,61 @@
+name: Import MOHW public NCD manuals and render covers
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/import-mohw-guidelines.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: wrha-mohw-manual-import
+  cancel-in-progress: false
+
+jobs:
+  import-public-pdfs:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - name: Check out public training repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Use Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install PDF preview libraries
+        run: python -m pip install --disable-pip-version-check --quiet requests pymupdf pillow
+
+      - name: Retrieve official MOHW PDFs and render original first-page covers
+        run: python scripts/sync_mohw_manuals.py
+
+      - name: Check downloaded content
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import fitz
+          for file in sorted(Path('documents/pdf-library').glob('*.pdf')):
+              assert file.read_bytes()[:5] == b'%PDF-'
+              with fitz.open(file) as doc:
+                  assert len(doc)>0
+                  cover=Path('media/pdf-covers')/(file.stem+'.webp')
+                  assert cover.is_file(), cover
+                  print(file, len(doc), 'pages; cover', cover)
+          PY
+
+      - name: Commit locally hosted approved-public PDFs and cover images
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add documents/pdf-library media/pdf-covers manual-assets.js manual-import-report.txt || true
+          if git diff --staged --quiet; then
+            echo 'No new documents to commit'
+          else
+            git commit -m 'Add authentic MOHW NCD PDF copies and first-page covers'
+            git push origin HEAD:main
+          fi
