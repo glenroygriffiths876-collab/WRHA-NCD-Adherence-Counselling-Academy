@@ -90,6 +90,20 @@ window.WRHA_VIDEO_LIBRARY = [
     source:"https://millionhearts.hhs.gov/tools-protocols/tools/medication-adherence.html"
   },
   {
+    id:"cdc-stroke-signs",
+    title:"Recognize the Signs and Symptoms of Stroke",
+    videoId:"mkpbbWZvYmw",
+    provider:"Centers for Disease Control and Prevention",
+    category:"Urgent warning signs and referral",
+    duration:"Brief public-health video",
+    modules:[7],
+    featuredFor:[7],
+    rationale:"Recognising sudden stroke signs is relevant to the CHA's duty to activate urgent referral rather than continue routine counselling.",
+    prompt:"What sudden warning signs should trigger an immediate response? Identify who the CHA should contact using WRHA's locally approved emergency pathway.",
+    caveat:"US material may refer to 911, which is not Jamaica's emergency number. WRHA must verify the local escalation pathway before use. CHAs must not diagnose or change treatment.",
+    source:"https://doh.wa.gov/sites/default/files/legacy/Documents/Pubs//346056.pdf"
+  },
+  {
     id:"cdc-bp-patient",
     title:"Tips for Taking Blood Pressure Medicines as Directed",
     videoId:"jyzjgIXTKzE",
