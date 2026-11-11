@@ -25,7 +25,8 @@
     lesson: 1,
     selected: null,
     review: null,
-    filter: "all"
+    filter: "all",
+    libraryFilter: "all"
   };
   function htmlEscape(str) { return String(str).replace(/[&<>"']/g, char => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[char])); }
   function persist() {
@@ -42,7 +43,7 @@
     $(".ring-outer").style.setProperty("--progress-angle", (pct * 3.6) + "deg");
   }
   function nav(screen) {
-    const target = ["home","modules","lesson","assessment","certificate"].includes(screen) ? screen : "home";
+    const target = ["home","modules","resources","lesson","assessment","certificate"].includes(screen) ? screen : "home";
     state.screen = target;
     $$(".screen").forEach(el => {el.hidden = el.id !== "screen-" + target;});
     $$(".nav-tab").forEach(el => {
@@ -52,6 +53,7 @@
     });
     if (target === "home") {renderCards(); updateProgress();}
     if (target === "modules") renderCards();
+    if (target === "resources") renderLibrary();
     if (target === "assessment") renderAssessments();
     if (target === "certificate") renderCertificate();
     window.scrollTo({top:0,behavior:"instant"});
@@ -69,11 +71,33 @@
     $("#all-modules").innerHTML = modules.filter(m => state.filter === "all" || m.phase === state.filter).map(card).join("");
     $$(".phase-filter").forEach(el => el.classList.toggle("active", el.dataset.filter === state.filter));
   }
+  function renderLibrary() {
+    const all = Array.isArray(window.WRHA_GUIDELINE_LIBRARY) ? window.WRHA_GUIDELINE_LIBRARY : [];
+    const selected = all.filter(item => state.libraryFilter === "all" || item.category === state.libraryFilter);
+    $("#library-total").textContent = selected.length + " of " + all.length + " documents";
+    $(".library-filter").forEach(el => el.classList.toggle("active", el.dataset.libraryFilter === state.libraryFilter));
+    $("#library-grid").innerHTML = selected.map(item => (
+      '<article class="library-card"><div class="library-card-top">' +
+      '<span class="library-type">' + htmlEscape(item.type) + '</span>' +
+      '<span class="library-pages">PDF · ' + item.pages + ' pages</span></div>' +
+      '<h2>' + htmlEscape(item.title) + '</h2><div class="library-edition">' + htmlEscape(item.edition) + '</div>' +
+      '<p>' + htmlEscape(item.note) + '</p><div class="library-audience"><strong>Intended for:</strong> ' + htmlEscape(item.audience) + '</div>' +
+      '<div class="library-card-foot"><a href="' + htmlEscape(item.url) + '" target="_blank" rel="noopener noreferrer" class="download-link" aria-label="View and download ' + htmlEscape(item.title) + ', official MOHW PDF">↧ &nbsp;View / Download PDF</a>' +
+      '<span>MOHW official source ↗</span></div></article>'
+    )).join("");
+  }
   function renderModuleResources(module) {
     const ref = (window.WRHA_MODULE_REFERENCES || {})[module.id];
     if (!ref) return "";
     const links = Array.isArray(ref.links) ? ref.links : [];
-    const linkRows = links.map(item =>
+    const docs = (window.WRHA_GUIDELINE_LIBRARY || []).filter(doc => doc.modules.includes(module.id));
+    const urls = new Set(docs.map(doc => doc.url.replace(/\/$/, "")));
+    const pdfRows = docs.map(doc =>
+      '<li class="resource-item resource-pdf"><div class="resource-pdf-copy"><strong>' + htmlEscape(doc.title) + '</strong>' +
+      '<span>' + htmlEscape(doc.edition) + ' · ' + doc.pages + '-page PDF · ' + htmlEscape(doc.category) + '</span></div>' +
+      '<a class="resource-download" href="' + htmlEscape(doc.url) + '" target="_blank" rel="noopener noreferrer">↧ View / download PDF</a></li>'
+    ).join("");
+    const linkRows = links.filter(item => !urls.has(item.url.replace(/\/$/, ""))).map(item =>
       '<li class="resource-item"><a href="' + htmlEscape(item.url) +
       '" target="_blank" rel="noopener noreferrer" class="resource-link">' +
       htmlEscape(item.title) + ' <span aria-hidden="true">↗</span></a>' +
@@ -88,8 +112,12 @@
       htmlEscape(ref.manual) + '</p>' +
       (ref.pack ? '<p>' + htmlEscape(ref.pack) + '</p>' : '') +
       '<small>The internal manuals and facilitator materials will be linked inside WRHA Moodle after the training team authorises access. They are not publicly hosted here.</small></div>' +
-      '<h3 class="resource-subhead">Official guidelines and supporting references</h3>' +
+      '<h3 class="resource-subhead">Official MOHW manuals — downloadable PDFs</h3>' +
+      '<p class="resource-help">Select View / download PDF, then use the PDF viewer’s save button if it opens in your browser.</p>' +
+      '<ul class="resource-list">' + pdfRows + '</ul>' +
+      '<h3 class="resource-subhead">Related courses and other supporting references</h3>' +
       '<ul class="resource-list">' + linkRows + '</ul>' +
+      '<button type="button" class="library-all" data-nav="resources">Browse the full Jamaican NCD guideline library →</button>' +
       '<div class="reference-footer"><span>Clinical treatment guidelines are for clinician reference. CHAs must follow their approved scope and WRHA referral procedures.</span>' +
       '<a href="#module-' + module.id + '" class="permalink" aria-label="Link directly to module ' + module.id + '">Link to this module ↗</a></div>' +
       '</section>';
@@ -180,6 +208,7 @@
     const navEl=ev.target.closest("[data-nav]");if(navEl){nav(navEl.dataset.nav);return;}
     const lessonEl=ev.target.closest("[data-open-module]");if(lessonEl){openModule(lessonEl.dataset.openModule);return;}
     const filterEl=ev.target.closest("[data-filter]");if(filterEl){state.filter=filterEl.dataset.filter;renderCards();return;}
+    const libEl=ev.target.closest("[data-library-filter]");if(libEl){state.libraryFilter=libEl.dataset.libraryFilter;renderLibrary();return;}
     const answerEl=ev.target.closest("[data-answer]");if(answerEl){chooseModuleAnswer(Number(answerEl.dataset.answer));return;}
     const revEl=ev.target.closest("[data-review-answer]");if(revEl){selectReviewAnswer(Number(revEl.dataset.reviewAnswer));return;}
     if(ev.target.closest("#start-review") || ev.target.closest("#retry-review")) {startReview();return;}
@@ -194,6 +223,6 @@
   updateProgress();renderCards();renderAssessments();
   const initial=decodeURIComponent(location.hash.slice(1));
   if(initial.startsWith("module-")) openModule(parseInt(initial.slice(7),10));
-  else nav(["home","modules","assessment","certificate"].includes(initial)?initial:"home");
+  else nav(["home","modules","resources","assessment","certificate"].includes(initial)?initial:"home");
   window.addEventListener("beforeunload",()=>{if(scorm)scorm.finish();});
 })();
