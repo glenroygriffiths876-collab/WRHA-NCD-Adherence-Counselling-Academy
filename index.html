@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="premium.css">
   <link rel="stylesheet" href="course.css">
+  <link rel="stylesheet" href="illustrations.css">
   <link rel="stylesheet" href="videos.css">
   <link rel="stylesheet" href="manual-reader.css">
 <link rel="stylesheet" href="manual-covers.css">
@@ -160,7 +161,7 @@
 <section id="screen-lesson" class="screen" hidden aria-labelledby="lesson-title">
     <div class="lesson-heading"><button class="text-button" data-nav="modules">← Course content</button><span id="lesson-phase" class="eyebrow-pill"></span></div>
     <div class="lesson-layout"><aside class="lesson-sidebar"><div class="side-header">COURSE INDEX</div><nav id="lesson-list" aria-label="Module selection"></nav><div class="sidebar-help">Browse all nine lessons whenever you wish. Knowledge checks track practice progress; competency is recorded separately by the facilitator.</div></aside>
-      <article class="lesson-article"><div class="lesson-cover"><span class="lesson-overline" id="lesson-number"></span><h1 id="lesson-title"></h1><p id="lesson-description"></p><div class="lesson-meta"><span id="lesson-duration"></span><span>·</span><span id="lesson-status"></span></div></div><div class="lesson-content" id="lesson-content"></div><div id="scenario-block" class="scenario-card"></div><div class="lesson-actions"><button id="previous-module" class="button button-outline">← Previous</button><button id="next-module" class="button button-primary">Next module →</button></div></article>
+      <article class="lesson-article"><div class="lesson-cover illustrated-lesson-cover"><div class="lesson-cover-copy"><span class="lesson-overline" id="lesson-number"></span><h1 id="lesson-title"></h1><p id="lesson-description"></p><div class="lesson-meta"><span id="lesson-duration"></span><span>·</span><span id="lesson-status"></span></div></div><figure id="lesson-figure" class="lesson-illustration" aria-label="Illustrative Jamaican community health scene"></figure></div><div class="lesson-content" id="lesson-content"></div><div id="scenario-block" class="scenario-card"></div><div class="lesson-actions"><button id="previous-module" class="button button-outline">← Previous</button><button id="next-module" class="button button-primary">Next module →</button></div></article>
     </div>
   </section>
 
@@ -182,12 +183,13 @@
 <script src="assets/original-logo-data.js"></script>
 <script src="logo-loader.js"></script>
 <script src="course-data.js"></script>
+<script src="module-visuals.js"></script>
 <script src="guideline-library.js"></script>
 <script src="manual-assets.js"></script>
 <script src="vendor/pdfjs/pdf.min.js"></script>
 <script src="manual-reader.js"></script>
 <script src="video-library.js"></script>
 <script src="scorm.js"></script>
-<script src="app.js?v=0.5"></script>
+<script src="app.js?v=0.6"></script>
 <script src="motion.js"></script>
 </body></html>
