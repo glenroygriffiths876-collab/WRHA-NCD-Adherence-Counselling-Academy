@@ -36,6 +36,17 @@ except Exception as exc:
 
 report=[]
 for source in sorted(IN.glob("cha-*.webp")):
+    destination=OUT/source.name
+    if destination.exists():
+        # Never replace newer, natively rendered HD images uploaded by WRHA.
+        with Image.open(destination) as existing:
+            if existing.size==TARGET:
+                report.append({"file":destination.relative_to(ROOT).as_posix(),
+                               "width":TARGET[0],"height":TARGET[1],
+                               "source":"approved native HD asset","method":"preserved native image",
+                               "sha256":hashlib.sha256(destination.read_bytes()).hexdigest()})
+                print("Preserved existing HD image:",destination.name)
+                continue
     source_img=Image.open(source).convert("RGB")
     if sr is not None:
         try:
