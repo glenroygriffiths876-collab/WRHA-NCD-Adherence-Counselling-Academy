@@ -7,7 +7,9 @@ A **development prototype** of an interactive, Moodle-compatible learning experi
 
 ## Scope
 - Nine learning modules aligned to the supplied WRHA participant manual and training proposal.
-- Blended delivery: online Modules 1–3, facilitated in-person Modules 4–7, then online Modules 8–9.
+- A **self-paced course interface** with an orientation section, three logical learning units, course index, automatic resume and sequential lesson-unlocking checks.
+- **Online teaching in all nine modules**; the in-person observed practical assessment is retained as a separate certification condition.
+- The original programme proposed a phased blended schedule. The current prototype uses a fully self-paced online learning journey, while retaining facilitator-led practical competency assessment.
 - Mobile-friendly lessons, interactive scenarios, module knowledge checks, feedback and progress.
 - Premium institutional design in `premium.css`, with light editorial layout and accessible animation in `motion.js` (`prefers-reduced-motion` respected).
 - A module-by-module reading library with exact references to the WRHA participant manual and links to public Jamaican MOHW/WHO resources.
@@ -45,3 +47,5 @@ Developed as a technical prototype in collaboration with the Western Regional He
 
 ### Logo integrity
 The official logo supplied by the project owner has been restored losslessly. `assets/original-logo-data.js` holds its exact PNG pixels in five encoded segments, and `logo-loader.js` displays them in the header and certificate. The earlier 16-colour `assets/wrha-logo.svg` remains as a fallback; the official colours are not filtered, recoloured or stylised. The GitHub Pages build and Moodle SCORM ZIP both include the complete image data.
+
+See [Moodle native course blueprint](MOODLE-COURSE-BLUEPRINT.md) for implementing the course in WRHA Moodle. The current SCORM prototype presents one learning experience and is not itself a native Moodle course format.
