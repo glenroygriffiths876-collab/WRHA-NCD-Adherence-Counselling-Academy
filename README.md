@@ -12,8 +12,8 @@ A **development prototype** of an interactive, Moodle-compatible learning experi
 - The original programme proposed a phased blended schedule. The current prototype uses a fully self-paced online learning journey, while retaining facilitator-led practical competency assessment.
 - Mobile-friendly lessons, interactive scenarios, module knowledge checks, feedback and progress.
 - Premium institutional design in `premium.css`, with light editorial layout and accessible animation in `motion.js` (`prefers-reduced-motion` respected).
-- A module-by-module reading library with exact references to the WRHA participant manual and links to public Jamaican MOHW/WHO resources.
-- A standalone **Guidelines & PDFs** page linking to Ministry-hosted downloadable files, with dates, scopes and warnings about older sources.
+- All 12 public Jamaican MOHW NCD manuals are presented **only in the Guidelines & PDFs library**, no longer inside individual lessons.
+- A dedicated **Guidelines & PDFs** page with locally hosted official-public PDFs, authentic first-page covers, PDF.js page turning and zoom, plus the original MOHW links.
 - A written [2026 guideline alignment review](CLINICAL-GUIDELINE-ALIGNMENT-2026.md), including clinical safety items for WRHA sign-off. Private training manuals are not published here.
 - A certificate design **preview**, pending formal eligibility rules and institutional sign-off.
 - Preparation for SCORM 1.2 reporting to Moodle.
@@ -53,5 +53,13 @@ See [Moodle native course blueprint](MOODLE-COURSE-BLUEPRINT.md) for implementin
 ## Video-based learning
 Eight externally hosted YouTube counselling and adherence demonstration videos are curated in `video-library.js`, including NCD adherence, motivational interviewing, OARS and teach-back. Each module displays up to two relevant videos with a reflective observation prompt. These are optional, load only on click, and provide direct YouTube fallback links; their suitability for final WRHA training and embed availability must be checked by the content review team. See `VIDEO-REVIEW.md`.
 
-## In-page MOHW PDF reader
-The Guidelines & PDFs page has a persistent document list, a click-to-load embedded reader, and separate official MOHW download/save links. The PDF preview uses an external document viewer first, with an optional direct-PDF viewer, because publisher framing permissions vary. All documents stay hosted by MOHW; the application does not copy official or internal manuals. A static fallback with four official links is included if client-side JavaScript fails. Test embedding in WRHA Moodle before deployment.
+## In-page MOHW PDF reader — HSTU-style implementation
+The Guidelines & PDFs page now displays **12 Ministry documents**, with the actual first page of each PDF shown as a cover image. The import process successfully retrieved all 12 public PDFs on 11 November 2026 and rendered original-cover WebP images. The academy uses the *exact same PDF.js reader and worker files* bundled with the HSTU Research Data Repository, offering page navigation, zoom and a graceful failure state; it no longer attempts to iframe the Ministry download pages.
+
+- Public mirrored PDFs: `documents/pdf-library/<document-id>.pdf`
+- Authentic cover previews: `media/pdf-covers/<document-id>.webp`
+- Reader: `manual-reader.js`, `vendor/pdfjs/pdf.min.js` and `vendor/pdfjs/pdf.worker.min.js`
+- Content manifest: `manual-assets.js` (populated by the official-public document importer)
+- Refresh/import workflow: `.github/workflows/import-mohw-guidelines.yml` and `scripts/sync_mohw_manuals.py`
+
+The PDFs are public MOHW publications, reproduced with source attribution for training reference. Only WRHA-authorised material should be deployed or redistributed; rights and approval for institutional production use should be reviewed. **Private WRHA participant and facilitator documents are not included in this public library.** For every source, links to the official Ministry download remain available. The prototype still requires browser and Moodle review to confirm document navigation and any local institutional restrictions.
