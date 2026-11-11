@@ -87,11 +87,28 @@
     try {history.replaceState({}, "", "#" + (target === "lesson" ? "module-" + state.lesson : target));} catch (_) {}
   }
   function renderCards(){renderHomeUnits();renderCourseOutline();}
+  function chaVisualFor(moduleId){
+    const v=(window.WRHA_MODULE_VISUALS || {})[moduleId];
+    if(!v || !/^assets\/cha-scenes\/cha-[a-z-]+\.webp$/.test(v.src||""))return null;
+    return v;
+  }
+  function chaImage(src,alt,cls,lazy){
+    if(!/^assets\/cha-scenes\/cha-[a-z-]+\.webp$/.test(src||""))return "";
+    return '<img class="'+cls+'" src="'+htmlEscape(src)+'" alt="'+htmlEscape(alt||"")+'" loading="'+(lazy?"lazy":"eager")+'" decoding="async">';
+  }
+  function displayLessonIllustration(module){
+    const v=chaVisualFor(module.id),el=$("#lesson-figure");
+    if(!v){el.hidden=true;el.innerHTML="";return}
+    el.hidden=false;
+    el.innerHTML=chaImage(v.src,v.alt,"lesson-photo",false)+
+      '<figcaption>'+htmlEscape(v.caption)+'</figcaption>';
+  }
   function renderHomeUnits(){
     $("#home-unit-preview").innerHTML=units.map(unit=>{
       const done=unit.modules.filter(id=>state.completed.includes(id)).length;
       const next=unit.modules.find(id=>!state.completed.includes(id));
       return '<article class="unit-preview-card"><div class="unit-preview-top"><span class="unit-index">UNIT '+String(unit.id).padStart(2,"0")+'</span><span class="unit-preview-count">'+done+'/'+unit.modules.length+' complete</span></div>'+
+        '<div class="unit-preview-photo">'+chaImage((window.WRHA_UNIT_VISUALS||{})[unit.id]?.src,"","unit-preview-img",true)+'</div>'+
         '<h3>'+htmlEscape(unit.title)+'</h3><p>'+htmlEscape(unit.desc)+'</p>'+
         '<div class="unit-preview-footer"><span>'+unit.modules.length+' interactive lessons</span>'+
         (next?'<button type="button" class="unit-preview-action" data-open-module="'+next+'">Study this unit →</button>':'<button type="button" class="unit-preview-action" data-nav="modules">View syllabus →</button>')+'</div></article>';
@@ -100,7 +117,8 @@
   function activityRow(module){
     const done=state.completed.includes(module.id),lock=!unlocked(module.id);
     const status=done?"Completed":lock?"Locked":"Ready to learn",cls=done?"complete":lock?"locked":"available";
-    return '<div class="course-activity '+cls+'"><span class="activity-icon" aria-hidden="true">'+(done?'✓':lock?'⌑':'▤')+'</span>'+
+    const visual=chaVisualFor(module.id);
+    return '<div class="course-activity '+cls+'"><span class="activity-thumb">'+(visual?chaImage(visual.src,"","activity-thumbnail",true):'<span class="activity-icon" aria-hidden="true">▤</span>')+'<span class="activity-thumb-status" aria-hidden="true">'+(done?'✓':'')+'</span></span>'+
       '<div class="activity-description"><div class="activity-kicker">MODULE '+String(module.id).padStart(2,"0")+' · INTERACTIVE LESSON</div><h3>'+htmlEscape(module.title)+'</h3><p>'+htmlEscape(module.summary)+'</p><span class="activity-duration">◷ '+htmlEscape(module.duration)+'</span></div>'+
       '<div class="activity-action"><span class="module-status '+cls+'">'+status+'</span>'+
       '<button class="activity-open" type="button" data-open-module="'+module.id+'" '+(lock?'disabled aria-label="Module '+module.id+' locked until earlier lessons are completed"':'')+'>'+
@@ -216,6 +234,7 @@
     $("#lesson-description").textContent = module.summary;
     $("#lesson-duration").textContent = module.duration;
     $("#lesson-status").textContent = state.completed.includes(module.id) ? "Completed" : "Practice at your own pace · all lessons available";
+    displayLessonIllustration(module);
     $("#lesson-list").innerHTML=modules.map(m=>{const locked=!unlocked(m.id);return '<button class="lesson-side-link '+(m.id===module.id?'current ':'')+(state.completed.includes(m.id)?'completed':'')+'" data-open-module="'+m.id+'" '+(locked?'disabled title="All modules available"':'')+'><span>'+(state.completed.includes(m.id)?'✓':locked?'•':m.id)+'</span>'+htmlEscape(m.title)+'</button>';}).join("");
     $("#lesson-content").innerHTML =
       '<section class="learning-objectives"><strong>After this module, you should be able to:</strong><ul>' +
