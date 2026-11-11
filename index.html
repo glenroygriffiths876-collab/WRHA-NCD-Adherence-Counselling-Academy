@@ -21,8 +21,8 @@
       <span class="brand-copy"><strong>NCD Adherence Academy</strong><small>Professional Learning for Community Health Aides</small></span>
     </button>
     <nav class="main-nav" aria-label="Primary navigation">
-      <button type="button" data-nav="home" class="nav-tab current" aria-current="page">Dashboard</button>
-      <button type="button" data-nav="modules" class="nav-tab">Modules</button>
+      <button type="button" data-nav="home" class="nav-tab current" aria-current="page">Course home</button>
+      <button type="button" data-nav="modules" class="nav-tab">Course content</button>
       <button type="button" data-nav="resources" class="nav-tab">Guidelines & PDFs</button>
       <button type="button" data-nav="assessment" class="nav-tab">Assessments</button>
       <button type="button" data-nav="certificate" class="nav-tab">Certificate</button>
@@ -35,29 +35,52 @@
 
   <section id="screen-home" class="screen" aria-labelledby="home-heading">
     <div class="hero">
-      <div class="hero-copy"><div class="hero-overline"><span class="tiny-star">✦</span> WRHA PROFESSIONAL DEVELOPMENT</div>
-        <h1 id="home-heading">Confidence in every conversation.<br><em>Better care, together.</em></h1>
-        <p>Build practical adherence-counselling skills through thoughtful lessons, real Jamaican scenarios and supported practice.</p>
-        <div class="hero-buttons"><button class="button button-white" data-nav="modules">Explore learning modules <span aria-hidden="true">↗</span></button><button class="button button-glass" data-nav="assessment">View assessments</button></div>
-        <div class="hero-chips"><span>◉ 9 thoughtful modules</span><span>✧ Practical, interactive learning</span></div>
+      <div class="hero-copy"><div class="hero-overline"><span class="tiny-star">✦</span> SELF-PACED PROFESSIONAL LEARNING</div>
+        <h1 id="home-heading">Learn at your pace.<br><em>Counsel with confidence.</em></h1>
+        <p>Nine guided lessons, realistic Jamaican situations, and short knowledge checks — all in one clear learning journey.</p>
+        <div class="hero-buttons"><button class="button button-white" id="continue-course" data-action="continue-learning">Start learning <span aria-hidden="true">↗</span></button><button class="button button-glass" data-nav="modules">View course content</button></div>
+        <div class="hero-chips"><span>9 self-paced modules</span><span>Interactive practice</span><span>Progress saved</span></div>
       </div>
-      <div class="hero-aside"><div class="ring-outer"><div class="ring-inner"><strong id="hero-percent">0%</strong><small>completed</small></div></div><div class="hero-aside-title">Your learning journey</div><p><strong id="hero-count">0 of 9</strong> modules reviewed</p><div class="progress-track"><span id="hero-progress"></span></div><small>Learning progress is not clinical competency certification.</small></div>
+      <div class="hero-aside"><div class="ring-outer"><div class="ring-inner"><strong id="hero-percent">0%</strong><small>completed</small></div></div><div class="hero-aside-title">Your learning journey</div><p><strong id="hero-count">0 of 9</strong> modules completed</p><div class="progress-track"><span id="hero-progress"></span></div><small>Practice completion is separate from official certification.</small></div>
     </div>
-    <div class="section-title"><div><div class="overline">YOUR COURSE AT A GLANCE</div><h2>A learning journey built for the field</h2><p>Online preparation, facilitated practice, and continued support at home and in clinic.</p></div><div class="section-flair">Western Region · Community Health Aides</div></div>
-    <div class="journey-grid">
-      <div class="journey-card"><div class="journey-number">01</div><div class="journey-icon">◉</div><h3>Know the foundations</h3><p>Modules 1–3 · Online</p><small>NCDs, adherence and barriers to care</small><span class="journey-date">Begins 10 Dec 2026</span></div>
-      <div class="journey-card"><div class="journey-number">02</div><div class="journey-icon">◇</div><h3>Practise together</h3><p>Modules 4–7 · In person</p><small>Communication, MI, 5 A's and safe referrals</small><span class="journey-date">January 2027 · Date TBC</span></div>
-      <div class="journey-card"><div class="journey-number">03</div><div class="journey-icon">↗</div><h3>Connect the care</h3><p>Modules 8–9 · Online</p><small>Self-management, referral and follow-up</small><span class="journey-date">After the workshop</span></div>
+    <div class="section-title"><div><div class="overline">HOW THE COURSE WORKS</div><h2>Your guided learning journey</h2><p>Work through each module in order. Complete its short practice check to unlock the next lesson.</p></div></div>
+    <div class="self-learning-steps">
+      <div class="step-card"><span class="step-number">01</span><div class="step-icon">▤</div><h3>Learn</h3><p>Read focused, interactive lessons at your own pace.</p></div>
+      <div class="step-card"><span class="step-number">02</span><div class="step-icon">✓</div><h3>Practise</h3><p>Apply each concept to a realistic counselling situation.</p></div>
+      <div class="step-card"><span class="step-number">03</span><div class="step-icon">◇</div><h3>Demonstrate</h3><p>Complete formal Moodle assessments and your observed skills evaluation.</p></div>
     </div>
-    <div class="section-title compact"><div><div class="overline">CURRICULUM</div><h2>Explore your nine modules</h2><p>Clear lessons, practical examples, and interactive checks.</p></div><button class="button button-outline" data-nav="modules">See all modules →</button></div>
-    <div id="home-modules" class="module-grid"></div>
-    <div class="insight-panel"><span class="insight-icon">✳</span><div><strong>The heart of this programme</strong><p>The aim is not to tell clients to “just take the medicine”; it is to understand what is getting in the way, agree on a workable plan and stay connected.</p></div></div>
+    <div class="home-learning-panel">
+      <div class="home-learning-copy"><div class="overline">PICK UP WHERE YOU LEFT OFF</div><h2 id="next-lesson-title">Module 1 · Understanding NCDs</h2><p id="next-lesson-description">Begin with the foundations of long-term NCD care.</p><div class="home-progress-copy" id="home-progress-caption">0 of 9 modules completed</div><div class="home-progress-track"><span id="home-progress-bar"></span></div></div>
+      <button type="button" class="button button-primary" data-action="continue-learning" id="home-next-button">Begin Module 1 →</button>
+    </div>
+    <div class="section-title compact"><div><div class="overline">COURSE MAP</div><h2>What you will learn</h2><p>Three carefully arranged units bring together all nine modules.</p></div><button class="button button-outline" data-nav="modules">Open course content →</button></div>
+    <div class="unit-preview-grid" id="home-unit-preview"></div>
+    <div class="insight-panel"><span class="insight-icon">✳</span><div><strong>Important: learning and certification are different</strong><p>All nine lessons are self-paced. Final certification also requires an approved Moodle examination and an observed practical counselling assessment recorded by an authorised facilitator.</p></div></div>
   </section>
 
   <section id="screen-modules" class="screen" hidden aria-labelledby="modules-heading">
-    <div class="page-intro"><div class="overline">THE LEARNING LIBRARY</div><h1 id="modules-heading">Nine modules. One connected approach.</h1><p>Select a module to explore key concepts and practise with realistic situations. Modules 4–7 also require facilitator-led practical sessions in the official training.</p></div>
-    <div class="module-tabs"><button class="phase-filter active" data-filter="all">All nine</button><button class="phase-filter" data-filter="Online foundation">Online 1–3</button><button class="phase-filter" data-filter="In-person workshop">Workshop 4–7</button><button class="phase-filter" data-filter="Online continuity">Online 8–9</button></div>
-    <div id="all-modules" class="module-grid"></div>
+    <div class="page-intro course-intro"><div class="overline">MY COURSE · SELF-PACED LEARNING</div><h1 id="modules-heading">Course content</h1><p>A clear sequence of activities, just like a structured Moodle course. Work through the lessons in order, review your progress, and continue whenever you're ready.</p></div>
+    <div class="course-workspace">
+      <aside class="course-index-panel" aria-label="Course index">
+        <div class="index-heading">COURSE INDEX</div>
+        <nav id="course-index-links" aria-label="Course sections"></nav>
+        <div class="index-help"><strong>Need a reference?</strong><p>Jamaica's national NCD guidelines are available in the Guidelines &amp; PDFs library.</p><button type="button" class="index-library" data-nav="resources">Open reference library ↗</button></div>
+      </aside>
+      <div class="course-content-panel">
+        <div class="course-progress-banner">
+          <div class="course-progress-icon" aria-hidden="true">▤</div>
+          <div class="course-progress-text"><strong id="course-progress-title">Your learning progress</strong><span id="course-progress-caption">0 of 9 activities complete</span><div class="course-progress-track"><span id="course-progress-bar"></span></div></div>
+          <button type="button" class="button button-primary" data-action="continue-learning" id="content-continue">Continue →</button>
+        </div>
+        <div class="orientation-card" id="course-orientation"><div class="orientation-heading"><span class="orientation-symbol" aria-hidden="true">✦</span><div><div class="overline">START HERE</div><h2>Welcome to your course</h2></div></div><p>There are nine interactive modules arranged in three learning units. Each lesson includes objectives, concise teaching content, real-world examples, source readings and a knowledge check. Complete the check to move to the next module.</p><p><strong>Practical workshop:</strong> The programme also includes facilitated counselling skills assessment. That is an additional competency requirement and does not stop you from studying the lessons online.</p></div>
+        <div id="course-sections" class="course-sections" aria-label="Learning units"></div>
+        <section class="completion-section" id="course-completion"><div class="unit-heading"><span class="unit-label">FINAL STEP</span><h2>Assessment &amp; completion</h2><p>Finish learning, then demonstrate your competence through the approved assessment process.</p></div><div class="completion-activity-list">
+          <button type="button" class="completion-activity" data-nav="assessment"><span class="activity-symbol">✓</span><span><strong>Knowledge review</strong><small>Interactive practice in this prototype; official post-test administered in Moodle</small></span><span aria-hidden="true">↗</span></button>
+          <div class="completion-activity"><span class="activity-symbol">◇</span><span><strong>Observed counselling competency</strong><small>Facilitator-assessed practical skills · results recorded in Moodle after the workshop</small></span><span class="activity-status muted">Facilitator required</span></div>
+          <button type="button" class="completion-activity" data-nav="certificate"><span class="activity-symbol">✧</span><span><strong>Completion certificate</strong><small>Unlocks only after approved Moodle conditions are satisfied</small></span><span aria-hidden="true">↗</span></button>
+        </div></section>
+      </div>
+    </div>
   </section>
 
   <section id="screen-resources" class="screen" hidden aria-labelledby="resources-heading">
@@ -82,8 +105,8 @@
 </section>
 
 <section id="screen-lesson" class="screen" hidden aria-labelledby="lesson-title">
-    <div class="lesson-heading"><button class="text-button" data-nav="modules">← All modules</button><span id="lesson-phase" class="eyebrow-pill"></span></div>
-    <div class="lesson-layout"><aside class="lesson-sidebar"><div class="side-header">YOUR LEARNING PATH</div><nav id="lesson-list" aria-label="Module selection"></nav><div class="sidebar-help">✓ Practice questions provide immediate feedback.<br>◷ Practical competency is assessed by facilitators.</div></aside>
+    <div class="lesson-heading"><button class="text-button" data-nav="modules">← Course content</button><span id="lesson-phase" class="eyebrow-pill"></span></div>
+    <div class="lesson-layout"><aside class="lesson-sidebar"><div class="side-header">COURSE INDEX</div><nav id="lesson-list" aria-label="Module selection"></nav><div class="sidebar-help">Complete each lesson’s knowledge check to unlock the next. Practical competency is recorded separately by the facilitator.</div></aside>
       <article class="lesson-article"><div class="lesson-cover"><span class="lesson-overline" id="lesson-number"></span><h1 id="lesson-title"></h1><p id="lesson-description"></p><div class="lesson-meta"><span id="lesson-duration"></span><span>·</span><span id="lesson-status"></span></div></div><div class="lesson-content" id="lesson-content"></div><div id="scenario-block" class="scenario-card"></div><div class="lesson-actions"><button id="previous-module" class="button button-outline">← Previous</button><button id="next-module" class="button button-primary">Next module →</button></div></article>
     </div>
   </section>
@@ -102,7 +125,7 @@
       <aside class="white-card certificate-sidebar"><div class="lock-symbol">♙</div><h3>Official certificate locked</h3><p>The Moodle-issued certificate will unlock only after the required learning activities, official knowledge examination and facilitator-verified practical competency are completed.</p><div id="cert-requirements"></div><label for="name-preview">Preview your name on the sample</label><input type="text" id="name-preview" maxlength="70" placeholder="Participant's full name" autocomplete="off"><small class="input-footnote">The sample is watermarked and cannot serve as proof of training.</small><button class="button button-primary full" disabled title="Enabled only after Moodle integration and WRHA approval">Official certificate unavailable</button></aside></div>
   </section>
 </main>
-<footer class="site-footer"><div class="container footer-inner"><div><strong>WRHA NCD Adherence Academy</strong><small>Listen. Support. Motivate. Connect.</small></div><span>Prototype v0.1 · Based on the WRHA training proposal and participant manual · Clinical approval pending</span></div></footer>
+<footer class="site-footer"><div class="container footer-inner"><div><strong>WRHA NCD Adherence Academy</strong><small>Listen. Support. Motivate. Connect.</small></div><span>Prototype v0.3 · Based on the WRHA training proposal and participant manual · Clinical approval pending</span></div></footer>
 <script src="assets/original-logo-data.js"></script>
 <script src="logo-loader.js"></script>
 <script src="course-data.js"></script>
