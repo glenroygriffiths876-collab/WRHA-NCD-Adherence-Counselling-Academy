@@ -19,6 +19,8 @@ jobs:
         run: |
           node --check app.js
           node --check motion.js
+          node --check logo-loader.js
+          node --check assets/original-logo-data.js
           node --check course-data.js
           node --check module-resources.js
           node --check guideline-library.js
@@ -31,7 +33,7 @@ jobs:
           from pathlib import Path
           import xml.etree.ElementTree as ET
           ET.parse('imsmanifest.xml')
-          for name in ('index.html','styles.css','premium.css','motion.js','course-data.js','module-resources.js','guideline-library.js','app.js','scorm.js','assets/wrha-logo.svg'):
+          for name in ('index.html','styles.css','premium.css','motion.js','logo-loader.js','assets/original-logo-data.js','course-data.js','module-resources.js','guideline-library.js','app.js','scorm.js','assets/wrha-logo.svg'):
               assert Path(name).exists(), name
           ET.parse('assets/wrha-logo.svg')
           print('Manifest and logo SVG parse successfully')
@@ -40,7 +42,7 @@ jobs:
       - name: Build SCORM 1.2 ZIP
         run: |
           zip -q -r WRHA-NCD-Adherence-Academy-SCORM12-PROTOTYPE.zip \
-            imsmanifest.xml index.html styles.css premium.css course-data.js module-resources.js guideline-library.js app.js motion.js scorm.js assets/wrha-logo.svg
+            imsmanifest.xml index.html styles.css premium.css course-data.js module-resources.js guideline-library.js app.js motion.js scorm.js logo-loader.js assets/original-logo-data.js assets/wrha-logo.svg
 
       - name: Upload Moodle trial package
         uses: actions/upload-artifact@v4
