@@ -6,7 +6,7 @@
   "use strict";
   const reduced = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
   const selectors = [
-    ".hero",".hero-aside",".section-title",".journey-card",".module-card",".insight-panel",
+    ".hero",".hero-aside",".section-title",".step-card",".home-learning-panel",".unit-preview-card",".course-progress-banner",".orientation-card",".unit-panel",".course-activity",".completion-section",".insight-panel",
     ".page-intro",".lesson-cover",".lesson-section",".learning-objectives",".scenario-card",
     ".module-references",".library-card",".white-card",".certificate-panel",".certificate-sidebar"
   ].join(",");
@@ -26,7 +26,7 @@
       if(el.dataset.motionAttached==="1")return;
       el.dataset.motionAttached="1";
       if(reduced || !revealObserver) return;
-      const siblings=el.parentElement ? Array.from(el.parentElement.children).filter(c=>c.matches && (c.matches(".module-card")||c.matches(".journey-card")||c.matches(".library-card"))) : [];
+      const siblings=el.parentElement ? Array.from(el.parentElement.children).filter(c=>c.matches && (c.matches(".unit-preview-card")||c.matches(".step-card")||c.matches(".course-activity")||c.matches(".library-card"))) : [];
       const index=siblings.indexOf(el);
       if(index>=0)el.style.setProperty("--reveal-delay", Math.min(index%3,2)*65+"ms");
       el.classList.add("reveal-on-scroll");
