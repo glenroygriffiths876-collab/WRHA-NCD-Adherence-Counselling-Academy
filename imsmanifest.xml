@@ -21,6 +21,8 @@
       <file href="styles.css"/>
       <file href="premium.css"/>
       <file href="course.css"/>
+      <file href="videos.css"/>
+      <file href="video-library.js"/>
       <file href="course-data.js"/>
       <file href="module-resources.js"/>
       <file href="guideline-library.js"/>
