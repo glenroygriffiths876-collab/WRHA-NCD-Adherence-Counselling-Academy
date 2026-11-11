@@ -21,6 +21,7 @@
       <file href="styles.css"/>
       <file href="course-data.js"/>
       <file href="module-resources.js"/>
+      <file href="guideline-library.js"/>
       <file href="scorm.js"/>
       <file href="app.js"/>
       <file href="assets/wrha-logo.svg"/>
