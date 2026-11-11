@@ -1,5 +1,5 @@
 /* Minimal SCORM 1.2 adapter for WRHA NCD prototype.
-   Records learning activity completion and optional practice-review percentage.
+   Records self-paced learning activity completion; practice-review results remain internal.
    It does NOT verify facilitator competency or issue official certificates.
    Test on the target Moodle instance before operational use. */
 window.WRHA_SCORM = (function(){
@@ -50,11 +50,9 @@ window.WRHA_SCORM = (function(){
     if(serialized.length<=3900)call("LMSSetValue","cmi.suspend_data",serialized);
     call("LMSSetValue","cmi.core.lesson_location","module-"+(Math.max(0,...compact.completed)));
     call("LMSSetValue","cmi.core.lesson_status",compact.completed.length===9?"completed":"incomplete");
-    if(Number.isFinite(compact.reviewScore)){
-      call("LMSSetValue","cmi.core.score.min","0");
-      call("LMSSetValue","cmi.core.score.max","100");
-      call("LMSSetValue","cmi.core.score.raw",String(Math.round(compact.reviewScore/9*100)));
-    }
+    // Practice quiz results are deliberately NOT written to cmi.core.score.raw:
+    // Moodle must use a separate secure Quiz activity for formal assessment.
+    // This SCO reports learning activity completion only.
     return String(call("LMSCommit",""))==="true";
   }
   function finish(){
