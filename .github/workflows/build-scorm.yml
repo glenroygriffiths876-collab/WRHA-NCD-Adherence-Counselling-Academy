@@ -77,7 +77,7 @@ jobs:
           namespace='{http://www.imsproject.org/xsd/imscp_rootv1p1p2}'
           parent=tree.find('.//'+namespace+'resource')
           assert parent is not None
-          assets=sorted(Path('documents/pdf-library').glob('*.pdf'))+sorted(Path('media/pdf-covers').glob('*.webp'))
+          assets=(sorted(Path('documents/pdf-library').glob('*.pdf'))+sorted(Path('media/pdf-covers').glob('*.webp'))+sorted(Path('assets/cha-scenes').glob('*.webp'))+sorted(Path('assets/cha-hd').glob('*.webp')))
           for asset in assets:
               ET.SubElement(parent,namespace+'file',{'href':asset.as_posix()})
           tree.write(manifest,encoding='utf-8',xml_declaration=True)
@@ -89,6 +89,7 @@ jobs:
           zip -q -r WRHA-NCD-Adherence-Academy-SCORM12-PROTOTYPE.zip \
             imsmanifest.xml index.html styles.css premium.css course.css illustrations.css readability.css ambient-motion.js module-visuals.js videos.css manual-reader.css manual-covers.css course-data.js video-library.js guideline-library.js manual-assets.js manual-reader.js vendor/pdfjs/pdf.min.js vendor/pdfjs/pdf.worker.min.js app.js motion.js scorm.js logo-loader.js assets/original-logo-data.js assets/wrha-logo-original.png
           zip -q -r WRHA-NCD-Adherence-Academy-SCORM12-PROTOTYPE.zip assets/cha-scenes
+          if [ -d assets/cha-hd ]; then zip -q -r WRHA-NCD-Adherence-Academy-SCORM12-PROTOTYPE.zip assets/cha-hd; fi
           if [ -d documents/pdf-library ] && [ -d media/pdf-covers ]; then
             zip -q -r WRHA-NCD-Adherence-Academy-SCORM12-PROTOTYPE.zip documents/pdf-library media/pdf-covers
           fi
