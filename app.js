@@ -16,11 +16,16 @@
   function validDone(value) {
     return Array.isArray(value) ? value.filter(n => Number.isInteger(n) && n >= 1 && n <= 9) : [];
   }
-  const local = loadLocal();
   const remote = scorm ? scorm.initialize() : {};
+  const moodleSession = !!(scorm && scorm.isConnected());
+  // A Moodle learner's LMS record takes precedence; never merge previous
+  // users' browser-local demo progress into a different authenticated account.
+  const local = moodleSession ? {} : loadLocal();
   const state = {
-    completed: Array.from(new Set([...validDone(local.completed), ...validDone(remote.completed)])),
-    reviewScore: Number.isFinite(remote.reviewScore) ? remote.reviewScore : (Number.isFinite(local.reviewScore) ? local.reviewScore : null),
+    completed: Array.from(new Set(moodleSession ? validDone(remote.completed) : validDone(local.completed))),
+    reviewScore: moodleSession
+      ? (Number.isFinite(remote.reviewScore) ? remote.reviewScore : null)
+      : (Number.isFinite(local.reviewScore) ? local.reviewScore : null),
     screen: "home",
     lesson: 1,
     selected: null,
@@ -39,8 +44,10 @@
   function htmlEscape(str) { return String(str).replace(/[&<>"']/g, char => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[char])); }
   function persist() {
     const data = {completed: state.completed.slice().sort((a,b)=>a-b), reviewScore:state.reviewScore};
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch (_) { /* storage blocked */ }
-    if (scorm) scorm.save(data);
+    if (!moodleSession) {
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch (_) { /* storage blocked */ }
+    }
+    if (moodleSession) scorm.save(data);
     updateProgress();
   }
   function updateProgress() {
