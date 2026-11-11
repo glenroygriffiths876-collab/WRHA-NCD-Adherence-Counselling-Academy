@@ -30,7 +30,10 @@
     lesson: 1,
     selected: null,
     review: null,
-    libraryFilter: "all"
+    libraryFilter: "all",
+    selectedGuideline: "htn2024",
+    pdfViewerMode: "google",
+    pdfPreviewLoaded: false
   };
   const units=[
     {id:1,title:"Understanding NCD care",desc:"Chronic conditions, the meaning of adherence, and common barriers to care.",modules:[1,2,3]},
@@ -114,20 +117,70 @@
       units.map(u=>'<button type="button" class="index-link" data-scroll-to="unit-'+u.id+'"><span>0'+u.id+'</span>'+htmlEscape(u.title)+'</button>').join("")+
       '<button type="button" class="index-link" data-scroll-to="course-completion"><span>✓</span> Assessment & certificate</button>';
   }
+  function guidelineById(id) {
+    const all=Array.isArray(window.WRHA_GUIDELINE_LIBRARY) ? window.WRHA_GUIDELINE_LIBRARY : [];
+    return all.find(item=>item.id===id)||null;
+  }
+  function officialPdfUrl(url) {
+    // Only Ministry-owned public PDF links from the authored catalogue.
+    return /^https:\/\/ncdip\.moh\.gov\.jm\/download\/[0-9]+\/?$/.test(url) ? url : null;
+  }
+  function pdfPreviewUrl(url,mode) {
+    if(mode==="direct") return url;
+    // Google's public-document viewer is an alternative to direct PDF embedding;
+    // users can always open/save the original MOHW document instead.
+    return "https://docs.google.com/gview?embedded=1&url="+encodeURIComponent(url);
+  }
+  function displaySelectedGuideline() {
+    const doc=guidelineById(state.selectedGuideline);
+    if(!doc)return;
+    const safeUrl=officialPdfUrl(doc.url);
+    if(!safeUrl)return;
+    $("#manual-reader-heading").textContent=doc.title;
+    $("#manual-reader-edition").textContent=doc.edition+" · "+doc.type+" · "+doc.pages+" pages";
+    $("#manual-reader-note").textContent=doc.note;
+    $("#manual-reader-source").href=safeUrl;
+    $("#manual-reader-download").href=safeUrl;
+    $("#manual-reader-download").setAttribute("download",doc.id+".pdf");
+    $("#manual-reader-frame").setAttribute("title","Preview: "+doc.title);
+    if(state.pdfPreviewLoaded) {
+      $("#manual-reader-frame").src=pdfPreviewUrl(safeUrl,state.pdfViewerMode);
+      $("#manual-reader-overlay").hidden=true;
+    } else {
+      $("#manual-reader-frame").src="about:blank";
+      $("#manual-reader-overlay").hidden=false;
+    }
+    $("#manual-reader-alternate").textContent=state.pdfViewerMode==="google"?"Try direct PDF viewer":"Try alternative document viewer";
+  }
+  function loadPdfPreview(mode){
+    const doc=guidelineById(state.selectedGuideline);
+    if(!doc)return;
+    const safeUrl=officialPdfUrl(doc.url);
+    if(!safeUrl)return;
+    state.pdfPreviewLoaded=true;
+    state.pdfViewerMode=mode||"google";
+    $("#manual-reader-frame").src=pdfPreviewUrl(safeUrl,state.pdfViewerMode);
+    $("#manual-reader-overlay").hidden=true;
+    $("#manual-reader-alternate").textContent=state.pdfViewerMode==="google"?"Try direct PDF viewer":"Try alternative document viewer";
+  }
   function renderLibrary() {
-    const all = Array.isArray(window.WRHA_GUIDELINE_LIBRARY) ? window.WRHA_GUIDELINE_LIBRARY : [];
-    const selected = all.filter(item => state.libraryFilter === "all" || item.category === state.libraryFilter);
-    $("#library-total").textContent = selected.length + " of " + all.length + " documents";
-    $(".library-filter").forEach(el => el.classList.toggle("active", el.dataset.libraryFilter === state.libraryFilter));
-    $("#library-grid").innerHTML = selected.map(item => (
-      '<article class="library-card"><div class="library-card-top">' +
-      '<span class="library-type">' + htmlEscape(item.type) + '</span>' +
-      '<span class="library-pages">PDF · ' + item.pages + ' pages</span></div>' +
-      '<h2>' + htmlEscape(item.title) + '</h2><div class="library-edition">' + htmlEscape(item.edition) + '</div>' +
-      '<p>' + htmlEscape(item.note) + '</p><div class="library-audience"><strong>Intended for:</strong> ' + htmlEscape(item.audience) + '</div>' +
-      '<div class="library-card-foot"><a href="' + htmlEscape(item.url) + '" target="_blank" rel="noopener noreferrer" class="download-link" aria-label="View and download ' + htmlEscape(item.title) + ', official MOHW PDF">↧ &nbsp;View / Download PDF</a>' +
-      '<span>MOHW official source ↗</span></div></article>'
-    )).join("");
+    const all=Array.isArray(window.WRHA_GUIDELINE_LIBRARY)?window.WRHA_GUIDELINE_LIBRARY:[];
+    const selected=all.filter(item=>state.libraryFilter==="all"||item.category===state.libraryFilter);
+    $("#library-total").textContent=selected.length+" of "+all.length+" documents";
+    $$(".library-filter").forEach(el=>el.classList.toggle("active",el.dataset.libraryFilter===state.libraryFilter));
+    if(selected.length && !selected.some(doc=>doc.id===state.selectedGuideline)) state.selectedGuideline=selected[0].id;
+    $("#library-grid").innerHTML=selected.length?selected.map(doc=>{
+      const safeUrl=officialPdfUrl(doc.url);
+      const active=doc.id===state.selectedGuideline;
+      return '<article class="manual-entry '+(active?'selected':'')+'" role="listitem">'+
+        '<button type="button" class="manual-select-button" data-select-guideline="'+htmlEscape(doc.id)+'" aria-pressed="'+(active?'true':'false')+'" aria-label="Preview '+htmlEscape(doc.title)+'">'+
+        '<span class="manual-entry-top"><span class="manual-entry-type">'+htmlEscape(doc.type)+'</span><span class="manual-entry-pages">'+doc.pages+' pages</span></span>'+
+        '<strong>'+htmlEscape(doc.title)+'</strong><span class="manual-entry-date">'+htmlEscape(doc.edition)+'</span>'+
+        '<span class="manual-entry-read">'+(active?'Selected for reading':'Read in academy')+' ↗</span></button>'+
+        (safeUrl?'<a href="'+htmlEscape(safeUrl)+'" target="_blank" rel="noopener noreferrer" download class="manual-entry-save" aria-label="Download or save '+htmlEscape(doc.title)+'">↧ Save PDF</a>':'')+
+        '</article>';
+    }).join(""):'<p class="manual-list-empty">No documents in this category.</p>';
+    if(selected.length)displaySelectedGuideline();
   }
   function renderVideoLearning(module) {
     const catalog = Array.isArray(window.WRHA_VIDEO_LIBRARY) ? window.WRHA_VIDEO_LIBRARY : [];
@@ -307,6 +360,9 @@
     const more=ev.target.closest('[data-action="continue-learning"]');if(more){continueLearning();return;}
     const section=ev.target.closest("[data-scroll-to]");if(section){nav("modules");const dest=document.getElementById(section.dataset.scrollTo);if(dest)dest.scrollIntoView({behavior:"smooth",block:"start"});return;}
     const libEl=ev.target.closest("[data-library-filter]");if(libEl){state.libraryFilter=libEl.dataset.libraryFilter;renderLibrary();return;}
+    const manualEl=ev.target.closest("[data-select-guideline]");if(manualEl){state.selectedGuideline=manualEl.dataset.selectGuideline;renderLibrary();return;}
+    if(ev.target.closest("#manual-preview-start")){loadPdfPreview("google");return;}
+    if(ev.target.closest("#manual-reader-alternate")){loadPdfPreview(state.pdfViewerMode==="google"?"direct":"google");return;}
     const answerEl=ev.target.closest("[data-answer]");if(answerEl){chooseModuleAnswer(Number(answerEl.dataset.answer));return;}
     const revEl=ev.target.closest("[data-review-answer]");if(revEl){selectReviewAnswer(Number(revEl.dataset.reviewAnswer));return;}
     if(ev.target.closest("#start-review") || ev.target.closest("#retry-review")) {startReview();return;}
