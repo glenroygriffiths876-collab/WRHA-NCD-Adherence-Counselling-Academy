@@ -27,6 +27,8 @@
       <file href="app.js"/>
       <file href="motion.js"/>
       <file href="assets/wrha-logo.svg"/>
+      <file href="assets/original-logo-data.js"/>
+      <file href="logo-loader.js"/>
     </resource>
   </resources>
 </manifest>
