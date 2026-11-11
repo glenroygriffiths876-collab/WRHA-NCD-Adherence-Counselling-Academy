@@ -7,8 +7,9 @@
   const reduced = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
   const selectors = [
     ".hero",".hero-aside",".section-title",".step-card",".home-learning-panel",".unit-preview-card",".course-progress-banner",".orientation-card",".unit-panel",".course-activity",".completion-section",".insight-panel",
-    ".page-intro",".lesson-cover",".lesson-section",".learning-objectives",".scenario-card",
-    ".module-references",".library-card",".white-card",".certificate-panel",".certificate-sidebar"
+    ".page-intro",".lesson-cover",".lesson-illustration",".lesson-section",".learning-objectives",".lesson-point",".scenario-card",".scenario-feedback",
+    ".lesson-video-learning",".training-video-card",".completion-activity",".manual-reader-heading",
+    ".white-card",".certificate-panel",".certificate-sidebar"
   ].join(",");
   let revealObserver=null;
   if (!reduced && "IntersectionObserver" in window) {
@@ -26,9 +27,9 @@
       if(el.dataset.motionAttached==="1")return;
       el.dataset.motionAttached="1";
       if(reduced || !revealObserver) return;
-      const siblings=el.parentElement ? Array.from(el.parentElement.children).filter(c=>c.matches && (c.matches(".unit-preview-card")||c.matches(".step-card")||c.matches(".course-activity")||c.matches(".library-card"))) : [];
+      const siblings=el.parentElement ? Array.from(el.parentElement.children).filter(c=>c.matches && (c.matches(".unit-preview-card")||c.matches(".step-card")||c.matches(".course-activity")||c.matches(".lesson-point")||c.matches(".training-video-card")||c.matches(".completion-activity"))) : [];
       const index=siblings.indexOf(el);
-      if(index>=0)el.style.setProperty("--reveal-delay", Math.min(index%3,2)*65+"ms");
+      if(index>=0)el.style.setProperty("--reveal-delay", Math.min(index%4,3)*70+"ms");
       el.classList.add("reveal-on-scroll");
       // Hide only while JS is active, never from the static HTML baseline.
       revealObserver.observe(el);
