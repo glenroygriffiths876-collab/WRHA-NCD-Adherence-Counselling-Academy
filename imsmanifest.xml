@@ -23,9 +23,13 @@
       <file href="course.css"/>
       <file href="videos.css"/>
       <file href="manual-reader.css"/>
+      <file href="manual-covers.css"/>
+      <file href="manual-reader.js"/>
+      <file href="manual-assets.js"/>
+      <file href="vendor/pdfjs/pdf.min.js"/>
+      <file href="vendor/pdfjs/pdf.worker.min.js"/>
       <file href="video-library.js"/>
       <file href="course-data.js"/>
-      <file href="module-resources.js"/>
       <file href="guideline-library.js"/>
       <file href="scorm.js"/>
       <file href="app.js"/>
