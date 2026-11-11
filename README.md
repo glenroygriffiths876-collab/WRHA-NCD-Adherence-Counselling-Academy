@@ -42,3 +42,6 @@ Documents were supplied for project planning and are not reproduced in full in t
 
 ## Attribution
 Developed as a technical prototype in collaboration with the Western Regional Health Authority training initiative. Institutional branding, content approval and rights require confirmation.
+
+### Logo integrity
+The official logo supplied by the project owner has been restored losslessly. `assets/original-logo-data.js` holds its exact PNG pixels in five encoded segments, and `logo-loader.js` displays them in the header and certificate. The earlier 16-colour `assets/wrha-logo.svg` remains as a fallback; the official colours are not filtered, recoloured or stylised. The GitHub Pages build and Moodle SCORM ZIP both include the complete image data.
