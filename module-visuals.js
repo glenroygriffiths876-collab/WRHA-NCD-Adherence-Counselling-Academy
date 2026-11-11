@@ -1,61 +1,30 @@
-/* Jamaican Community Health Aide image library
- * Source: six individual scenes cropped from the collage supplied by the project team.
- * Images show illustrative, simulated training situations; no patient details are used.
- * Native source resolution is retained. No AI-generated clinical content is inferred.
+/* WRHA Academy · Non-repeating Afro-Caribbean/Jamaican CHA visual collection.
+   Twelve distinct scene crops from the collage supplied 11 Nov 2026.
+   Nine lesson images and three unit cards: no repeated image assignments.
+   Simulated/generated scenes; do not present as real patient records.
  */
 (function(){
-  "use strict";
-  const path="assets/cha-scenes/";
-  const scenes={
-    exercise:{
-      src:path+"cha-exercise-group.webp",
-      alt:"Community Health Aide in a light-blue uniform guiding older adults through gentle group exercise",
-      caption:"Supporting healthy routines through community engagement."
-    },
-    documentation:{
-      src:path+"cha-records-documentation.webp",
-      alt:"Community Health Aide in a light-blue uniform reviewing and recording information in a clinic office",
-      caption:"Clear documentation supports continuity of care."
-    },
-    outreach:{
-      src:path+"cha-community-education.webp",
-      alt:"Community Health Aide speaking with a mother during a Jamaican community health outreach activity",
-      caption:"Respectful communication builds trust and understanding."
-    },
-    bp:{
-      src:path+"cha-blood-pressure.webp",
-      alt:"Community Health Aide demonstrating a blood-pressure check with an older woman in a clinic",
-      caption:"Recognising NCD needs and supporting follow-up."
-    },
-    medication:{
-      src:path+"cha-medication-counselling.webp",
-      alt:"Community Health Aide discussing a medicine blister pack with an adult man during counselling",
-      caption:"Listening first helps identify medicine-taking barriers."
-    },
-    home:{
-      src:path+"cha-home-visit.webp",
-      alt:"Community Health Aide conducting a home visit and speaking with a Jamaican family at their veranda",
-      caption:"Community support helps connect clients with ongoing care."
-    }
-  };
-  const assignments={
-    1:"bp",
-    2:"medication",
-    3:"home",
-    4:"outreach",
-    5:"medication",
-    6:"bp",
-    7:"home",
-    8:"exercise",
-    9:"documentation"
-  };
-  window.WRHA_CHA_SCENES=scenes;
-  window.WRHA_MODULE_VISUALS=Object.fromEntries(
-    Object.entries(assignments).map(([id,scene])=>[id,scenes[scene]])
-  );
-  window.WRHA_UNIT_VISUALS={
-    1:scenes.bp,
-    2:scenes.medication,
-    3:scenes.home
-  };
+ "use strict";
+ const path="assets/cha-scenes/cha-";
+ const scene=(filename,alt,caption)=>({src:path+filename+".webp",alt,caption});
+ const scenes={
+   "blood-pressure":scene("blood-pressure","CHA supporting an older male client with blood-pressure monitoring in a Jamaican clinic","Understanding NCD monitoring and connecting clients to ongoing care."),
+   "medication-guidance":scene("medication-guidance","CHA and older male client discuss medication-taking routines at a clinic table","Explore medication-taking routines with empathy and without judgement."),
+   "home-visit":scene("home-visit","Community Health Aide speaking with older adults outside their Jamaican home","Home visits reveal practical and social barriers to continued care."),
+   "active-listening":scene("active-listening","CHA listens attentively during a private conversation with a female client","Listening, empathy and privacy help build counselling trust."),
+   "conversation":scene("conversation","CHA having a collaborative one-to-one discussion with a woman","Open questions invite clients to describe their own motivations."),
+   "goal-setting":scene("goal-setting","CHA and older woman review a patient self-care plan together","Agree on achievable next steps in a patient-centred conversation."),
+   "team-referral":scene("team-referral","Two Community Health Aides discuss an issue during a supportive group conversation","Knowing when to involve the wider care team supports safe referrals."),
+   "nutrition":scene("nutrition","CHA discussing a balanced meal and fruits and vegetables with an older woman","Supporting manageable healthy routines and self-management."),
+   "documentation":scene("documentation","CHA entering referral and follow-up information in a clinic office","Accurate documentation supports follow-up and continuity of care."),
+   "group-education":scene("group-education","Community health educator guiding a small group in a Jamaican community setting","Learn NCD prevention and care foundations with the community."),
+   "family-counselling":scene("family-counselling","CHA leading a supportive group counselling discussion in a health facility","Counselling can include families and the wider care team when appropriate."),
+   "physical-activity":scene("physical-activity","Community health worker encouraging gentle movement with an older adult outdoors","Supporting wellbeing and everyday activity as part of self-management.")
+ };
+ const assignments={1:"blood-pressure",2:"medication-guidance",3:"home-visit",4:"active-listening",
+                    5:"conversation",6:"goal-setting",7:"team-referral",8:"nutrition",9:"documentation"};
+ const unitAssignments={1:"group-education",2:"family-counselling",3:"physical-activity"};
+ window.WRHA_CHA_SCENES=scenes;
+ window.WRHA_MODULE_VISUALS=Object.fromEntries(Object.entries(assignments).map(([id,key])=>[id,scenes[key]]));
+ window.WRHA_UNIT_VISUALS=Object.fromEntries(Object.entries(unitAssignments).map(([id,key])=>[id,scenes[key]]));
 })();
