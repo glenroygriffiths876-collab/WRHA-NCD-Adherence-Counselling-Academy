@@ -19,11 +19,13 @@
     <resource identifier="WRHA-RES-1" type="webcontent" adlcp:scormtype="sco" href="index.html">
       <file href="index.html"/>
       <file href="styles.css"/>
+      <file href="premium.css"/>
       <file href="course-data.js"/>
       <file href="module-resources.js"/>
       <file href="guideline-library.js"/>
       <file href="scorm.js"/>
       <file href="app.js"/>
+      <file href="motion.js"/>
       <file href="assets/wrha-logo.svg"/>
     </resource>
   </resources>
