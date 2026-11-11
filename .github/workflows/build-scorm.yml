@@ -40,6 +40,12 @@ jobs:
           ET.parse('imsmanifest.xml')
           for name in ('index.html','styles.css','premium.css','course.css','illustrations.css','readability.css','ambient-motion.js','module-visuals.js','videos.css','manual-reader.css','manual-covers.css','manual-reader.js','manual-assets.js','vendor/pdfjs/pdf.min.js','vendor/pdfjs/pdf.worker.min.js','video-library.js','motion.js','logo-loader.js','assets/original-logo-data.js','course-data.js','guideline-library.js','app.js','scorm.js','assets/wrha-logo.svg'):
               assert Path(name).exists(), name
+          for photo in ['cha-ncd-overview','cha-adherence-conversation','cha-barriers-home-visit',
+                        'cha-communication-education','cha-motivational-interviewing','cha-five-as-assessment',
+                        'cha-danger-signs-monitoring','cha-self-management-activity','cha-documentation-follow-up',
+                        'cha-unit-1','cha-unit-2','cha-unit-3']:
+              file = Path(f'assets/cha-hd/{photo}.webp')
+              assert file.is_file() and file.read_bytes()[:4] == b'RIFF', f'Missing HD image {file}'
           ET.parse('assets/wrha-logo.svg')
           print('Manifest and logo SVG parse successfully')
           PY
@@ -77,7 +83,7 @@ jobs:
           namespace='{http://www.imsproject.org/xsd/imscp_rootv1p1p2}'
           parent=tree.find('.//'+namespace+'resource')
           assert parent is not None
-          assets=(sorted(Path('documents/pdf-library').glob('*.pdf'))+sorted(Path('media/pdf-covers').glob('*.webp'))+sorted(Path('assets/cha-scenes').glob('*.webp'))+sorted(Path('assets/cha-hd').glob('*.webp')))
+          assets=(sorted(Path('documents/pdf-library').glob('*.pdf'))+sorted(Path('media/pdf-covers').glob('*.webp')))
           for asset in assets:
               ET.SubElement(parent,namespace+'file',{'href':asset.as_posix()})
           tree.write(manifest,encoding='utf-8',xml_declaration=True)
@@ -88,7 +94,6 @@ jobs:
         run: |
           zip -q -r WRHA-NCD-Adherence-Academy-SCORM12-PROTOTYPE.zip \
             imsmanifest.xml index.html styles.css premium.css course.css illustrations.css readability.css ambient-motion.js module-visuals.js videos.css manual-reader.css manual-covers.css course-data.js video-library.js guideline-library.js manual-assets.js manual-reader.js vendor/pdfjs/pdf.min.js vendor/pdfjs/pdf.worker.min.js app.js motion.js scorm.js logo-loader.js assets/original-logo-data.js assets/wrha-logo-original.png
-          zip -q -r WRHA-NCD-Adherence-Academy-SCORM12-PROTOTYPE.zip assets/cha-scenes
           if [ -d assets/cha-hd ]; then zip -q -r WRHA-NCD-Adherence-Academy-SCORM12-PROTOTYPE.zip assets/cha-hd; fi
           if [ -d documents/pdf-library ] && [ -d media/pdf-covers ]; then
             zip -q -r WRHA-NCD-Adherence-Academy-SCORM12-PROTOTYPE.zip documents/pdf-library media/pdf-covers
