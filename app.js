@@ -129,6 +129,50 @@
       '<span>MOHW official source ↗</span></div></article>'
     )).join("");
   }
+  function renderVideoLearning(module) {
+    const catalog = Array.isArray(window.WRHA_VIDEO_LIBRARY) ? window.WRHA_VIDEO_LIBRARY : [];
+    const matched = catalog.filter(video => video.modules.includes(module.id))
+      .sort((a,b) => Number((b.featuredFor||[]).includes(module.id)) - Number((a.featuredFor||[]).includes(module.id)));
+    if(!matched.length)return "";
+    // Keep the lesson focused: one primary video and no more than one optional second example.
+    const shown = matched.slice(0,2);
+    return '<section class="lesson-video-learning" aria-label="Video demonstrations">' +
+      '<div class="video-section-heading"><div class="video-section-kicker">WATCH · OBSERVE · REFLECT</div>' +
+      '<h2>See counselling in practice</h2>' +
+      '<p>Watch a demonstration and reflect on how the communication techniques could be applied in a Jamaican CHA encounter. Watching is optional and never locks a lesson.</p></div>' +
+      shown.map((video,i)=>'<article class="training-video-card">' +
+        '<div class="training-video-top"><span class="training-video-type">'+htmlEscape(video.category)+'</span>'+
+        (i===0?'<span class="training-video-tag">Suggested viewing</span>':'<span class="training-video-tag">Additional example</span>')+'</div>'+
+        '<h3>'+htmlEscape(video.title)+'</h3>'+
+        '<p class="training-video-provider">'+htmlEscape(video.provider)+'</p>'+
+        '<div class="training-video-frame" id="training-video-'+htmlEscape(video.id)+'">'+
+          '<button type="button" class="training-video-launch" data-load-video="'+htmlEscape(video.id)+'" aria-label="Play '+htmlEscape(video.title)+' from YouTube">'+
+          '<span class="training-video-play" aria-hidden="true">▶</span><span>Watch demonstration</span>'+
+          '<small>YouTube video · loads on request</small></button></div>'+
+        '<p class="training-video-why">'+htmlEscape(video.rationale)+'</p>'+
+        '<div class="training-video-reflect"><strong>After watching</strong><p>'+htmlEscape(video.prompt)+'</p></div>'+
+        '<p class="training-video-note">'+htmlEscape(video.caveat)+'</p>'+
+        '<div class="training-video-links"><a href="https://www.youtube.com/watch?v='+encodeURIComponent(video.videoId)+'" target="_blank" rel="noopener noreferrer">Open on YouTube ↗</a>'+
+        '<a href="'+htmlEscape(video.source)+'" target="_blank" rel="noopener noreferrer">About this resource ↗</a></div>'+
+      '</article>').join("")+
+      '<p class="video-section-notice">These are external training demonstrations, not Jamaican clinical protocols. If YouTube does not play within Moodle, use “Open on YouTube.”</p></section>';
+  }
+  function loadTrainingVideo(id){
+    const catalog=window.WRHA_VIDEO_LIBRARY||[];
+    const video=catalog.find(v=>v.id===id);
+    const frame=document.getElementById("training-video-"+id);
+    if(!video||!frame)return;
+    if(!/^[A-Za-z0-9_-]{11}$/.test(video.videoId))return;
+    // Consent-on-click, no iframe until the learner requests playback.
+    const embed=document.createElement("iframe");
+    embed.setAttribute("title",video.title);
+    embed.setAttribute("allow","accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share");
+    embed.setAttribute("allowfullscreen","");
+    embed.setAttribute("referrerpolicy","strict-origin-when-cross-origin");
+    embed.setAttribute("loading","lazy");
+    embed.src="https://www.youtube-nocookie.com/embed/"+video.videoId+"?rel=0&playsinline=1";
+    frame.replaceChildren(embed);
+  }
   function renderModuleResources(module) {
     const ref = (window.WRHA_MODULE_REFERENCES || {})[module.id];
     if (!ref) return "";
@@ -180,6 +224,9 @@
       module.objectives.map(o => '<li>' + htmlEscape(o) + '</li>').join("") + '</ul></section>' +
       module.sections.map((section,i) => '<section class="lesson-section"><h2>'+String(i+1).padStart(2,"0")+'. '+htmlEscape(section.title)+'</h2><p>'+htmlEscape(section.text)+'</p><div class="lesson-points">'+ section.points.map(p=>'<div class="lesson-point">'+htmlEscape(p)+'</div>').join("")+'</div></section>').join("") + renderModuleResources(module);
     const scenario = module.scenario;
+    // Resource and demonstration panels appear before the practice scenario.
+    const existing=$("#lesson-content").innerHTML;
+    $("#lesson-content").innerHTML=existing+renderVideoLearning(module);
     $("#scenario-block").innerHTML = '<div class="scenario-kicker">✧ '+htmlEscape(scenario.type).toUpperCase()+'</div><h2>Put it into practice</h2><p class="scenario-question">'+htmlEscape(scenario.prompt)+'</p><div class="choices" id="module-choices">'+
       scenario.choices.map((c,i)=>'<button type="button" class="choice" data-answer="'+i+'">'+htmlEscape(c.text)+'</button>').join("")+'</div><div id="module-feedback" aria-live="polite"></div>';
     $("#previous-module").disabled = module.id === 1;
@@ -256,6 +303,7 @@
   document.addEventListener("click",ev=>{
     const navEl=ev.target.closest("[data-nav]");if(navEl){nav(navEl.dataset.nav);return;}
     const lessonEl=ev.target.closest("[data-open-module]");if(lessonEl){openModule(lessonEl.dataset.openModule);return;}
+    const videoEl=ev.target.closest("[data-load-video]");if(videoEl){loadTrainingVideo(videoEl.dataset.loadVideo);return;}
     const more=ev.target.closest('[data-action="continue-learning"]');if(more){continueLearning();return;}
     const section=ev.target.closest("[data-scroll-to]");if(section){nav("modules");const dest=document.getElementById(section.dataset.scrollTo);if(dest)dest.scrollIntoView({behavior:"smooth",block:"start"});return;}
     const libEl=ev.target.closest("[data-library-filter]");if(libEl){state.libraryFilter=libEl.dataset.libraryFilter;renderLibrary();return;}
