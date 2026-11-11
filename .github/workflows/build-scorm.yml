@@ -23,6 +23,8 @@ jobs:
           node --check assets/original-logo-data.js
           node --check course-data.js
           node --check video-library.js
+          node --check manual-reader.js
+          node --check manual-assets.js
           node --check module-resources.js
           node --check guideline-library.js
           node --check scorm.js
@@ -34,7 +36,7 @@ jobs:
           from pathlib import Path
           import xml.etree.ElementTree as ET
           ET.parse('imsmanifest.xml')
-          for name in ('index.html','styles.css','premium.css','course.css','videos.css','manual-reader.css','video-library.js','motion.js','logo-loader.js','assets/original-logo-data.js','course-data.js','module-resources.js','guideline-library.js','app.js','scorm.js','assets/wrha-logo.svg'):
+          for name in ('index.html','styles.css','premium.css','course.css','videos.css','manual-reader.css','manual-covers.css','manual-reader.js','manual-assets.js','vendor/pdfjs/pdf.min.js','vendor/pdfjs/pdf.worker.min.js','video-library.js','motion.js','logo-loader.js','assets/original-logo-data.js','course-data.js','guideline-library.js','app.js','scorm.js','assets/wrha-logo.svg'):
               assert Path(name).exists(), name
           ET.parse('assets/wrha-logo.svg')
           print('Manifest and logo SVG parse successfully')
@@ -61,10 +63,32 @@ jobs:
           console.log("Restored the original pixel-exact logo for SCORM deployment");
           NODE
 
+      - name: Add any synced PDFs and authentic first-page covers to SCORM manifest
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import xml.etree.ElementTree as ET
+          manifest=Path('imsmanifest.xml')
+          ET.register_namespace('', 'http://www.imsproject.org/xsd/imscp_rootv1p1p2')
+          ET.register_namespace('adlcp','http://www.adlnet.org/xsd/adlcp_rootv1p2')
+          tree=ET.parse(manifest)
+          namespace='{http://www.imsproject.org/xsd/imscp_rootv1p1p2}'
+          parent=tree.find('.//'+namespace+'resource')
+          assert parent is not None
+          assets=sorted(Path('documents/pdf-library').glob('*.pdf'))+sorted(Path('media/pdf-covers').glob('*.webp'))
+          for asset in assets:
+              ET.SubElement(parent,namespace+'file',{'href':asset.as_posix()})
+          tree.write(manifest,encoding='utf-8',xml_declaration=True)
+          print('SCORM includes',len(assets),'locally hosted PDF/cover assets')
+          PY
+
       - name: Build SCORM 1.2 ZIP
         run: |
           zip -q -r WRHA-NCD-Adherence-Academy-SCORM12-PROTOTYPE.zip \
-            imsmanifest.xml index.html styles.css premium.css course.css videos.css manual-reader.css course-data.js video-library.js module-resources.js guideline-library.js app.js motion.js scorm.js logo-loader.js assets/original-logo-data.js assets/wrha-logo-original.png
+            imsmanifest.xml index.html styles.css premium.css course.css videos.css manual-reader.css manual-covers.css course-data.js video-library.js guideline-library.js manual-assets.js manual-reader.js vendor/pdfjs/pdf.min.js vendor/pdfjs/pdf.worker.min.js app.js motion.js scorm.js logo-loader.js assets/original-logo-data.js assets/wrha-logo-original.png
+          if [ -d documents/pdf-library ] && [ -d media/pdf-covers ]; then
+            zip -q -r WRHA-NCD-Adherence-Academy-SCORM12-PROTOTYPE.zip documents/pdf-library media/pdf-covers
+          fi
 
       - name: Upload Moodle trial package
         uses: actions/upload-artifact@v4
