@@ -52,3 +52,6 @@ See [Moodle native course blueprint](MOODLE-COURSE-BLUEPRINT.md) for implementin
 
 ## Video-based learning
 Eight externally hosted YouTube counselling and adherence demonstration videos are curated in `video-library.js`, including NCD adherence, motivational interviewing, OARS and teach-back. Each module displays up to two relevant videos with a reflective observation prompt. These are optional, load only on click, and provide direct YouTube fallback links; their suitability for final WRHA training and embed availability must be checked by the content review team. See `VIDEO-REVIEW.md`.
+
+## In-page MOHW PDF reader
+The Guidelines & PDFs page has a persistent document list, a click-to-load embedded reader, and separate official MOHW download/save links. The PDF preview uses an external document viewer first, with an optional direct-PDF viewer, because publisher framing permissions vary. All documents stay hosted by MOHW; the application does not copy official or internal manuals. A static fallback with four official links is included if client-side JavaScript fails. Test embedding in WRHA Moodle before deployment.
