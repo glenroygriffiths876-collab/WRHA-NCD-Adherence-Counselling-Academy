@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="course.css">
   <link rel="stylesheet" href="videos.css">
   <link rel="stylesheet" href="manual-reader.css">
+<link rel="stylesheet" href="manual-covers.css">
 </head>
 <body>
 <a href="#main" class="skip-link">Skip to main content</a>
@@ -90,7 +91,7 @@
   <div class="page-intro">
     <div class="overline">MOHW · OFFICIAL PDF LIBRARY</div>
     <h1 id="resources-heading">Jamaican guidelines you can keep.</h1>
-    <p>Download the national NCD guidance, pocket guides and patient education resources relevant to adherence counselling. Documents are linked directly from the Ministry of Health & Wellness.</p>
+    <p>Browse authentic manual covers, read locally available PDFs within the academy, and download the Ministry documents for reference.</p>
   </div>
   <div class="resource-caveat">
     <strong>Edition check · 11 November 2026:</strong> The 2024 hypertension and diabetes guidelines, the 2024 screening guideline (launched in 2025), and the March 2025 asthma guideline are the most recent versions found in the Ministry's public NCD library. Newer internal circulars, if any, require confirmation by WRHA. Older publications are labelled.
@@ -116,22 +117,40 @@
     </div>
     <section id="manual-reader" class="manual-reader" aria-labelledby="manual-reader-heading">
       <div class="manual-reader-heading">
-        <div><div class="overline">ON-PAGE DOCUMENT READER</div>
+        <div><div class="overline">DOCUMENT READER · MINISTRY OF HEALTH & WELLNESS</div>
           <h2 id="manual-reader-heading">Read the manual here</h2>
           <p id="manual-reader-edition">Select a Ministry guideline from the document collection.</p></div>
         <span class="manual-reader-format">PDF</span>
       </div>
       <div class="manual-reader-actions">
-        <a id="manual-reader-download" class="manual-download-button" href="https://ncdip.moh.gov.jm/download/4262/" target="_blank" rel="noopener noreferrer" download>↧ Download / Save PDF</a>
-        <a id="manual-reader-source" class="manual-source-button" href="https://ncdip.moh.gov.jm/download/4262/" target="_blank" rel="noopener noreferrer">Open at MOHW ↗</a>
+        <a id="manual-reader-download" class="manual-download-button" href="https://ncdip.moh.gov.jm/download/4262/" target="_blank" rel="noopener noreferrer">↧ Download PDF</a>
+        <a id="manual-reader-source" class="manual-source-button" href="https://ncdip.moh.gov.jm/download/4262/" target="_blank" rel="noopener noreferrer">Original at MOHW ↗</a>
       </div>
-      <div class="manual-viewer-shell" id="manual-viewer-shell">
-        <iframe id="manual-reader-frame" title="Ministry of Health and Wellness clinical guideline PDF preview" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" src="about:blank"></iframe>
-        <div class="manual-reader-overlay" id="manual-reader-overlay"><span class="manual-overlay-icon" aria-hidden="true">▤</span><strong>Preview this manual</strong><p>The PDF will open inside the academy where supported.</p><button type="button" class="manual-preview-button" id="manual-preview-start">Load PDF preview →</button></div>
+      <div class="manual-document-toolbar" aria-label="PDF page controls">
+        <button type="button" id="manual-page-prev" disabled aria-label="Previous PDF page">← Previous</button>
+        <span id="manual-page-counter" aria-live="polite">Cover preview</span>
+        <button type="button" id="manual-page-next" disabled aria-label="Next PDF page">Next →</button>
+        <span class="manual-toolbar-divider" aria-hidden="true"></span>
+        <button type="button" id="manual-zoom-out" disabled aria-label="Zoom out">−</button>
+        <button type="button" id="manual-zoom-in" disabled aria-label="Zoom in">+</button>
+      </div>
+      <div class="manual-viewer-shell manual-pdf-stage" id="manual-reader-stage" tabindex="0">
+        <div id="manual-cover-fallback" class="manual-book-splash">
+          <span class="manual-book-agency">MINISTRY OF HEALTH & WELLNESS · JAMAICA</span>
+          <span class="manual-book-rule" aria-hidden="true"></span>
+          <strong id="manual-fallback-title">National NCD Clinical Guideline</strong>
+          <span id="manual-fallback-date">Jamaica · Official publication</span>
+        </div>
+        <img id="manual-reader-cover" alt="Actual first-page cover of the selected Ministry manual" hidden>
+        <canvas id="manual-reader-canvas" aria-label="PDF page in document reader" hidden></canvas>
+        <div class="manual-cover-action" id="manual-reader-overlay">
+          <button type="button" class="manual-preview-button" id="manual-preview-start">Read complete PDF →</button>
+        </div>
       </div>
       <div class="manual-reader-foot">
-        <p id="manual-reader-note">The official document is provided by Jamaica’s Ministry of Health & Wellness.</p>
-        <div class="manual-viewer-tools"><button type="button" id="manual-reader-alternate" class="manual-alt-button">Try another viewer</button><span>Blank preview? Use <strong>Open at MOHW</strong> above.</span></div>
+        <p id="manual-reader-status" role="status">Choose a manual to view its cover and start reading.</p>
+        <p id="manual-reader-note">The official document is provided by Jamaica's Ministry of Health & Wellness.</p>
+        <div class="manual-viewer-tools"><span>This reader uses the same PDF.js approach as HSTU. If a local copy is unavailable, use the original Ministry link above.</span></div>
       </div>
     </section>
   </div>
@@ -165,8 +184,11 @@
 <script src="course-data.js"></script>
 <script src="module-resources.js"></script>
 <script src="guideline-library.js"></script>
+<script src="manual-assets.js"></script>
+<script src="vendor/pdfjs/pdf.min.js"></script>
+<script src="manual-reader.js"></script>
 <script src="video-library.js"></script>
 <script src="scorm.js"></script>
-<script src="app.js?v=0.4"></script>
+<script src="app.js?v=0.5"></script>
 <script src="motion.js"></script>
 </body></html>
