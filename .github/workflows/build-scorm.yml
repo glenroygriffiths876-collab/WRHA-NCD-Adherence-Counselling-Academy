@@ -19,6 +19,7 @@ jobs:
         run: |
           node --check app.js
           node --check motion.js
+          node --check ambient-motion.js
           node --check logo-loader.js
           node --check assets/original-logo-data.js
           node --check course-data.js
@@ -37,7 +38,7 @@ jobs:
           from pathlib import Path
           import xml.etree.ElementTree as ET
           ET.parse('imsmanifest.xml')
-          for name in ('index.html','styles.css','premium.css','course.css','illustrations.css','module-visuals.js','videos.css','manual-reader.css','manual-covers.css','manual-reader.js','manual-assets.js','vendor/pdfjs/pdf.min.js','vendor/pdfjs/pdf.worker.min.js','video-library.js','motion.js','logo-loader.js','assets/original-logo-data.js','course-data.js','guideline-library.js','app.js','scorm.js','assets/wrha-logo.svg'):
+          for name in ('index.html','styles.css','premium.css','course.css','illustrations.css','readability.css','ambient-motion.js','module-visuals.js','videos.css','manual-reader.css','manual-covers.css','manual-reader.js','manual-assets.js','vendor/pdfjs/pdf.min.js','vendor/pdfjs/pdf.worker.min.js','video-library.js','motion.js','logo-loader.js','assets/original-logo-data.js','course-data.js','guideline-library.js','app.js','scorm.js','assets/wrha-logo.svg'):
               assert Path(name).exists(), name
           ET.parse('assets/wrha-logo.svg')
           print('Manifest and logo SVG parse successfully')
@@ -86,7 +87,7 @@ jobs:
       - name: Build SCORM 1.2 ZIP
         run: |
           zip -q -r WRHA-NCD-Adherence-Academy-SCORM12-PROTOTYPE.zip \
-            imsmanifest.xml index.html styles.css premium.css course.css illustrations.css module-visuals.js videos.css manual-reader.css manual-covers.css course-data.js video-library.js guideline-library.js manual-assets.js manual-reader.js vendor/pdfjs/pdf.min.js vendor/pdfjs/pdf.worker.min.js app.js motion.js scorm.js logo-loader.js assets/original-logo-data.js assets/wrha-logo-original.png
+            imsmanifest.xml index.html styles.css premium.css course.css illustrations.css readability.css ambient-motion.js module-visuals.js videos.css manual-reader.css manual-covers.css course-data.js video-library.js guideline-library.js manual-assets.js manual-reader.js vendor/pdfjs/pdf.min.js vendor/pdfjs/pdf.worker.min.js app.js motion.js scorm.js logo-loader.js assets/original-logo-data.js assets/wrha-logo-original.png
           zip -q -r WRHA-NCD-Adherence-Academy-SCORM12-PROTOTYPE.zip assets/cha-scenes
           if [ -d documents/pdf-library ] && [ -d media/pdf-covers ]; then
             zip -q -r WRHA-NCD-Adherence-Academy-SCORM12-PROTOTYPE.zip documents/pdf-library media/pdf-covers
