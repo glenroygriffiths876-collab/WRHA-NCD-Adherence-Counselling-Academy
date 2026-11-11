@@ -9,6 +9,7 @@ A **development prototype** of an interactive, Moodle-compatible learning experi
 - Nine learning modules aligned to the supplied WRHA participant manual and training proposal.
 - Blended delivery: online Modules 1–3, facilitated in-person Modules 4–7, then online Modules 8–9.
 - Mobile-friendly lessons, interactive scenarios, module knowledge checks, feedback and progress.
+- A module-by-module reading library with exact references to the WRHA participant manual and links to public Jamaican MOHW/WHO resources. Private training manuals are not published here.
 - A certificate design **preview**, pending formal eligibility rules and institutional sign-off.
 - Preparation for SCORM 1.2 reporting to Moodle.
 
