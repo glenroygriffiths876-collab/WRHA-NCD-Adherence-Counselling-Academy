@@ -22,6 +22,7 @@
     <nav class="main-nav" aria-label="Primary navigation">
       <button type="button" data-nav="home" class="nav-tab current" aria-current="page">Dashboard</button>
       <button type="button" data-nav="modules" class="nav-tab">Modules</button>
+      <button type="button" data-nav="resources" class="nav-tab">Guidelines & PDFs</button>
       <button type="button" data-nav="assessment" class="nav-tab">Assessments</button>
       <button type="button" data-nav="certificate" class="nav-tab">Certificate</button>
     </nav>
@@ -58,7 +59,28 @@
     <div id="all-modules" class="module-grid"></div>
   </section>
 
-  <section id="screen-lesson" class="screen" hidden aria-labelledby="lesson-title">
+  <section id="screen-resources" class="screen" hidden aria-labelledby="resources-heading">
+  <div class="page-intro">
+    <div class="overline">MOHW · OFFICIAL PDF LIBRARY</div>
+    <h1 id="resources-heading">Jamaican guidelines you can keep.</h1>
+    <p>Download the national NCD guidance, pocket guides and patient education resources relevant to adherence counselling. Documents are linked directly from the Ministry of Health & Wellness.</p>
+  </div>
+  <div class="resource-caveat">
+    <strong>Edition check · 11 November 2026:</strong> The 2024 hypertension and diabetes guidelines, the 2024 screening guideline (launched in 2025), and the March 2025 asthma guideline are the most recent versions found in the Ministry's public NCD library. Newer internal circulars, if any, require confirmation by WRHA. Older publications are labelled.
+  </div>
+  <div class="library-controls" role="group" aria-label="Filter guideline library">
+    <button type="button" class="library-filter active" data-library-filter="all">All documents</button>
+    <button type="button" class="library-filter" data-library-filter="Core national guidance">Core national guidance</button>
+    <button type="button" class="library-filter" data-library-filter="Quick-reference tools">Quick reference</button>
+    <button type="button" class="library-filter" data-library-filter="Clinical and lifestyle resources">Lifestyle & practice</button>
+    <button type="button" class="library-filter" data-library-filter="Historical / verify currency">Older · verify</button>
+  </div>
+  <div class="library-summary"><span id="library-total">0 documents</span><span>View / download official PDFs from MOHW</span></div>
+  <div id="library-grid" class="library-grid"></div>
+  <div class="library-copyright"><strong>For WRHA learning use:</strong> These are direct publisher links, not copied files. Most open in your browser's PDF viewer; select the viewer's download control to save a copy. The official WRHA participant manual and facilitator-only materials require authorised Moodle access and are not published here.</div>
+</section>
+
+<section id="screen-lesson" class="screen" hidden aria-labelledby="lesson-title">
     <div class="lesson-heading"><button class="text-button" data-nav="modules">← All modules</button><span id="lesson-phase" class="eyebrow-pill"></span></div>
     <div class="lesson-layout"><aside class="lesson-sidebar"><div class="side-header">YOUR LEARNING PATH</div><nav id="lesson-list" aria-label="Module selection"></nav><div class="sidebar-help">✓ Practice questions provide immediate feedback.<br>◷ Practical competency is assessed by facilitators.</div></aside>
       <article class="lesson-article"><div class="lesson-cover"><span class="lesson-overline" id="lesson-number"></span><h1 id="lesson-title"></h1><p id="lesson-description"></p><div class="lesson-meta"><span id="lesson-duration"></span><span>·</span><span id="lesson-status"></span></div></div><div class="lesson-content" id="lesson-content"></div><div id="scenario-block" class="scenario-card"></div><div class="lesson-actions"><button id="previous-module" class="button button-outline">← Previous</button><button id="next-module" class="button button-primary">Next module →</button></div></article>
@@ -82,6 +104,7 @@
 <footer class="site-footer"><div class="container footer-inner"><div><strong>WRHA NCD Adherence Academy</strong><small>Listen. Support. Motivate. Connect.</small></div><span>Prototype v0.1 · Based on the WRHA training proposal and participant manual · Clinical approval pending</span></div></footer>
 <script src="course-data.js"></script>
 <script src="module-resources.js"></script>
+<script src="guideline-library.js"></script>
 <script src="scorm.js"></script>
 <script src="app.js"></script>
 </body></html>
