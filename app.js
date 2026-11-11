@@ -38,7 +38,7 @@
     {id:3,title:"Supporting continuity of care",desc:"Practical self-management, documentation, referrals, and follow-up.",modules:[8,9]}
   ];
   function unitFor(id){return units.find(u=>u.modules.includes(Number(id)));}
-  function unlocked(id){return Number(id)===1||modules.filter(m=>m.id<Number(id)).every(m=>state.completed.includes(m.id));}
+  function unlocked(id){return modules.some(m=>m.id===Number(id));}
   function nextLesson(){return modules.find(m=>!state.completed.includes(m.id))||null;}
   function continueLearning(){const next=nextLesson();if(next)openModule(next.id);else nav("assessment");}
   function htmlEscape(str) { return String(str).replace(/[&<>"']/g, char => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[char])); }
@@ -88,7 +88,7 @@
   function renderHomeUnits(){
     $("#home-unit-preview").innerHTML=units.map(unit=>{
       const done=unit.modules.filter(id=>state.completed.includes(id)).length;
-      const next=unit.modules.find(id=>unlocked(id)&&!state.completed.includes(id));
+      const next=unit.modules.find(id=>!state.completed.includes(id));
       return '<article class="unit-preview-card"><div class="unit-preview-top"><span class="unit-index">UNIT '+String(unit.id).padStart(2,"0")+'</span><span class="unit-preview-count">'+done+'/'+unit.modules.length+' complete</span></div>'+
         '<h3>'+htmlEscape(unit.title)+'</h3><p>'+htmlEscape(unit.desc)+'</p>'+
         '<div class="unit-preview-footer"><span>'+unit.modules.length+' interactive lessons</span>'+
@@ -167,15 +167,14 @@
   }
   function openModule(id) {
     const module = modules.find(m => m.id === Number(id)); if (!module) return;
-    if(!unlocked(module.id)){nav("modules");return;}
     state.lesson = module.id; state.selected = null;
     $("#lesson-phase").textContent = "Self-paced · Unit "+unitFor(module.id).id;
     $("#lesson-number").textContent = "MODULE " + String(module.id).padStart(2,"0") + " · " + course.theme.toUpperCase();
     $("#lesson-title").textContent = module.title;
     $("#lesson-description").textContent = module.summary;
     $("#lesson-duration").textContent = module.duration;
-    $("#lesson-status").textContent = state.completed.includes(module.id) ? "Completed" : "Complete the knowledge check to advance";
-    $("#lesson-list").innerHTML=modules.map(m=>{const locked=!unlocked(m.id);return '<button class="lesson-side-link '+(m.id===module.id?'current ':'')+(state.completed.includes(m.id)?'completed':'')+'" data-open-module="'+m.id+'" '+(locked?'disabled title="Complete previous lessons to unlock"':'')+'><span>'+(state.completed.includes(m.id)?'✓':locked?'•':m.id)+'</span>'+htmlEscape(m.title)+'</button>';}).join("");
+    $("#lesson-status").textContent = state.completed.includes(module.id) ? "Completed" : "Practice at your own pace · all lessons available";
+    $("#lesson-list").innerHTML=modules.map(m=>{const locked=!unlocked(m.id);return '<button class="lesson-side-link '+(m.id===module.id?'current ':'')+(state.completed.includes(m.id)?'completed':'')+'" data-open-module="'+m.id+'" '+(locked?'disabled title="All modules available"':'')+'><span>'+(state.completed.includes(m.id)?'✓':locked?'•':m.id)+'</span>'+htmlEscape(m.title)+'</button>';}).join("");
     $("#lesson-content").innerHTML =
       '<section class="learning-objectives"><strong>After this module, you should be able to:</strong><ul>' +
       module.objectives.map(o => '<li>' + htmlEscape(o) + '</li>').join("") + '</ul></section>' +
@@ -185,8 +184,8 @@
       scenario.choices.map((c,i)=>'<button type="button" class="choice" data-answer="'+i+'">'+htmlEscape(c.text)+'</button>').join("")+'</div><div id="module-feedback" aria-live="polite"></div>';
     $("#previous-module").disabled = module.id === 1;
     $("#next-module").textContent = module.id === 9 ? "Go to knowledge review →" : "Continue to Module "+(module.id+1)+" →";
-    $("#next-module").disabled = !state.completed.includes(module.id);
-    $("#next-module").title = state.completed.includes(module.id)?"Continue learning":"Complete the knowledge check correctly to unlock the next lesson";
+    $("#next-module").disabled = false;
+    $("#next-module").title = "Move to the next module at any time";
     nav("lesson");
   }
   function chooseModuleAnswer(index) {
@@ -208,14 +207,13 @@
   }
   function renderAssessments() {
     const last = state.reviewScore;
-    $("#start-review").disabled=state.completed.length!==9;
-    $("#start-review").textContent=state.completed.length===9?"Start knowledge review →":"Complete all nine lessons first";
+    $("#start-review").disabled=false;
+    $("#start-review").textContent="Start knowledge review →";
     $("#review-result").innerHTML = last === null
       ? '<small>Practice review not completed yet.</small>'
       : '<strong>Last practice score: ' + last + ' of 9 (' + Math.round(last/9*100) + '%)</strong><small>This does not replace a formal Moodle examination.</small>';
   }
   function startReview() {
-    if(state.completed.length!==9)return;
     state.review = {index:0,selected:null,score:0,submitted:false};
     $("#review-panel").hidden=false;
     renderReview();
@@ -266,7 +264,7 @@
     if(ev.target.closest("#start-review") || ev.target.closest("#retry-review")) {startReview();return;}
     if(ev.target.closest("#review-next")) {nextReview();return;}
     if(ev.target.closest("#previous-module")) {openModule(state.lesson-1);return;}
-    if(ev.target.closest("#next-module")) {if(!state.completed.includes(state.lesson))return;if(state.lesson===9)nav("assessment");else openModule(state.lesson+1);return;}
+    if(ev.target.closest("#next-module")) {if(state.lesson===9)nav("assessment");else openModule(state.lesson+1);return;}
   });
   $("#name-preview").addEventListener("input",ev=>{
     const clean=ev.target.value.trim().slice(0,70);
