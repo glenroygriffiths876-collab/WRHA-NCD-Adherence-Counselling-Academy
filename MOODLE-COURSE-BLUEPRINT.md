@@ -3,7 +3,7 @@
 **Status:** Proposed learning design for WRHA approval. Not yet deployed to the institution's Moodle.
 
 ## Design decision: a self-paced course
-The academy is now designed as **nine independent online learning activities in a clear linear pathway**, rather than a website organised around the original delivery dates. Learners can sign in, resume from their next unfinished lesson, complete a short knowledge check, and see activity-completion indicators. The proposed practical workshop remains part of **formal competency assessment**, not a reason to make Modules 4–7 unavailable online.
+The academy is now designed as **nine independent online learning activities in three thematic learning units without prerequisite locking**, rather than a website organised around the original delivery dates. Learners can sign in, resume from their next unfinished lesson, practise with knowledge checks, and see activity-completion indicators. All modules remain accessible in any order. The proposed practical workshop remains part of **formal competency assessment**, not a reason to make Modules 4–7 unavailable online.
 
 This changes the proposed delivery format from Dr. Johnson-Campbell's 10 November 2026 email. **WRHA must approve the revised approach before deployment.**
 
@@ -22,20 +22,20 @@ Use the built-in **Custom sections** course format (called Topics on older Moodl
 - Module 2: What Is Adherence?
 - Module 3: Why People Don't Adhere?
 - Each as a separate interactive SCORM 1.2 activity when production packaging is ready
-- Completion restriction: open the next activity after the current one returns `completed`
+- No access restrictions between modules; Moodle tracks completion for reporting and certification only
 
 ### Section 2 — Counselling with confidence
 - Module 4: Communication Skills
 - Module 5: Motivational Interviewing
 - Module 6: The 5 A's and Adherence Assessment
 - Module 7: Scope, Confidentiality and Danger Signs
-- **All are available for online self-study as their predecessors are completed**
+- **All are freely available for self-study regardless of completion of earlier modules**
 - In-person role play and observed competency sit alongside the online curriculum as a separate attendance/assessment activity; exact scheduling remains under WRHA
 
 ### Section 3 — Supporting continuity of care
 - Module 8: Supporting Self-Management at Home
 - Module 9: Referral, Documentation and Follow-Up
-- Complete the modules online after the preceding units
+- Complete these modules online in any preferred order; no earlier unit is required to access them
 
 ### Section 4 — Assessment and recognition
 - Formal **post-test**: Moodle Quiz, secure question bank, pass standard and retake rules approved by training team
