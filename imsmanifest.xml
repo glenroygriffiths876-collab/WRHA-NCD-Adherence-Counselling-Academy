@@ -39,12 +39,18 @@
       <file href="app.js"/>
       <file href="motion.js"/>
       <file href="assets/wrha-logo.svg"/>
-      <file href="assets/cha-scenes/cha-blood-pressure.webp"/>
-      <file href="assets/cha-scenes/cha-community-education.webp"/>
-      <file href="assets/cha-scenes/cha-exercise-group.webp"/>
-      <file href="assets/cha-scenes/cha-home-visit.webp"/>
-      <file href="assets/cha-scenes/cha-medication-counselling.webp"/>
-      <file href="assets/cha-scenes/cha-records-documentation.webp"/>
+      <file href="assets/cha-hd/cha-ncd-overview.webp"/>
+      <file href="assets/cha-hd/cha-adherence-conversation.webp"/>
+      <file href="assets/cha-hd/cha-barriers-home-visit.webp"/>
+      <file href="assets/cha-hd/cha-communication-education.webp"/>
+      <file href="assets/cha-hd/cha-motivational-interviewing.webp"/>
+      <file href="assets/cha-hd/cha-five-as-assessment.webp"/>
+      <file href="assets/cha-hd/cha-danger-signs-monitoring.webp"/>
+      <file href="assets/cha-hd/cha-self-management-activity.webp"/>
+      <file href="assets/cha-hd/cha-documentation-follow-up.webp"/>
+      <file href="assets/cha-hd/cha-unit-1.webp"/>
+      <file href="assets/cha-hd/cha-unit-2.webp"/>
+      <file href="assets/cha-hd/cha-unit-3.webp"/>
       <file href="assets/original-logo-data.js"/>
       <file href="logo-loader.js"/>
     </resource>
