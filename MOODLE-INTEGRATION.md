@@ -61,6 +61,7 @@ Ask the Moodle administrator to:
 ## 7. Useful GitHub paths
 - `index.html` — learner-facing academy
 - `course-data.js` — prototype module content
+- `module-resources.js` — verified public reading links and internal WRHA participant-manual page references
 - `app.js` — navigation, progress and interactive checks
 - `styles.css` — responsive branded interface
 - `scorm.js` — SCORM 1.2 browser adapter
