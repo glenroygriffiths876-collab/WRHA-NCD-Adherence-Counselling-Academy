@@ -1,0 +1,47 @@
+name: Validate and package WRHA Moodle prototype
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-scorm:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out prototype
+        uses: actions/checkout@v4
+
+      - name: Check JavaScript syntax
+        run: |
+          node --check app.js
+          node --check course-data.js
+          node --check scorm.js
+
+      - name: Validate course content and SCORM manifest
+        run: |
+          node -e "global.window = {}; require('./course-data.js'); const c=window.WRHA_COURSE; if(!c||c.modules.length!==9||c.modules.some(m=>m.scenario.choices.filter(x=>x.correct).length!==1)) process.exit(1); console.log('Validated nine modules and scenario answers')"
+          python3 - <<'PY'
+          from pathlib import Path
+          import xml.etree.ElementTree as ET
+          ET.parse('imsmanifest.xml')
+          for name in ('index.html','styles.css','course-data.js','app.js','scorm.js','assets/wrha-logo.svg'):
+              assert Path(name).exists(), name
+          ET.parse('assets/wrha-logo.svg')
+          print('Manifest and logo SVG parse successfully')
+          PY
+
+      - name: Build SCORM 1.2 ZIP
+        run: |
+          zip -q -r WRHA-NCD-Adherence-Academy-SCORM12-PROTOTYPE.zip \
+            imsmanifest.xml index.html styles.css course-data.js app.js scorm.js assets/wrha-logo.svg
+
+      - name: Upload Moodle trial package
+        uses: actions/upload-artifact@v4
+        with:
+          name: WRHA-NCD-SCORM12-Prototype
+          path: WRHA-NCD-Adherence-Academy-SCORM12-PROTOTYPE.zip
+          if-no-files-found: error
