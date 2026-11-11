@@ -69,6 +69,31 @@
     $("#all-modules").innerHTML = modules.filter(m => state.filter === "all" || m.phase === state.filter).map(card).join("");
     $$(".phase-filter").forEach(el => el.classList.toggle("active", el.dataset.filter === state.filter));
   }
+  function renderModuleResources(module) {
+    const ref = (window.WRHA_MODULE_REFERENCES || {})[module.id];
+    if (!ref) return "";
+    const links = Array.isArray(ref.links) ? ref.links : [];
+    const linkRows = links.map(item =>
+      '<li class="resource-item"><a href="' + htmlEscape(item.url) +
+      '" target="_blank" rel="noopener noreferrer" class="resource-link">' +
+      htmlEscape(item.title) + ' <span aria-hidden="true">↗</span></a>' +
+      '<span class="resource-type">' + htmlEscape(item.kind) + '</span></li>'
+    ).join("");
+    return '<section class="module-references" aria-label="Reading and source materials">' +
+      '<div class="references-heading"><span class="references-icon" aria-hidden="true">▤</span><div>' +
+      '<div class="references-overline">SOURCE MATERIALS & FURTHER READING</div>' +
+      '<h2>Explore the reference library</h2><p>Selected material supporting this lesson, including Jamaican Ministry of Health & Wellness guidelines.</p>' +
+      '</div></div>' +
+      '<div class="manual-reference"><strong>From the WRHA training materials</strong><p>' +
+      htmlEscape(ref.manual) + '</p>' +
+      (ref.pack ? '<p>' + htmlEscape(ref.pack) + '</p>' : '') +
+      '<small>The internal manuals and facilitator materials will be linked inside WRHA Moodle after the training team authorises access. They are not publicly hosted here.</small></div>' +
+      '<h3 class="resource-subhead">Official guidelines and supporting references</h3>' +
+      '<ul class="resource-list">' + linkRows + '</ul>' +
+      '<div class="reference-footer"><span>Clinical treatment guidelines are for clinician reference. CHAs must follow their approved scope and WRHA referral procedures.</span>' +
+      '<a href="#module-' + module.id + '" class="permalink" aria-label="Link directly to module ' + module.id + '">Link to this module ↗</a></div>' +
+      '</section>';
+  }
   function openModule(id) {
     const module = modules.find(m => m.id === Number(id)); if (!module) return;
     state.lesson = module.id; state.selected = null;
@@ -82,7 +107,7 @@
     $("#lesson-content").innerHTML =
       '<section class="learning-objectives"><strong>After this module, you should be able to:</strong><ul>' +
       module.objectives.map(o => '<li>' + htmlEscape(o) + '</li>').join("") + '</ul></section>' +
-      module.sections.map((section,i) => '<section class="lesson-section"><h2>'+String(i+1).padStart(2,"0")+'. '+htmlEscape(section.title)+'</h2><p>'+htmlEscape(section.text)+'</p><div class="lesson-points">'+ section.points.map(p=>'<div class="lesson-point">'+htmlEscape(p)+'</div>').join("")+'</div></section>').join("");
+      module.sections.map((section,i) => '<section class="lesson-section"><h2>'+String(i+1).padStart(2,"0")+'. '+htmlEscape(section.title)+'</h2><p>'+htmlEscape(section.text)+'</p><div class="lesson-points">'+ section.points.map(p=>'<div class="lesson-point">'+htmlEscape(p)+'</div>').join("")+'</div></section>').join("") + renderModuleResources(module);
     const scenario = module.scenario;
     $("#scenario-block").innerHTML = '<div class="scenario-kicker">✧ '+htmlEscape(scenario.type).toUpperCase()+'</div><h2>Put it into practice</h2><p class="scenario-question">'+htmlEscape(scenario.prompt)+'</p><div class="choices" id="module-choices">'+
       scenario.choices.map((c,i)=>'<button type="button" class="choice" data-answer="'+i+'">'+htmlEscape(c.text)+'</button>').join("")+'</div><div id="module-feedback" aria-live="polite"></div>';
