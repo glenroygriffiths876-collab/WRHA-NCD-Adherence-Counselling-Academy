@@ -7,7 +7,7 @@ A **development prototype** of an interactive, Moodle-compatible learning experi
 
 ## Scope
 - Nine learning modules aligned to the supplied WRHA participant manual and training proposal.
-- A **self-paced course interface** with an orientation section, three logical learning units, course index, automatic resume and sequential lesson-unlocking checks.
+- A **self-paced course interface** with an orientation section, three logical learning units, course index, automatic resume and open access to every lesson (no prerequisite locks).
 - **Online teaching in all nine modules**; the in-person observed practical assessment is retained as a separate certification condition.
 - The original programme proposed a phased blended schedule. The current prototype uses a fully self-paced online learning journey, while retaining facilitator-led practical competency assessment.
 - Mobile-friendly lessons, interactive scenarios, module knowledge checks, feedback and progress.
