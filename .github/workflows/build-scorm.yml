@@ -39,10 +39,31 @@ jobs:
           print('Manifest and logo SVG parse successfully')
           PY
 
+      - name: Restore original logo as a standalone PNG for Moodle
+        run: |
+          node <<'NODE'
+          const fs = require("fs");
+          const crypto = require("crypto");
+          global.window = {};
+          require("./assets/original-logo-data.js");
+          const parts = window.WRHA_EXACT_LOGO_PARTS;
+          if (!Array.isArray(parts) || parts.length !== 5) throw new Error("Original logo data is missing");
+          const png = Buffer.from(parts.join(""), "base64");
+          const expected = "f11785b18268f07b96bab636e14918a1284eab6904f72466bae1ed2a607f2b97";
+          const sha = crypto.createHash("sha256").update(png).digest("hex");
+          if (sha !== expected) throw new Error("WRHA original logo checksum mismatch");
+          fs.writeFileSync("assets/wrha-logo-original.png", png);
+          const originalPath = "assets/wrha-logo.svg";
+          const newPath = "assets/wrha-logo-original.png";
+          fs.writeFileSync("index.html", fs.readFileSync("index.html","utf8").replaceAll(originalPath,newPath));
+          fs.writeFileSync("imsmanifest.xml", fs.readFileSync("imsmanifest.xml","utf8").replaceAll(originalPath,newPath));
+          console.log("Restored the original pixel-exact logo for SCORM deployment");
+          NODE
+
       - name: Build SCORM 1.2 ZIP
         run: |
           zip -q -r WRHA-NCD-Adherence-Academy-SCORM12-PROTOTYPE.zip \
-            imsmanifest.xml index.html styles.css premium.css course-data.js module-resources.js guideline-library.js app.js motion.js scorm.js logo-loader.js assets/original-logo-data.js assets/wrha-logo.svg
+            imsmanifest.xml index.html styles.css premium.css course-data.js module-resources.js guideline-library.js app.js motion.js scorm.js logo-loader.js assets/original-logo-data.js assets/wrha-logo-original.png
 
       - name: Upload Moodle trial package
         uses: actions/upload-artifact@v4
