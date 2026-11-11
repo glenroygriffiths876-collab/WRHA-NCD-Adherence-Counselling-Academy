@@ -40,7 +40,11 @@ jobs:
           assert len(images)==12, f'Expected 12 scenes, got {len(images)}'
           for file in images:
               with Image.open(file) as image:
-                  assert image.size==(1448,1086),(file,image.size)
+                  is_banner=file.name in {'cha-group-education.webp','cha-family-counselling.webp','cha-physical-activity.webp'}
+                  if is_banner:
+                      assert image.width>=760 and image.height>=280,(file,image.size)
+                  else:
+                      assert image.size==(1448,1086),(file,image.size)
                   assert image.format=='WEBP',file
               print(file)
           PY
