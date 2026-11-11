@@ -61,7 +61,9 @@ Ask the Moodle administrator to:
 ## 7. Useful GitHub paths
 - `index.html` — learner-facing academy
 - `course-data.js` — prototype module content
-- `module-resources.js` — verified public reading links and internal WRHA participant-manual page references
+- `module-resources.js` — module-level reading links and internal WRHA participant-manual references
+- `guideline-library.js` — MOHW PDF catalogue with verified editions, audience notes and per-module links
+- `CLINICAL-GUIDELINE-ALIGNMENT-2026.md` — 2026 public guideline review and mandatory clinical sign-offs
 - `app.js` — navigation, progress and interactive checks
 - `styles.css` — responsive branded interface
 - `scorm.js` — SCORM 1.2 browser adapter
