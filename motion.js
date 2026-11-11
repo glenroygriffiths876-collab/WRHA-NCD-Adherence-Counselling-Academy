@@ -52,9 +52,10 @@
   const percent=document.getElementById("hero-percent");
   const ring=document.querySelector(".ring-outer");
   if(percent&&ring&&!reduced){
-    let shown=0, lastTarget=null, internalUpdate=false, token=0;
+    let shown=0, lastTarget=null, lastInternalText=null, token=0;
     const tweenProgress=()=>{
-      if(internalUpdate)return;
+      // MutationObserver callbacks occur asynchronously: recognise our own count-up writes.
+      if (percent.textContent === lastInternalText) return;
       const target=Math.max(0,Math.min(100,Number.parseInt(percent.textContent,10)||0));
       if(target===lastTarget)return;
       lastTarget=target;
@@ -64,10 +65,9 @@
         const p=Math.min(1,(now-begun)/duration);
         const eased=1-Math.pow(1-p,3);
         shown=start+(target-start)*eased;
-        internalUpdate=true;
-        percent.textContent=Math.round(shown)+"%";
+        lastInternalText=Math.round(shown)+"%";
+        percent.textContent=lastInternalText;
         ring.style.setProperty("--progress-angle",(shown*3.6)+"deg");
-        internalUpdate=false;
         if(p<1)requestAnimationFrame(tick);
       }
       requestAnimationFrame(tick);
