@@ -162,6 +162,11 @@
     zoom=Math.max(.65,Math.min(2.2,zoom*multiplier));
     drawPage();
   }
+  // Broken cover requests never leave a browser missing-image icon behind.
+  document.addEventListener("error",e=>{
+    const image=e.target;
+    if(image && image.matches && image.matches("img[data-manual-cover]"))image.hidden=true;
+  },true);
   const safeBind=(id,callback)=>{
     const node=byId(id);if(node)node.addEventListener("click",callback);
   };
