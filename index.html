@@ -101,9 +101,40 @@
     <button type="button" class="library-filter" data-library-filter="Clinical and lifestyle resources">Lifestyle & practice</button>
     <button type="button" class="library-filter" data-library-filter="Historical / verify currency">Older · verify</button>
   </div>
-  <div class="library-summary"><span id="library-total">0 documents</span><span>View / download official PDFs from MOHW</span></div>
-  <div id="library-grid" class="library-grid"></div>
-  <div class="library-copyright"><strong>For WRHA learning use:</strong> These are direct publisher links, not copied files. Most open in your browser's PDF viewer; select the viewer's download control to save a copy. The official WRHA participant manual and facilitator-only materials require authorised Moodle access and are not published here.</div>
+  <div class="library-summary"><span id="library-total">12 Ministry documents</span><span>Select a document to read it here</span></div>
+  <div class="manual-library-layout">
+    <div class="manual-library-list">
+      <div class="manual-list-heading"><span>DOCUMENT COLLECTION</span><small>Choose a guideline or reference</small></div>
+      <div id="library-grid" class="manual-item-list" role="list" aria-label="Ministry of Health and Wellness manuals">
+        <!-- Static source links prevent an empty library if JavaScript is blocked. -->
+        <a class="manual-static-link" href="https://ncdip.moh.gov.jm/download/4262/" target="_blank" rel="noopener noreferrer">Hypertension Clinical Management — 2024 ↗</a>
+        <a class="manual-static-link" href="https://ncdip.moh.gov.jm/download/4259/" target="_blank" rel="noopener noreferrer">Type 2 Diabetes Clinical Management — 2024 ↗</a>
+        <a class="manual-static-link" href="https://ncdip.moh.gov.jm/download/4283/" target="_blank" rel="noopener noreferrer">National NCD Screening Guidelines — Second Edition ↗</a>
+        <a class="manual-static-link" href="https://ncdip.moh.gov.jm/download/4291/" target="_blank" rel="noopener noreferrer">Asthma Clinical Management — 2025 ↗</a>
+      </div>
+    </div>
+    <section id="manual-reader" class="manual-reader" aria-labelledby="manual-reader-heading">
+      <div class="manual-reader-heading">
+        <div><div class="overline">ON-PAGE DOCUMENT READER</div>
+          <h2 id="manual-reader-heading">Read the manual here</h2>
+          <p id="manual-reader-edition">Select a Ministry guideline from the document collection.</p></div>
+        <span class="manual-reader-format">PDF</span>
+      </div>
+      <div class="manual-reader-actions">
+        <a id="manual-reader-download" class="manual-download-button" href="https://ncdip.moh.gov.jm/download/4262/" target="_blank" rel="noopener noreferrer" download>↧ Download / Save PDF</a>
+        <a id="manual-reader-source" class="manual-source-button" href="https://ncdip.moh.gov.jm/download/4262/" target="_blank" rel="noopener noreferrer">Open at MOHW ↗</a>
+      </div>
+      <div class="manual-viewer-shell" id="manual-viewer-shell">
+        <iframe id="manual-reader-frame" title="Ministry of Health and Wellness clinical guideline PDF preview" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" src="about:blank"></iframe>
+        <div class="manual-reader-overlay" id="manual-reader-overlay"><span class="manual-overlay-icon" aria-hidden="true">▤</span><strong>Preview this manual</strong><p>The PDF will open inside the academy where supported.</p><button type="button" class="manual-preview-button" id="manual-preview-start">Load PDF preview →</button></div>
+      </div>
+      <div class="manual-reader-foot">
+        <p id="manual-reader-note">The official document is provided by Jamaica’s Ministry of Health & Wellness.</p>
+        <div class="manual-viewer-tools"><button type="button" id="manual-reader-alternate" class="manual-alt-button">Try another viewer</button><span>Blank preview? Use <strong>Open at MOHW</strong> above.</span></div>
+      </div>
+    </section>
+  </div>
+  <div class="library-copyright"><strong>Official sources:</strong> These manuals remain hosted by Jamaica's Ministry of Health & Wellness. In-page viewing depends on whether the publisher and Moodle permit external embedding. The <strong>Download / Save PDF</strong> button opens the official file for saving. The WRHA Participant Manual and facilitator-only materials require institutional approval before being included in Moodle.</div>
 </section>
 
 <section id="screen-lesson" class="screen" hidden aria-labelledby="lesson-title">
@@ -135,6 +166,6 @@
 <script src="guideline-library.js"></script>
 <script src="video-library.js"></script>
 <script src="scorm.js"></script>
-<script src="app.js"></script>
+<script src="app.js?v=0.4"></script>
 <script src="motion.js"></script>
 </body></html>
