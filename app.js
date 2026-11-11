@@ -94,8 +94,19 @@
   }
   function chaImage(src,alt,cls,lazy){
     if(!/^assets\/cha-scenes\/cha-[a-z-]+\.webp$/.test(src||""))return "";
-    return '<img class="'+cls+'" src="'+htmlEscape(src)+'" alt="'+htmlEscape(alt||"")+'" loading="'+(lazy?"lazy":"eager")+'" decoding="async">';
+    const hdSrc=src.replace("/cha-scenes/","/cha-hd/");
+    // Original crop stays as a safe fallback until the HD file is available.
+    return '<img class="'+cls+'" src="'+htmlEscape(hdSrc)+'" data-fallback-src="'+htmlEscape(src)+'" alt="'+htmlEscape(alt||"")+'" loading="'+(lazy?"lazy":"eager")+'" decoding="async">';
   }
+  document.addEventListener("error",event=>{
+    const img=event.target;
+    if(!(img instanceof HTMLImageElement))return;
+    const fallback=img.getAttribute("data-fallback-src");
+    if(fallback && /^assets\/cha-scenes\/cha-[a-z-]+\.webp$/.test(fallback)){
+      img.removeAttribute("data-fallback-src");
+      img.src=fallback;
+    }
+  },true);
   function displayLessonIllustration(module){
     const v=chaVisualFor(module.id),el=$("#lesson-figure");
     if(!v){el.hidden=true;el.innerHTML="";return}
