@@ -13,15 +13,15 @@ The WRHA HIV Adherence Counsellors course already runs on Moodle. Reuse that ins
 |---|---|---|
 | Orientation | Course instructions and consent/safety guidance | Viewed |
 | Pre-test | Moodle Quiz (secure item bank) | Attempted; not pass-gated |
-| SCORM Modules 1–3 | Self-paced NCD foundations | Complete each module to unlock the next |
-| SCORM Modules 4–7 | Self-paced communication, MI, 5 A's, scope and referrals | Complete each module to unlock the next |
+| SCORM Modules 1–3 | Self-paced NCD foundations | Modules open at any time; Moodle records each completed activity |
+| SCORM Modules 4–7 | Self-paced communication, MI, 5 A's, scope and referrals | Modules open at any time; Moodle records each completed activity |
 | SCORM Modules 8–9 | Self-paced self-management, documentation and continuity of care | Complete each module to unlock the next |
 | Facilitated practical assessment | Observed counselling role play, separate from online lessons | Authorised facilitator enters practical result in Moodle |
 | Post-test | Moodle Quiz (secure item bank) | Meets approved threshold |
 | Practical assessment | Moodle Assignment, grade item or approved equivalent | Meets approved 40-point threshold |
 | Certificate | Custom Certificate activity or other institution-approved certificate method | Restricted by all required completion and grade rules |
 
-**Current code limitation:** The initial SCORM manifest packages all nine prototype lessons as one SCO. A production implementation **should** split the lessons into separate SCORM packages so Moodle can display and gate each activity independently, instead of treating all nine as one learning activity.
+**Current code limitation:** The initial SCORM manifest packages all nine prototype lessons as one SCO. A production implementation **should** split the lessons into separate SCORM packages so Moodle can display and track each activity independently, with no prerequisite locks, instead of treating all nine as one learning activity.
 
 ## 3. Certificate unlock
 Do not let browser-side localStorage values determine official certification. Require **server-side Moodle** conditions:
@@ -58,7 +58,7 @@ Ask the Moodle administrator to:
 - Certificate signatory/authorisation and whether Custom Certificate is available.
 - Practical assessment recording workflow, competency threshold and exceptions/reassessment.
 - Formal post-test length, pass mark, retake limits and question-bank security.
-- Whether to issue nine independently tracked SCORM activities (recommended) and which access restrictions apply.
+- Whether to issue nine independently tracked SCORM activities (recommended) and which completion rules apply; do not restrict module access by preceding module completion.
 - Ownership and maintenance arrangements for the code and instructional materials.
 
 ## 7. Useful GitHub paths
