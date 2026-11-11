@@ -49,3 +49,6 @@ Developed as a technical prototype in collaboration with the Western Regional He
 The official logo supplied by the project owner has been restored losslessly. `assets/original-logo-data.js` holds its exact PNG pixels in five encoded segments, and `logo-loader.js` displays them in the header and certificate. The earlier 16-colour `assets/wrha-logo.svg` remains as a fallback; the official colours are not filtered, recoloured or stylised. The GitHub Pages build and Moodle SCORM ZIP both include the complete image data.
 
 See [Moodle native course blueprint](MOODLE-COURSE-BLUEPRINT.md) for implementing the course in WRHA Moodle. The current SCORM prototype presents one learning experience and is not itself a native Moodle course format.
+
+## Video-based learning
+Seven externally hosted YouTube counselling and adherence demonstration videos are curated in `video-library.js`, including NCD adherence, motivational interviewing, OARS and teach-back. Each module displays up to two relevant videos with a reflective observation prompt. These are optional, load only on click, and provide direct YouTube fallback links; their suitability for final WRHA training and embed availability must be checked by the content review team. See `VIDEO-REVIEW.md`.
