@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b3471">
+  <meta name="description" content="WRHA NCD Adherence Counselling Academy — an interactive training prototype for Community Health Aides in Western Jamaica.">
+  <title>WRHA NCD Adherence Academy | Learning Prototype</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to main content</a>
+<div class="utility-bar"><div class="container utility-inner">
+  <span>WESTERN REGIONAL HEALTH AUTHORITY</span><span>Listen · Support · Motivate · Connect</span>
+</div></div>
+<header class="site-header">
+  <div class="container nav-wrap">
+    <button type="button" class="brand" data-nav="home" aria-label="Go to academy dashboard">
+      <span class="logo-box"><img src="assets/wrha-logo.svg" alt="WRHA logo"></span>
+      <span class="brand-copy"><strong>NCD Adherence Academy</strong><small>Professional Learning for Community Health Aides</small></span>
+    </button>
+    <nav class="main-nav" aria-label="Primary navigation">
+      <button type="button" data-nav="home" class="nav-tab current" aria-current="page">Dashboard</button>
+      <button type="button" data-nav="modules" class="nav-tab">Modules</button>
+      <button type="button" data-nav="assessment" class="nav-tab">Assessments</button>
+      <button type="button" data-nav="certificate" class="nav-tab">Certificate</button>
+    </nav>
+    <span class="user-badge" title="Prototype learner">CHA<span class="user-dot"></span></span>
+  </div>
+</header>
+<main id="main" class="container">
+  <div class="prototype-alert" role="note"><span class="notice-icon">ⓘ</span><span><strong>Development prototype</strong> · Learning content and referral guidance await WRHA review. This is not the official Moodle course; progress here is local or SCORM demonstration data, and no official certificate can be issued from this page.</span></div>
+
+  <section id="screen-home" class="screen" aria-labelledby="home-heading">
+    <div class="hero">
+      <div class="hero-copy"><div class="hero-overline"><span class="tiny-star">✦</span> WRHA PROFESSIONAL DEVELOPMENT</div>
+        <h1 id="home-heading">Better conversations.<br><em>Better continuity of care.</em></h1>
+        <p>Develop the skills to listen without judgement, identify barriers, support realistic change and connect people living with NCDs to ongoing care.</p>
+        <div class="hero-buttons"><button class="button button-white" data-nav="modules">Explore learning modules <span aria-hidden="true">↗</span></button><button class="button button-glass" data-nav="assessment">View assessments</button></div>
+        <div class="hero-chips"><span>◉ 9 Learning modules</span><span>⌁ Practical workshop</span><span>✧ Interactive activities</span></div>
+      </div>
+      <div class="hero-aside"><div class="ring-outer"><div class="ring-inner"><strong id="hero-percent">0%</strong><small>completed</small></div></div><div class="hero-aside-title">Your learning journey</div><p><strong id="hero-count">0 of 9</strong> modules reviewed</p><div class="progress-track"><span id="hero-progress"></span></div><small>Learning progress is not clinical competency certification.</small></div>
+    </div>
+    <div class="section-title"><div><div class="overline">YOUR COURSE AT A GLANCE</div><h2>A learning journey built for the field</h2><p>Online preparation, facilitated practice, and continued support at home and in clinic.</p></div><div class="section-flair">Designed for 62 CHAs · Western Jamaica</div></div>
+    <div class="journey-grid">
+      <div class="journey-card"><div class="journey-number">01</div><div class="journey-icon">◉</div><h3>Know the foundations</h3><p>Modules 1–3 · Online</p><small>NCDs, adherence and barriers to care</small><span class="journey-date">Begins 10 Dec 2026</span></div>
+      <div class="journey-card"><div class="journey-number">02</div><div class="journey-icon">◇</div><h3>Practise together</h3><p>Modules 4–7 · In person</p><small>Communication, MI, 5 A's and safe referrals</small><span class="journey-date">January 2027 · Date TBC</span></div>
+      <div class="journey-card"><div class="journey-number">03</div><div class="journey-icon">↗</div><h3>Connect the care</h3><p>Modules 8–9 · Online</p><small>Self-management, referral and follow-up</small><span class="journey-date">After the workshop</span></div>
+    </div>
+    <div class="section-title compact"><div><div class="overline">CURRICULUM</div><h2>Explore your nine modules</h2><p>Clear lessons, practical examples, and interactive checks.</p></div><button class="button button-outline" data-nav="modules">See all modules →</button></div>
+    <div id="home-modules" class="module-grid"></div>
+    <div class="insight-panel"><span class="insight-icon">✳</span><div><strong>The heart of this programme</strong><p>The aim is not to tell clients to “just take the medicine”; it is to understand what is getting in the way, agree on a workable plan and stay connected.</p></div></div>
+  </section>
+
+  <section id="screen-modules" class="screen" hidden aria-labelledby="modules-heading">
+    <div class="page-intro"><div class="overline">THE LEARNING LIBRARY</div><h1 id="modules-heading">Nine modules. One connected approach.</h1><p>Select a module to explore key concepts and practise with realistic situations. Modules 4–7 also require facilitator-led practical sessions in the official training.</p></div>
+    <div class="module-tabs"><button class="phase-filter active" data-filter="all">All nine</button><button class="phase-filter" data-filter="Online foundation">Online 1–3</button><button class="phase-filter" data-filter="In-person workshop">Workshop 4–7</button><button class="phase-filter" data-filter="Online continuity">Online 8–9</button></div>
+    <div id="all-modules" class="module-grid"></div>
+  </section>
+
+  <section id="screen-lesson" class="screen" hidden aria-labelledby="lesson-title">
+    <div class="lesson-heading"><button class="text-button" data-nav="modules">← All modules</button><span id="lesson-phase" class="eyebrow-pill"></span></div>
+    <div class="lesson-layout"><aside class="lesson-sidebar"><div class="side-header">YOUR LEARNING PATH</div><nav id="lesson-list" aria-label="Module selection"></nav><div class="sidebar-help">✓ Practice questions provide immediate feedback.<br>◷ Practical competency is assessed by facilitators.</div></aside>
+      <article class="lesson-article"><div class="lesson-cover"><span class="lesson-overline" id="lesson-number"></span><h1 id="lesson-title"></h1><p id="lesson-description"></p><div class="lesson-meta"><span id="lesson-duration"></span><span>·</span><span id="lesson-status"></span></div></div><div class="lesson-content" id="lesson-content"></div><div id="scenario-block" class="scenario-card"></div><div class="lesson-actions"><button id="previous-module" class="button button-outline">← Previous</button><button id="next-module" class="button button-primary">Next module →</button></div></article>
+    </div>
+  </section>
+
+  <section id="screen-assessment" class="screen" hidden aria-labelledby="assessment-heading">
+    <div class="page-intro"><div class="overline">LEARNING & COMPETENCY</div><h1 id="assessment-heading">Practise, reflect, and demonstrate competence.</h1><p>Interactive checks strengthen recall, while the official Moodle course will hold formal knowledge examinations and staff-recorded practical assessments.</p></div>
+    <div class="assessment-columns"><div class="assessment-main">
+      <div class="white-card assess-card"><div class="assessment-icon">◈</div><div><h2>Knowledge review</h2><p>A nine-question practice review based on the module scenarios. This prototype score does not constitute a formal examination result.</p></div><div class="assess-info"><span>9 questions</span><span>Immediate feedback</span><span>Repeatable practice</span></div><button class="button button-primary" id="start-review">Start knowledge review →</button><div id="review-result" class="review-result" aria-live="polite"></div></div>
+      <div id="review-panel" class="white-card review-panel" hidden aria-live="polite"></div>
+    </div><aside class="assessment-side"><div class="white-card right-card"><div class="side-kicker">CERTIFICATION PATH</div><h3>Three distinct requirements</h3><div class="requirement"><span class="req-num">01</span><div><strong>Learning completion</strong><small>All nine module activities</small></div></div><div class="requirement"><span class="req-num">02</span><div><strong>Formal knowledge assessment</strong><small>Administered in Moodle, pass mark TBC</small></div></div><div class="requirement"><span class="req-num">03</span><div><strong>Observed practical competency</strong><small>Facilitator-entered score, threshold TBC</small></div></div><button class="button button-outline full" data-nav="certificate">See certificate →</button></div><div class="support-note"><strong>Safety first</strong><p>Do not enter real client names, medical details or identifiable clinical records into the practice tools.</p></div></aside></div>
+  </section>
+
+  <section id="screen-certificate" class="screen" hidden aria-labelledby="certificate-heading">
+    <div class="page-intro"><div class="overline">RECOGNITION</div><h1 id="certificate-heading">A milestone worth celebrating.</h1><p>A premium WRHA certificate design, with official issuance controlled by Moodle completion rules and the training team.</p></div>
+    <div class="certificate-layout"><div class="white-card certificate-panel"><div class="certificate-label">CERTIFICATE DESIGN PREVIEW · NOT VALID FOR OFFICIAL USE</div><div class="certificate-border"><div class="cert-ornament">✧ ── ✧</div><img src="assets/wrha-logo.svg" alt="WRHA logo" class="cert-logo"><span class="cert-authority">WESTERN REGIONAL HEALTH AUTHORITY</span><h2>Certificate of<br>Successful Completion</h2><span class="cert-intro">This certificate is presented to</span><div class="cert-recipient" id="certificate-recipient">Participant Name</div><span class="cert-intro">in recognition of completing the required training in</span><h3>Adherence Counselling for<br>Non-Communicable Diseases</h3><span class="cert-subline">Equipping Community Health Aides to Support Better Health Outcomes</span><div class="certificate-footer"><div><span>________________________</span><small>Date of issue</small></div><span class="cert-seal">✦</span><div><span>________________________</span><small>Authorised signatory</small></div></div></div><div class="sample-watermark" aria-hidden="true">SAMPLE · NOT ISSUED</div></div>
+      <aside class="white-card certificate-sidebar"><div class="lock-symbol">♙</div><h3>Official certificate locked</h3><p>The Moodle-issued certificate will unlock only after the required learning activities, official knowledge examination and facilitator-verified practical competency are completed.</p><div id="cert-requirements"></div><label for="name-preview">Preview your name on the sample</label><input type="text" id="name-preview" maxlength="70" placeholder="Participant's full name" autocomplete="off"><small class="input-footnote">The sample is watermarked and cannot serve as proof of training.</small><button class="button button-primary full" disabled title="Enabled only after Moodle integration and WRHA approval">Official certificate unavailable</button></aside></div>
+  </section>
+</main>
+<footer class="site-footer"><div class="container footer-inner"><div><strong>WRHA NCD Adherence Academy</strong><small>Listen. Support. Motivate. Connect.</small></div><span>Prototype v0.1 · Based on the WRHA training proposal and participant manual · Clinical approval pending</span></div></footer>
+<script src="course-data.js"></script>
+<script src="scorm.js"></script>
+<script src="app.js"></script>
+</body></html>
