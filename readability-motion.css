@@ -1,0 +1,126 @@
+/* WRHA Academy v0.7: accessible large type + rich, restrained motion.
+   The original official WRHA logo pixels and course logic remain untouched. */
+:root{--readable-body:17px;--ease:cubic-bezier(.2,.75,.23,1)}
+html{scroll-padding-top:148px}
+body{font-size:var(--readable-body);line-height:1.72}
+.container{width:min(1230px,calc(100% - 36px))}
+.site-header{isolation:isolate}
+.site-header:after{content:"";position:absolute;bottom:-1px;left:0;width:100%;height:2px;pointer-events:none;background:linear-gradient(90deg,transparent,#4ba7d4,#1559a0,#4ba7d4,transparent);background-size:200% 100%;opacity:.48;animation:wrha-line-shine 17s linear infinite}
+.nav-wrap{min-height:115px;gap:12px}
+.brand{gap:15px;flex-shrink:0}
+.logo-box{width:183px;height:104px;position:relative;isolation:isolate;transform-origin:center;animation:wrha-logo-float 7s ease-in-out infinite;transition:transform .48s var(--ease)}
+.logo-box:before{content:"";position:absolute;inset:15px 8px;z-index:-1;background:radial-gradient(ellipse,rgba(52,152,200,.12),transparent 72%);animation:wrha-logo-halo 9s ease-in-out infinite}
+.logo-box img{display:block;width:100%;height:100%;object-fit:contain!important;opacity:1!important;filter:none!important;mix-blend-mode:normal!important;animation:wrha-logo-enter .85s var(--ease) both}
+.brand:hover .logo-box,.brand:focus-visible .logo-box{transform:translateY(-3px) scale(1.035) rotate(-1deg)}
+.brand-copy strong{font-size:18px;line-height:1.3}
+.brand-copy small{font-size:12.5px;line-height:1.45;max-width:255px;display:block}
+.main-nav{flex:1;justify-content:flex-end;gap:2px}
+.nav-tab{font-size:14.5px;line-height:1.35;padding:12px 11px;position:relative;transition:background-color .25s,transform .25s,color .25s}
+.nav-tab:after{content:"";position:absolute;bottom:4px;left:18%;right:18%;height:2px;border-radius:2px;background:currentColor;opacity:.65;transform:scaleX(0);transition:transform .32s var(--ease)}
+.nav-tab:is(.current,:hover,:focus-visible):after{transform:scaleX(1)}
+.nav-tab:hover:not(.current){background:#f2f8fc;color:#14558b;transform:translateY(-2px)}
+.user-badge{font-size:12px;width:42px;height:42px}
+.prototype-alert{font-size:13.5px;line-height:1.65}
+.hero{background-size:145% 145%;animation:wrha-hero-gradient 16s ease-in-out infinite alternate}
+.hero h1{font-size:clamp(36px,4.3vw,53px);line-height:1.15}
+.hero p{font-size:17px;line-height:1.7}
+.hero-overline,.hero-chips{font-size:13px}
+.hero-chips span{display:inline-block;transition:transform .3s,color .3s}
+.hero-chips span:hover{transform:translateY(-3px);color:#12608c}
+.tiny-star{display:inline-block;animation:wrha-sparkle 4s ease-in-out infinite}
+.hero-aside-title,.hero-aside p{font-size:15px}
+.hero-aside>small,.ring-inner small{font-size:12.5px}
+.button{min-height:48px;font-size:15px;position:relative;line-height:1.4}
+.button:hover:not(:disabled){box-shadow:0 10px 24px rgba(21,74,113,.13)}
+.button .ux-ripple,.nav-tab .ux-ripple,.activity-open .ux-ripple{position:absolute;width:14px;height:14px;border-radius:50%;background:rgba(44,169,216,.23);pointer-events:none;transform:translate(-50%,-50%) scale(0);animation:wrha-ripple .6s ease-out forwards}
+.section-title h2{font-size:clamp(25px,3vw,34px)}
+.section-title p,.page-intro p{font-size:16px;line-height:1.7}
+.page-intro h1{font-size:clamp(32px,3.6vw,42px)}
+.overline,.unit-index,.unit-label,.activity-kicker{font-size:12px;letter-spacing:.09em}
+.step-card h3,.unit-preview-card h3{font-size:18px}
+.step-card p,.unit-preview-card p,.home-learning-copy p,.orientation-card p{font-size:15px;line-height:1.65}
+.step-number,.unit-preview-count,.unit-preview-footer>span{font-size:12px}
+.step-card,.unit-preview-card,.training-video-card,.manual-entry{transition:transform .4s var(--ease),box-shadow .4s,border-color .3s}
+.step-card:hover,.unit-preview-card:hover,.training-video-card:hover{transform:translateY(-5px);box-shadow:0 15px 30px rgba(30,66,106,.09);border-color:#b7d6e6}
+.step-card:hover .step-icon{animation:wrha-icon-bloom .5s var(--ease)}
+.home-learning-copy h2{font-size:clamp(23px,2.5vw,28px)}
+.home-progress-copy,.course-progress-text>span,.index-help p{font-size:13px}
+.unit-preview-img{height:150px;transition:transform .8s var(--ease),filter .8s}
+.unit-preview-card:hover .unit-preview-img{transform:scale(1.06);filter:saturate(1.05)}
+.unit-preview-action,.index-library{font-size:14px}
+.index-heading{font-size:12px}
+.index-link{font-size:14px;line-height:1.5;padding:12px 9px;transition:background .25s,transform .25s}
+.index-link:hover{transform:translateX(3px)}
+.index-help strong{font-size:13px}
+.course-progress-text strong{font-size:17px}
+.unit-name small{font-size:12px}
+.unit-name strong{font-size:19px}
+.unit-name>span,.unit-heading p{font-size:14px}
+.unit-completion,.module-status{font-size:13px}
+.course-activity{transition:transform .3s,background-color .3s}
+.course-activity:hover{transform:translateX(3px);background:#f7fbfe}
+.activity-description h3{font-size:16px}
+.activity-description p{font-size:14.5px;line-height:1.6}
+.activity-duration,.activity-open{font-size:13px}
+.activity-open{min-height:40px}
+.activity-thumbnail{transition:transform .6s var(--ease),filter .6s}
+.course-activity:hover .activity-thumbnail{transform:scale(1.055);filter:saturate(1.09)}
+.activity-thumb{overflow:hidden;border-radius:11px}
+.activity-thumb-status{right:0;bottom:0;z-index:2}
+.lesson-cover h1{font-size:clamp(30px,3.2vw,39px);line-height:1.24}
+.lesson-cover p,.lesson-description{font-size:16px;line-height:1.7}
+.lesson-content{font-size:17px;line-height:1.8}
+.lesson-section h2{font-size:22px;line-height:1.35}
+.lesson-section p{font-size:17px;line-height:1.78}
+.lesson-point,.learning-objectives,.learning-objectives li{font-size:16px;line-height:1.68}
+.lesson-point{transition:transform .3s,background .3s,border-color .3s}
+.lesson-point:hover{background:#f1f8fc;border-color:#bbdce8;transform:translateX(4px)}
+.lesson-side-link{font-size:14px;line-height:1.42}
+.lesson-illustration{transition:transform .55s var(--ease),box-shadow .55s}
+.lesson-illustration:hover{transform:translateY(-4px);box-shadow:0 18px 35px rgba(24,58,95,.12)}
+.lesson-photo{height:220px;transition:transform .75s var(--ease),filter .75s}
+.lesson-illustration:hover .lesson-photo{transform:scale(1.05);filter:saturate(1.08)}
+.lesson-illustration figcaption{font-size:13px;line-height:1.5}
+.scenario-card h2,.video-section-heading h2{font-size:23px}
+.scenario-question,.choice,.review-choice{font-size:16px;line-height:1.6}
+.choice,.review-choice{transition:transform .25s,box-shadow .25s,border-color .25s,background .25s}
+.choice:hover,.review-choice:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(19,70,110,.07)}
+.scenario-feedback,.review-feedback{animation:wrha-feedback .5s var(--ease) both;font-size:16px}
+.training-video-card h3{font-size:18px}
+.video-section-heading p,.training-video-why,.training-video-reflect p,.video-section-notice{font-size:14.5px;line-height:1.7}
+.training-video-provider,.training-video-note,.training-video-links a{font-size:13px}
+.training-video-play{animation:wrha-play-pulse 4s ease-in-out infinite}
+.resource-caveat,.library-summary,.library-copyright{font-size:14.5px;line-height:1.7}
+.library-filter{font-size:14px;min-height:43px}
+.manual-list-heading>span,.manual-list-heading small{font-size:13px}
+.manual-entry .manual-select-button strong{font-size:15px;line-height:1.5}
+.manual-entry-type,.manual-entry-pages,.manual-entry-date,.manual-entry-read,.manual-entry-save{font-size:12.5px}
+.manual-entry:hover{transform:translateY(-2px);box-shadow:0 12px 23px rgba(25,66,107,.08)}
+.manual-book-thumb img{transition:transform .6s var(--ease)}
+.manual-entry:hover .manual-book-thumb img{transform:scale(1.04)}
+.manual-reader-heading h2{font-size:22px}
+.manual-reader-heading p,.manual-reader-foot p,#manual-reader-status{font-size:14px;line-height:1.7}
+.manual-download-button,.manual-source-button,.manual-document-toolbar button,.manual-preview-button{font-size:14px}
+.completion-activity strong,.cert-requirement{font-size:15px}
+.completion-activity small,.activity-status.muted{font-size:13px!important;line-height:1.55}
+.certificate-sidebar p,.cert-intro,.cert-subline{font-size:15px}
+.cert-seal{animation:wrha-seal-float 9s ease-in-out infinite}
+.site-footer,.site-footer span,.site-footer small{font-size:13.5px}
+input,textarea,select{font-size:16px}
+.reading-progress{pointer-events:none;position:absolute;left:0;right:0;bottom:0;height:3px;background:linear-gradient(90deg,#288abd,#77c7e0,#16549b);transform-origin:0 50%;transform:scaleX(0);z-index:35}
+@keyframes wrha-line-shine{from{background-position:0 0}to{background-position:200% 0}}
+@keyframes wrha-logo-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+@keyframes wrha-logo-halo{0%,100%{opacity:.35;transform:scale(.95)}50%{opacity:.75;transform:scale(1.08)}}
+@keyframes wrha-logo-enter{from{opacity:0;transform:translateY(7px) scale(.95)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes wrha-hero-gradient{from{background-position:0% 5%}to{background-position:100% 95%}}
+@keyframes wrha-sparkle{0%,100%{transform:rotate(0) scale(1);opacity:.85}50%{transform:rotate(11deg) scale(1.14);opacity:1}}
+@keyframes wrha-icon-bloom{0%{transform:scale(1)}55%{transform:scale(1.17) rotate(5deg)}100%{transform:scale(1)}}
+@keyframes wrha-feedback{from{opacity:0;transform:translateY(8px) scale(.99)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes wrha-play-pulse{0%,100%{box-shadow:0 0 0 0 rgba(255,255,255,0)}55%{box-shadow:0 0 0 9px rgba(255,255,255,.12)}}
+@keyframes wrha-seal-float{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg) scale(1.04)}}
+@keyframes wrha-ripple{from{opacity:1;transform:translate(-50%,-50%) scale(0)}to{opacity:0;transform:translate(-50%,-50%) scale(18)}}
+@media(max-width:1190px){.logo-box{width:158px;height:90px}.brand-copy strong{font-size:16px}.nav-tab{font-size:14px;padding:11px 9px}.nav-wrap{gap:9px}}
+@media(max-width:1050px){html{scroll-padding-top:180px}.nav-wrap{min-height:100px;flex-wrap:wrap;row-gap:2px;padding:7px 0}.brand{flex:1 1 auto}.main-nav{order:3;flex:0 0 100%;width:100%;justify-content:space-between;overflow-x:auto;padding:0 0 8px}.user-badge{order:2}.logo-box{width:151px;height:87px}.nav-tab{flex:0 0 auto;font-size:14px}}
+@media(max-width:720px){:root{--readable-body:16px}.container{width:min(100% - 24px,1230px)}.logo-box{width:137px;height:80px}.brand-copy strong{font-size:15px}.brand-copy small{font-size:11.5px}.nav-tab{font-size:13.5px}.hero h1{font-size:clamp(32px,7vw,40px)}.hero p,.lesson-section p,.lesson-content{font-size:16px}.activity-description p,.step-card p,.unit-preview-card p{font-size:15px}.unit-name strong{font-size:17px}.manual-reader-heading h2{font-size:20px}.lesson-photo{height:210px}.button{min-height:46px}}
+@media(max-width:400px){.logo-box{width:118px;height:70px}.brand{gap:9px}.brand-copy strong{font-size:14px}.brand-copy small{font-size:11px}.user-badge{width:37px;height:37px}.nav-tab{font-size:13px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}.reveal-on-scroll:not(.is-visible){opacity:1!important;transform:none!important}.logo-box,.brand:hover .logo-box{transform:none!important}.reading-progress{display:none}}
