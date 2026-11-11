@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest identifier="WRHA-NCD-ADHERENCE-ACADEMY-DEV-001"
+  version="0.1"
+  xmlns="http://www.imsproject.org/xsd/imscp_rootv1p1p2"
+  xmlns:adlcp="http://www.adlnet.org/xsd/adlcp_rootv1p2"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.imsproject.org/xsd/imscp_rootv1p1p2 imscp_rootv1p1p2.xsd
+  http://www.adlnet.org/xsd/adlcp_rootv1p2 adlcp_rootv1p2.xsd">
+  <metadata><schema>ADL SCORM</schema><schemaversion>1.2</schemaversion></metadata>
+  <organizations default="WRHA-ORG">
+    <organization identifier="WRHA-ORG">
+      <title>WRHA NCD Adherence Counselling Academy — Development Prototype</title>
+      <item identifier="WRHA-ITEM-1" identifierref="WRHA-RES-1" isvisible="true">
+        <title>Interactive WRHA NCD Adherence Training (prototype)</title>
+      </item>
+    </organization>
+  </organizations>
+  <resources>
+    <resource identifier="WRHA-RES-1" type="webcontent" adlcp:scormtype="sco" href="index.html">
+      <file href="index.html"/>
+      <file href="styles.css"/>
+      <file href="course-data.js"/>
+      <file href="scorm.js"/>
+      <file href="app.js"/>
+      <file href="assets/wrha-logo.svg"/>
+    </resource>
+  </resources>
+</manifest>
