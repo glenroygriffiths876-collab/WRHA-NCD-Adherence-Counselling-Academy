@@ -1,0 +1,67 @@
+/* WRHA manuals v0.5: authentic MOHW first-page covers + HSTU-style PDF.js reader.
+ * A clearly labelled title-page fallback remains for documents awaiting import. */
+.manual-entry .manual-select-button{
+  display:grid;grid-template-columns:86px minmax(0,1fr);align-items:start;gap:13px;
+  padding:14px;text-align:left;width:100%;
+}
+.manual-entry .manual-card-info{min-width:0;display:flex;flex-direction:column;gap:6px}
+.manual-entry .manual-entry-top{gap:5px}
+.manual-book-thumb{
+  aspect-ratio: .71;position:relative;width:86px;overflow:hidden;border-radius:5px 8px 8px 5px;
+  background:#eef4f9;border:1px solid #d4e0ea;box-shadow:5px 7px 13px rgba(11,44,79,.12),inset 4px 0 rgba(0,0,0,.05)
+}
+.manual-book-thumb img{position:absolute;inset:0;height:100%;width:100%;object-fit:cover;z-index:3}
+.manual-cover-design{position:absolute;inset:0;display:flex;flex-direction:column;align-items:flex-start;gap:8px;
+  padding:12px 8px;background:linear-gradient(155deg,#eef8fd,#fff 56%,#e4f1f9);color:#163c71;z-index:1}
+.manual-cover-design span{font-size:7px;line-height:1.2;letter-spacing:.055em;font-weight:800}
+.manual-cover-design strong{font-size:9px;line-height:1.4;font-weight:900;overflow-wrap:break-word}
+.manual-cover-design em{font-style:normal;font-size:7px;color:#54758b;margin-top:auto}
+.manual-entry.selected .manual-book-thumb{box-shadow:5px 9px 20px rgba(16,76,134,.16)}
+.manual-entry .manual-entry-read{margin-top:9px}
+.manual-document-toolbar{display:flex;align-items:center;gap:7px;flex-wrap:wrap;border-top:1px solid #edf1f6;
+ padding:10px 18px;border-bottom:1px solid #e8eef4;background:#fafcfe}
+.manual-document-toolbar button{border:1px solid #d6e3ed;border-radius:9px;background:#fff;color:#245980;
+ min-height:37px;padding:7px 12px;font-size:11px;font-weight:800}
+.manual-document-toolbar button:disabled{opacity:.45;cursor:not-allowed}
+.manual-document-toolbar button:hover:not(:disabled){background:#eaf4fc}
+#manual-page-counter{flex:1;text-align:center;color:#506a84;font-size:12px;font-weight:850;white-space:nowrap}
+.manual-toolbar-divider{height:24px;border-left:1px solid #dce5ee;margin:0 4px}
+.manual-pdf-stage{
+  display:flex;align-items:flex-start;justify-content:center;min-height:550px;overflow:auto;position:relative;
+  background:#e6edf4;border:1px solid #d9e2eb;border-radius:11px;margin:15px;padding:23px;
+  height:min(65vh,740px)
+}
+.manual-pdf-stage img,.manual-pdf-stage canvas{display:block;max-width:100%;height:auto;object-fit:contain;
+  margin:0 auto;background:white;box-shadow:0 9px 24px rgba(15,45,78,.18)}
+.manual-pdf-stage img[hidden],.manual-pdf-stage canvas[hidden]{display:none!important}
+.manual-pdf-stage .manual-book-splash{
+   width:min(100%,365px);min-height:470px;margin:auto;padding:42px 30px;display:flex;flex-direction:column;
+   align-items:flex-start;background:linear-gradient(155deg,#f5fcff,#fff 58%,#e5f2fa);border:1px solid #d9e6ef;
+   border-radius:4px 9px 9px 4px;box-shadow:0 14px 30px rgba(25,52,83,.14);color:#1e4677
+}
+.manual-pdf-stage .manual-book-splash[hidden]{display:none!important}
+.manual-book-agency{font-size:10px;letter-spacing:.12em;line-height:1.6;font-weight:900}
+.manual-book-rule{display:block;height:5px;width:92px;margin:33px 0;background:#178bb9;border-radius:5px}
+.manual-book-splash strong{font:800 22px/1.3 Manrope,var(--sans);margin-top:auto;margin-bottom:20px}
+.manual-book-splash span:last-child{font-size:12px;color:#6c8093}
+.manual-cover-action{position:sticky;bottom:0;align-self:flex-end;flex:0 0 auto;z-index:5;margin:0 0 0 -160px}
+.manual-cover-action[hidden]{display:none!important}
+.manual-cover-action button{box-shadow:0 6px 18px rgba(10,48,99,.18)}
+.manual-reader-foot{padding-top:5px}
+#manual-reader-status{font-size:12px;color:#43688a;font-weight:750}
+#manual-reader-status.error{color:#ad4236}
+.manual-viewer-tools{justify-content:flex-start}
+.library-copyright{font-size:12px}
+@media(max-width:1090px){
+ .manual-entry .manual-select-button{grid-template-columns:66px minmax(0,1fr);gap:11px}
+ .manual-book-thumb{width:66px}
+}
+@media(max-width:780px){.manual-pdf-stage{height:590px}}
+@media(max-width:560px){
+ .manual-pdf-stage{height:490px;margin:9px;padding:10px}
+ .manual-pdf-stage .manual-book-splash{min-height:360px;padding:25px 19px}
+ .manual-document-toolbar{padding:8px 10px;gap:5px}
+ .manual-document-toolbar button{padding:6px 9px;font-size:10px}
+ .manual-cover-action{margin-left:-110px}
+}
+@media(prefers-reduced-motion:reduce){.manual-document-toolbar button{transition:none}}
