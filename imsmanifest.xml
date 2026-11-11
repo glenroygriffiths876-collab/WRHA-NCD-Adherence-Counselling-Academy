@@ -21,6 +21,8 @@
       <file href="styles.css"/>
       <file href="premium.css"/>
       <file href="course.css"/>
+      <file href="illustrations.css"/>
+      <file href="module-visuals.js"/>
       <file href="videos.css"/>
       <file href="manual-reader.css"/>
       <file href="manual-covers.css"/>
@@ -35,6 +37,12 @@
       <file href="app.js"/>
       <file href="motion.js"/>
       <file href="assets/wrha-logo.svg"/>
+      <file href="assets/cha-scenes/cha-blood-pressure.webp"/>
+      <file href="assets/cha-scenes/cha-community-education.webp"/>
+      <file href="assets/cha-scenes/cha-exercise-group.webp"/>
+      <file href="assets/cha-scenes/cha-home-visit.webp"/>
+      <file href="assets/cha-scenes/cha-medication-counselling.webp"/>
+      <file href="assets/cha-scenes/cha-records-documentation.webp"/>
       <file href="assets/original-logo-data.js"/>
       <file href="logo-loader.js"/>
     </resource>
