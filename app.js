@@ -153,7 +153,7 @@
       const active=doc.id===state.selectedGuideline;
       return '<article class="manual-entry '+(active?'selected':'')+'" role="listitem">'+
         '<button type="button" class="manual-select-button" data-select-guideline="'+htmlEscape(doc.id)+'" aria-pressed="'+(active?'true':'false')+'" aria-label="Open '+htmlEscape(doc.title)+' in academy">'+
-        '<span class="manual-book-thumb">'+(cover?'<img src="'+htmlEscape(cover)+'" loading="lazy" alt="Actual cover of '+htmlEscape(doc.title)+'" onerror="this.hidden=true">':'')+
+        '<span class="manual-book-thumb">'+(cover?'<img src="'+htmlEscape(cover)+'" loading="lazy" alt="Actual cover of '+htmlEscape(doc.title)+'" data-manual-cover>':'')+
           '<span class="manual-cover-design"><span>MINISTRY OF HEALTH &amp; WELLNESS</span><strong>'+htmlEscape(doc.title)+'</strong><em>'+htmlEscape(doc.edition)+'</em></span></span>'+
         '<span class="manual-card-info"><span class="manual-entry-top"><span class="manual-entry-type">'+htmlEscape(doc.type)+'</span><span class="manual-entry-pages">'+doc.pages+' pages</span></span>'+
         '<strong>'+htmlEscape(doc.title)+'</strong><span class="manual-entry-date">'+htmlEscape(doc.edition)+'</span>'+
