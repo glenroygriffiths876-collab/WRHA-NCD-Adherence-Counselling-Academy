@@ -32,8 +32,7 @@
     review: null,
     libraryFilter: "all",
     selectedGuideline: "htn2024",
-    pdfViewerMode: "google",
-    pdfPreviewLoaded: false
+
   };
   const units=[
     {id:1,title:"Understanding NCD care",desc:"Chronic conditions, the meaning of adherence, and common barriers to care.",modules:[1,2,3]},
@@ -125,60 +124,42 @@
     // Only Ministry-owned public PDF links from the authored catalogue.
     return /^https:\/\/ncdip\.moh\.gov\.jm\/download\/[0-9]+\/?$/.test(url) ? url : null;
   }
-  function pdfPreviewUrl(url,mode) {
-    if(mode==="direct") return url;
-    // Google's public-document viewer is an alternative to direct PDF embedding;
-    // users can always open/save the original MOHW document instead.
-    return "https://docs.google.com/gview?embedded=1&url="+encodeURIComponent(url);
-  }
-  function displaySelectedGuideline() {
+  function displaySelectedGuideline(){
     const doc=guidelineById(state.selectedGuideline);
     if(!doc)return;
-    const safeUrl=officialPdfUrl(doc.url);
-    if(!safeUrl)return;
+    const sourceUrl=officialPdfUrl(doc.url);
+    if(!sourceUrl)return;
     $("#manual-reader-heading").textContent=doc.title;
     $("#manual-reader-edition").textContent=doc.edition+" · "+doc.type+" · "+doc.pages+" pages";
     $("#manual-reader-note").textContent=doc.note;
-    $("#manual-reader-source").href=safeUrl;
-    $("#manual-reader-download").href=safeUrl;
-    $("#manual-reader-download").setAttribute("download",doc.id+".pdf");
-    $("#manual-reader-frame").setAttribute("title","Preview: "+doc.title);
-    if(state.pdfPreviewLoaded) {
-      $("#manual-reader-frame").src=pdfPreviewUrl(safeUrl,state.pdfViewerMode);
-      $("#manual-reader-overlay").hidden=true;
-    } else {
-      $("#manual-reader-frame").src="about:blank";
-      $("#manual-reader-overlay").hidden=false;
-    }
-    $("#manual-reader-alternate").textContent=state.pdfViewerMode==="google"?"Try direct PDF viewer":"Try alternative document viewer";
-  }
-  function loadPdfPreview(mode){
-    const doc=guidelineById(state.selectedGuideline);
-    if(!doc)return;
-    const safeUrl=officialPdfUrl(doc.url);
-    if(!safeUrl)return;
-    state.pdfPreviewLoaded=true;
-    state.pdfViewerMode=mode||"google";
-    $("#manual-reader-frame").src=pdfPreviewUrl(safeUrl,state.pdfViewerMode);
-    $("#manual-reader-overlay").hidden=true;
-    $("#manual-reader-alternate").textContent=state.pdfViewerMode==="google"?"Try direct PDF viewer":"Try alternative document viewer";
+    $("#manual-reader-source").href=sourceUrl;
+    // Same-origin PDF is preferred for reliable reading and direct download.
+    // Reader also handles a document not yet imported from the MOHW site.
+    if(window.WRHA_DOCUMENT_READER)window.WRHA_DOCUMENT_READER.select(doc);
   }
   function renderLibrary() {
     const all=Array.isArray(window.WRHA_GUIDELINE_LIBRARY)?window.WRHA_GUIDELINE_LIBRARY:[];
-    const selected=all.filter(item=>state.libraryFilter==="all"||item.category===state.libraryFilter);
+    const selected=all.filter(doc=>state.libraryFilter==="all"||doc.category===state.libraryFilter);
     $("#library-total").textContent=selected.length+" of "+all.length+" documents";
     $$(".library-filter").forEach(el=>el.classList.toggle("active",el.dataset.libraryFilter===state.libraryFilter));
-    if(selected.length && !selected.some(doc=>doc.id===state.selectedGuideline)) state.selectedGuideline=selected[0].id;
+    if(selected.length && !selected.some(doc=>doc.id===state.selectedGuideline))state.selectedGuideline=selected[0].id;
+    const localAssets=window.WRHA_LOCAL_MANUALS||{};
     $("#library-grid").innerHTML=selected.length?selected.map(doc=>{
-      const safeUrl=officialPdfUrl(doc.url);
+      const source=officialPdfUrl(doc.url);
+      const local=localAssets[doc.id];
+      const cover=local&&/^media\/pdf-covers\/[a-z0-9-]+\.webp$/.test(local.cover||"")?local.cover:null;
+      const localPdf=local&&/^documents\/pdf-library\/[a-z0-9-]+\.pdf$/.test(local.pdf||"")?local.pdf:null;
+      const downloadUrl=localPdf||source;
       const active=doc.id===state.selectedGuideline;
       return '<article class="manual-entry '+(active?'selected':'')+'" role="listitem">'+
-        '<button type="button" class="manual-select-button" data-select-guideline="'+htmlEscape(doc.id)+'" aria-pressed="'+(active?'true':'false')+'" aria-label="Preview '+htmlEscape(doc.title)+'">'+
-        '<span class="manual-entry-top"><span class="manual-entry-type">'+htmlEscape(doc.type)+'</span><span class="manual-entry-pages">'+doc.pages+' pages</span></span>'+
+        '<button type="button" class="manual-select-button" data-select-guideline="'+htmlEscape(doc.id)+'" aria-pressed="'+(active?'true':'false')+'" aria-label="Open '+htmlEscape(doc.title)+' in academy">'+
+        '<span class="manual-book-thumb">'+(cover?'<img src="'+htmlEscape(cover)+'" loading="lazy" alt="Actual cover of '+htmlEscape(doc.title)+'" onerror="this.hidden=true">':'')+
+          '<span class="manual-cover-design"><span>MINISTRY OF HEALTH &amp; WELLNESS</span><strong>'+htmlEscape(doc.title)+'</strong><em>'+htmlEscape(doc.edition)+'</em></span></span>'+
+        '<span class="manual-card-info"><span class="manual-entry-top"><span class="manual-entry-type">'+htmlEscape(doc.type)+'</span><span class="manual-entry-pages">'+doc.pages+' pages</span></span>'+
         '<strong>'+htmlEscape(doc.title)+'</strong><span class="manual-entry-date">'+htmlEscape(doc.edition)+'</span>'+
-        '<span class="manual-entry-read">'+(active?'Selected for reading':'Read in academy')+' ↗</span></button>'+
-        (safeUrl?'<a href="'+htmlEscape(safeUrl)+'" target="_blank" rel="noopener noreferrer" download class="manual-entry-save" aria-label="Download or save '+htmlEscape(doc.title)+'">↧ Save PDF</a>':'')+
-        '</article>';
+        '<span class="manual-entry-read">'+(active?'Selected for reading':'Read in academy')+' ↗</span></span></button>'+
+        (downloadUrl?'<a href="'+htmlEscape(downloadUrl)+'" target="_blank" rel="noopener noreferrer" class="manual-entry-save" '+(localPdf?'download':'')+' aria-label="Download '+htmlEscape(doc.title)+'">↧ Download PDF</a>':'')+
+      '</article>';
     }).join(""):'<p class="manual-list-empty">No documents in this category.</p>';
     if(selected.length)displaySelectedGuideline();
   }
@@ -226,42 +207,6 @@
     embed.src="https://www.youtube-nocookie.com/embed/"+video.videoId+"?rel=0&playsinline=1";
     frame.replaceChildren(embed);
   }
-  function renderModuleResources(module) {
-    const ref = (window.WRHA_MODULE_REFERENCES || {})[module.id];
-    if (!ref) return "";
-    const links = Array.isArray(ref.links) ? ref.links : [];
-    const docs = (window.WRHA_GUIDELINE_LIBRARY || []).filter(doc => doc.modules.includes(module.id));
-    const urls = new Set(docs.map(doc => doc.url.replace(/\/$/, "")));
-    const pdfRows = docs.map(doc =>
-      '<li class="resource-item resource-pdf"><div class="resource-pdf-copy"><strong>' + htmlEscape(doc.title) + '</strong>' +
-      '<span>' + htmlEscape(doc.edition) + ' · ' + doc.pages + '-page PDF · ' + htmlEscape(doc.category) + '</span></div>' +
-      '<a class="resource-download" href="' + htmlEscape(doc.url) + '" target="_blank" rel="noopener noreferrer">↧ View / download PDF</a></li>'
-    ).join("");
-    const linkRows = links.filter(item => !urls.has(item.url.replace(/\/$/, ""))).map(item =>
-      '<li class="resource-item"><a href="' + htmlEscape(item.url) +
-      '" target="_blank" rel="noopener noreferrer" class="resource-link">' +
-      htmlEscape(item.title) + ' <span aria-hidden="true">↗</span></a>' +
-      '<span class="resource-type">' + htmlEscape(item.kind) + '</span></li>'
-    ).join("");
-    return '<section class="module-references" aria-label="Reading and source materials">' +
-      '<div class="references-heading"><span class="references-icon" aria-hidden="true">▤</span><div>' +
-      '<div class="references-overline">SOURCE MATERIALS & FURTHER READING</div>' +
-      '<h2>Explore the reference library</h2><p>Selected material supporting this lesson, including Jamaican Ministry of Health & Wellness guidelines.</p>' +
-      '</div></div>' +
-      '<div class="manual-reference"><strong>From the WRHA training materials</strong><p>' +
-      htmlEscape(ref.manual) + '</p>' +
-      (ref.pack ? '<p>' + htmlEscape(ref.pack) + '</p>' : '') +
-      '<small>The internal manuals and facilitator materials will be linked inside WRHA Moodle after the training team authorises access. They are not publicly hosted here.</small></div>' +
-      '<h3 class="resource-subhead">Official MOHW manuals — downloadable PDFs</h3>' +
-      '<p class="resource-help">Select View / download PDF, then use the PDF viewer’s save button if it opens in your browser.</p>' +
-      '<ul class="resource-list">' + pdfRows + '</ul>' +
-      '<h3 class="resource-subhead">Related courses and other supporting references</h3>' +
-      '<ul class="resource-list">' + linkRows + '</ul>' +
-      '<button type="button" class="library-all" data-nav="resources">Browse the full Jamaican NCD guideline library →</button>' +
-      '<div class="reference-footer"><span>Clinical treatment guidelines are for clinician reference. CHAs must follow their approved scope and WRHA referral procedures.</span>' +
-      '<a href="#module-' + module.id + '" class="permalink" aria-label="Link directly to module ' + module.id + '">Link to this module ↗</a></div>' +
-      '</section>';
-  }
   function openModule(id) {
     const module = modules.find(m => m.id === Number(id)); if (!module) return;
     state.lesson = module.id; state.selected = null;
@@ -275,7 +220,7 @@
     $("#lesson-content").innerHTML =
       '<section class="learning-objectives"><strong>After this module, you should be able to:</strong><ul>' +
       module.objectives.map(o => '<li>' + htmlEscape(o) + '</li>').join("") + '</ul></section>' +
-      module.sections.map((section,i) => '<section class="lesson-section"><h2>'+String(i+1).padStart(2,"0")+'. '+htmlEscape(section.title)+'</h2><p>'+htmlEscape(section.text)+'</p><div class="lesson-points">'+ section.points.map(p=>'<div class="lesson-point">'+htmlEscape(p)+'</div>').join("")+'</div></section>').join("") + renderModuleResources(module);
+      module.sections.map((section,i) => '<section class="lesson-section"><h2>'+String(i+1).padStart(2,"0")+'. '+htmlEscape(section.title)+'</h2><p>'+htmlEscape(section.text)+'</p><div class="lesson-points">'+ section.points.map(p=>'<div class="lesson-point">'+htmlEscape(p)+'</div>').join("")+'</div></section>').join("") + "";
     const scenario = module.scenario;
     // Resource and demonstration panels appear before the practice scenario.
     const existing=$("#lesson-content").innerHTML;
@@ -361,8 +306,7 @@
     const section=ev.target.closest("[data-scroll-to]");if(section){nav("modules");const dest=document.getElementById(section.dataset.scrollTo);if(dest)dest.scrollIntoView({behavior:"smooth",block:"start"});return;}
     const libEl=ev.target.closest("[data-library-filter]");if(libEl){state.libraryFilter=libEl.dataset.libraryFilter;renderLibrary();return;}
     const manualEl=ev.target.closest("[data-select-guideline]");if(manualEl){state.selectedGuideline=manualEl.dataset.selectGuideline;renderLibrary();return;}
-    if(ev.target.closest("#manual-preview-start")){loadPdfPreview("google");return;}
-    if(ev.target.closest("#manual-reader-alternate")){loadPdfPreview(state.pdfViewerMode==="google"?"direct":"google");return;}
+
     const answerEl=ev.target.closest("[data-answer]");if(answerEl){chooseModuleAnswer(Number(answerEl.dataset.answer));return;}
     const revEl=ev.target.closest("[data-review-answer]");if(revEl){selectReviewAnswer(Number(revEl.dataset.reviewAnswer));return;}
     if(ev.target.closest("#start-review") || ev.target.closest("#retry-review")) {startReview();return;}
