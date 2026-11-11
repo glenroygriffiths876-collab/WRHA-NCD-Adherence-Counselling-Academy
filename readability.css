@@ -1,0 +1,197 @@
+/* WRHA NCD Adherence Academy — v0.7 readable, animated learning experience
+   Keeps logo pixel colours untouched. All motion is decorative and respects reduced motion.
+ */
+:root { --readable-base:17px; --motion-smooth:cubic-bezier(.2,.76,.25,1); }
+html { scroll-padding-top:145px; }
+body { font-size:var(--readable-base);line-height:1.74; }
+.container { width:min(1240px,calc(100% - 40px)); }
+/* Enlarged official WRHA identity */
+.site-header { isolation:isolate; }
+.site-header::after { content:"";position:absolute;bottom:-1px;left:0;height:2px;width:100%;background:linear-gradient(90deg,transparent,#5aaace,#15559a,#5aaace,transparent);background-size:180% 100%;animation:wrha-header-shine 17s linear infinite;opacity:.43;pointer-events:none; }
+.nav-wrap { min-height:118px;gap:14px; }
+.brand { gap:17px; flex-shrink:0; }
+.logo-box { width:184px;height:103px;overflow:visible;position:relative;isolation:isolate;transform-origin:center center;animation:wrha-logo-float 7s ease-in-out infinite;transition:transform .45s var(--motion-smooth); }
+.logo-box::before {content:"";position:absolute;inset:15px 12px;z-index:-1;border-radius:50%;background:radial-gradient(ellipse,rgba(55,154,204,.11),transparent 67%);animation:wrha-logo-halo 8s ease-in-out infinite;}
+.logo-box img{display:block;width:100%;height:100%;filter:none!important;mix-blend-mode:normal!important;opacity:1!important;object-fit:contain!important;animation:wrha-logo-intro .8s var(--motion-smooth) both;}
+.brand:hover .logo-box,.brand:focus-visible .logo-box {transform:translateY(-3px) rotate(-1deg) scale(1.04);}
+.brand-copy strong{font-size:18px;line-height:1.35;font-weight:850;}
+.brand-copy small{font-size:12.5px;line-height:1.5;display:block;max-width:265px;}
+.main-nav { flex:1;justify-content:flex-end;gap:3px; }
+.nav-tab {font-size:14.5px;line-height:1.4;padding:12px 13px;position:relative;transition:transform .22s,background-color .24s,color .24s;white-space:nowrap;}
+.nav-tab::after {content:"";position:absolute;bottom:5px;left:18%;right:18%;height:2px;border-radius:9px;background:currentColor;transform:scaleX(0);opacity:.58;transition:transform .32s var(--motion-smooth);}
+.nav-tab.current::after,.nav-tab:hover::after,.nav-tab:focus-visible::after {transform:scaleX(1);}
+.nav-tab:hover:not(.current){background:#f5f9fd;color:#164e8a;transform:translateY(-2px);}
+.user-badge{font-size:12px;min-width:43px;height:43px;width:43px;}
+.prototype-alert{font-size:13.5px;line-height:1.7;}
+/* Broader, clearer hierarchy */
+.hero {background-size:160% 160%;animation:wrha-hero-wash 16s ease-in-out infinite alternate;}
+.hero h1{font-size:clamp(36px,4.4vw,52px);line-height:1.17;}
+.hero p{font-size:17px;line-height:1.72;}
+.hero-overline{font-size:12.5px;}
+.hero-chips,.hero-chips span{font-size:13px;}
+.hero-chips span{transition:color .25s,transform .25s;}
+.hero-chips span:hover{transform:translateY(-3px);color:#0c5185;}
+.tiny-star{display:inline-block;animation:wrha-sparkle 4s ease-in-out infinite;}
+.hero-aside{animation:float-card 9s ease-in-out infinite;}
+.hero-aside-title{font-size:15px;}
+.hero-aside p{font-size:15px;}
+.hero-aside>small,.ring-inner small{font-size:12.5px;}
+.button{min-height:48px;font-size:15px;letter-spacing:.003em;line-height:1.4;position:relative;isolation:isolate;}
+.button:where(:hover,:focus-visible):not(:disabled){box-shadow:0 11px 23px rgba(24,74,120,.14);}
+.button .ux-ripple,.nav-tab .ux-ripple,.activity-open .ux-ripple{position:absolute;inset:auto;width:16px;height:16px;background:rgba(44,169,216,.25);border-radius:50%;pointer-events:none;transform:translate(-50%,-50%) scale(0);animation:wrha-ripple .65s ease-out forwards;z-index:1;}
+.section-title h2{font-size:clamp(26px,3vw,34px);}
+.section-title p,.page-intro p,.page-intro>p {font-size:16px;line-height:1.75;}
+.page-intro h1{font-size:clamp(32px,4vw,43px);}
+.overline,.unit-index,.unit-label,.activity-kicker{font-size:12px;letter-spacing:.09em;}
+/* Course home and unit visuals */
+.step-card h3,.unit-preview-card h3{font-size:18px;}
+.step-card p,.unit-preview-card p{font-size:15px;line-height:1.68;}
+.step-number,.unit-preview-count,.unit-preview-footer>span{font-size:12.5px;}
+.step-card,.unit-preview-card,.orientation-card,.course-progress-banner,.completion-section{transition:box-shadow .4s var(--motion-smooth),transform .4s var(--motion-smooth),border-color .3s;}
+.step-card:hover,.unit-preview-card:hover{transform:translateY(-5px);box-shadow:0 18px 32px rgba(24,68,107,.085);border-color:#adcfe3;}
+.step-card:hover .step-icon{animation:wrha-icon-pop .5s var(--motion-smooth);}
+.home-learning-copy h2{font-size:clamp(22px,2.4vw,28px);}
+.home-learning-copy p,.orientation-card p,.course-progress-text strong,.unit-heading p{font-size:15.5px;}
+.home-progress-copy,.course-progress-text>span{font-size:13px;}
+.unit-preview-photo{overflow:hidden;transform:translateZ(0);}
+.unit-preview-img{height:145px;transition:transform .8s var(--motion-smooth),filter .8s;}
+.unit-preview-card:hover .unit-preview-img{transform:scale(1.055);filter:saturate(1.07);}
+.unit-preview-action,.index-library{font-size:14px;}
+/* Course index and activity rows */
+.index-heading{font-size:12px;}
+.index-link{font-size:14px;line-height:1.5;padding:12px 10px;transition:background .25s,color .25s,transform .25s;}
+.index-link:hover{transform:translateX(3px);}
+.index-help strong,.index-help p{font-size:13px;}
+.course-progress-text strong{font-size:17px;}
+.unit-name small{font-size:12px;}
+.unit-name strong{font-size:19px;}
+.unit-name>span,.unit-heading p{font-size:14px;}
+.unit-completion,.module-status{font-size:13px;}
+.course-activity{transition:background-color .35s,border-color .35s,transform .35s;}
+.course-activity:hover{transform:translateX(3px);background:#f7fbfe;}
+.activity-description h3{font-size:16px;}
+.activity-description p{font-size:14.5px;line-height:1.6;}
+.activity-duration,.activity-open{font-size:13px;}
+.activity-open{min-height:39px;}
+.activity-thumbnail{transition:transform .65s var(--motion-smooth),filter .65s;}
+.course-activity:hover .activity-thumbnail{transform:scale(1.07);filter:saturate(1.11);}
+.activity-thumb{overflow:hidden;border-radius:11px;}
+.activity-thumb-status{z-index:2;right:0;bottom:0;}
+/* Lesson reading must actually be comfortable */
+.lesson-cover h1{font-size:clamp(30px,3vw,39px);line-height:1.27;}
+.lesson-cover p,.lesson-cover .overline,.lesson-description{font-size:16px;line-height:1.7;}
+.lesson-content{font-size:17px;line-height:1.8;}
+.lesson-section h2{font-size:22px;line-height:1.35;}
+.lesson-section p{font-size:17px;line-height:1.8;}
+.lesson-point{font-size:16px;line-height:1.7;transition:transform .3s,background .3s,border-color .3s;}
+.lesson-point:hover{background:#f0f8fc;border-color:#bbd9ec;transform:translateX(4px);}
+.learning-objectives,.learning-objectives li{font-size:16px;line-height:1.7;}
+.lesson-side-link{font-size:14px;line-height:1.4;padding-block:12px;}
+.lesson-side-link.current{transition:background .25s,color .25s;}
+.lesson-illustration{transition:transform .55s var(--motion-smooth),box-shadow .55s;}
+.lesson-illustration:hover{transform:translateY(-4px);box-shadow:0 18px 35px rgba(24,58,95,.12);}
+.lesson-photo{height:224px;transition:transform .85s var(--motion-smooth),filter .85s;}
+.lesson-illustration:hover .lesson-photo{transform:scale(1.055);filter:saturate(1.08);}
+.lesson-illustration figcaption{font-size:13px;line-height:1.5;}
+.scenario-card h2,.lesson-video-learning h2{font-size:23px;}
+.scenario-question,.choice,.review-choice{font-size:16px;line-height:1.65;}
+.choice,.review-choice{transition:border-color .25s,transform .25s,box-shadow .25s,background .25s;}
+.choice:hover,.review-choice:hover{transform:translateY(-2px);box-shadow:0 8px 17px rgba(26,68,108,.065);}
+.scenario-feedback,.review-feedback{animation:wrha-feedback-enter .48s var(--motion-smooth) both;font-size:16px;}
+/* Learning video section */
+.video-section-heading h2{font-size:23px;}
+.video-section-heading p,.training-video-why,.training-video-reflect p,.video-section-notice{font-size:14.5px;line-height:1.7;}
+.training-video-card h3{font-size:18px;}
+.training-video-provider,.training-video-note,.training-video-links a{font-size:13px;}
+.training-video-play{animation:wrha-play-pulse 4s ease-in-out infinite;}
+.training-video-card{transition:transform .35s,box-shadow .35s;}
+.training-video-card:hover{transform:translateY(-3px);box-shadow:0 14px 28px rgba(30,64,103,.06);}
+/* PDF collection and reading */
+.resource-caveat,.library-summary,.library-copyright{font-size:14.5px;line-height:1.75;}
+.library-filter{font-size:14px;min-height:43px;padding-inline:15px;}
+.manual-list-heading>span,.manual-list-heading small{font-size:13px;}
+.manual-select-button strong,.manual-entry .manual-select-button strong{font-size:15px;line-height:1.5;}
+.manual-entry-type,.manual-entry-pages,.manual-entry-date,.manual-entry-read,.manual-entry-save{font-size:12.5px;}
+.manual-entry{transition:transform .3s var(--motion-smooth),box-shadow .3s,border-color .3s;}
+.manual-entry:hover{transform:translateY(-2px);box-shadow:0 12px 24px rgba(24,66,98,.08);}
+.manual-book-thumb img{transition:transform .6s var(--motion-smooth);}
+.manual-entry:hover .manual-book-thumb img{transform:scale(1.045);}
+.manual-reader-heading h2{font-size:23px;}
+.manual-reader-heading p,.manual-reader-foot p,#manual-reader-status{font-size:14px;line-height:1.65;}
+.manual-download-button,.manual-source-button,.manual-document-toolbar button,.manual-preview-button{font-size:14px;}
+.manual-book-splash strong{font-size:24px;}
+.manual-pdf-stage{scrollbar-width:thin;}
+/* Assessments, completion and certificate */
+.completion-activity strong,.cert-requirement,.assessment-intro,.review-top{font-size:15.5px;}
+.completion-activity small,.activity-status.muted{font-size:13px!important;line-height:1.55;}
+.cert-intro,.cert-subline,.cert-requirement,.certificate-sidebar p{font-size:15px;}
+.cert-seal{animation:wrha-seal-breathe 9s ease-in-out infinite;}
+.certificate-panel{transition:box-shadow .5s,transform .5s;}
+.certificate-panel:hover{box-shadow:0 16px 40px rgba(26,62,100,.095);}
+.site-footer{font-size:14px;}
+.site-footer small,.site-footer span{font-size:13px;}
+/* Readable controls and accessibility */
+input,textarea,select{font-size:16px;}
+button,a{touch-action:manipulation;}
+a:focus-visible,button:focus-visible{outline:3px solid #3daee0;outline-offset:3px;}
+/* Useful visual movement, no frantic loops */
+@keyframes wrha-logo-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+@keyframes wrha-logo-intro{from{opacity:0;transform:scale(.95) translateY(6px)}to{opacity:1;transform:scale(1) translateY(0)}}
+@keyframes wrha-logo-halo{0%,100%{opacity:.3;transform:scale(.95)}50%{opacity:.72;transform:scale(1.08)}}
+@keyframes wrha-header-shine{from{background-position:0 0}to{background-position:180% 0}}
+@keyframes wrha-hero-wash{from{background-position:0 10%}to{background-position:100% 90%}}
+@keyframes wrha-sparkle{0%,100%{transform:rotate(0) scale(1);opacity:.8}50%{transform:rotate(10deg) scale(1.13);opacity:1}}
+@keyframes wrha-icon-pop{0%{transform:scale(1)}45%{transform:scale(1.16) rotate(5deg)}100%{transform:scale(1)}}
+@keyframes wrha-feedback-enter{from{opacity:0;transform:translateY(9px) scale(.99)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes wrha-play-pulse{0%,100%{box-shadow:0 0 0 0 rgba(255,255,255,0)}55%{box-shadow:0 0 0 10px rgba(255,255,255,.12)}}
+@keyframes wrha-seal-breathe{0%,100%{transform:rotate(-3deg) scale(1)}50%{transform:rotate(3deg) scale(1.045)}}
+@keyframes wrha-ripple{from{opacity:1;transform:translate(-50%,-50%) scale(0)}to{opacity:0;transform:translate(-50%,-50%) scale(18)}}
+@media(max-width:1200px){
+  .logo-box{width:161px;height:93px}
+  .brand-copy strong{font-size:16px}
+  .nav-tab{padding:11px 9px;font-size:14px}
+  .nav-wrap{gap:10px}
+}
+@media(max-width:1050px){
+  html{scroll-padding-top:185px}
+  .nav-wrap{min-height:102px;flex-wrap:wrap;row-gap:1px;padding:7px 0}
+  .brand{flex:1 1 auto}
+  .main-nav{order:3;flex:0 0 100%;width:100%;justify-content:space-between;padding:2px 0 8px;overflow-x:auto}
+  .user-badge{order:2}
+  .nav-tab{font-size:14px;flex:0 0 auto;padding:10px 11px}
+  .logo-box{width:150px;height:86px}
+  .course-index-panel,.manual-reader{top:175px}
+}
+@media(max-width:720px){
+  :root{--readable-base:16px}
+  .container{width:min(100% - 24px,1240px)}
+  .logo-box{width:140px;height:81px}
+  .brand-copy strong{font-size:15px}
+  .brand-copy small{font-size:11.5px}
+  .nav-tab{font-size:13.5px;padding:10px 11px}
+  .prototype-alert{font-size:13px}
+  .hero h1{font-size:clamp(31px,7vw,39px)}
+  .hero p,.lesson-section p,.lesson-content{font-size:16px}
+  .unit-preview-card p,.step-card p,.activity-description p{font-size:15px}
+  .unit-name strong{font-size:17px}
+  .index-link{font-size:13.5px}
+  .manual-reader-heading h2{font-size:20px}
+  .lesson-photo{height:210px}
+  .button{font-size:15px;min-height:46px}
+}
+@media(max-width:400px){
+  .logo-box{width:117px;height:70px}
+  .brand{gap:9px}
+  .brand-copy strong{font-size:14px}
+  .brand-copy small{font-size:11px}
+  .user-badge{width:37px;height:37px;min-width:37px}
+  .nav-tab{font-size:13px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .reveal-on-scroll:not(.is-visible){opacity:1!important;transform:none!important}
+  .logo-box,.brand:hover .logo-box{transform:none!important}
+}
+/* Tiny non-intrusive scroll progress strip below the sticky header. */
+.reading-progress {pointer-events:none;position:absolute;left:0;right:0;bottom:0;height:3px;background:linear-gradient(90deg,#2c8cc1,#77c8de,#1555a2);transform-origin:0 50%;transform:scaleX(0);will-change:transform;z-index:35;}
+@media(prefers-reduced-motion:reduce){.reading-progress{display:none}}
