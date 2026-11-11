@@ -42,3 +42,38 @@
 .permalink{white-space:nowrap;color:#0d629c;font-size:11px;font-weight:900;text-decoration:none}
 .permalink:hover{text-decoration:underline}
 @media(max-width:560px){.module-references{padding:17px}.references-heading{gap:10px}.module-references h2{font-size:17px}.resource-item{display:block}.resource-type{display:inline-block;margin-top:7px}}
+
+
+/* Downloadable Jamaican MOHW clinical manual library */
+.resource-caveat{background:#fff9e8;border:1px solid #ead8ad;border-radius:15px;padding:17px 19px;color:#69552d;font-size:13px;line-height:1.7;margin:0 0 21px}
+.resource-caveat strong{color:#594317}
+.library-controls{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:17px}
+.library-filter{background:white;border:1px solid #d7e2ef;border-radius:40px;font-weight:800;padding:9px 13px;font-size:12px;color:#586d85}
+.library-filter.active{background:#0e448f;border-color:#0e448f;color:white}
+.library-summary{display:flex;justify-content:space-between;gap:12px;margin:4px 0 17px;color:#6b8096;font-size:12px;font-weight:750}
+.library-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:17px}
+.library-card{display:flex;flex-direction:column;background:#fff;border:1px solid #dce6f1;border-radius:18px;box-shadow:0 8px 24px rgba(21,57,100,.055);padding:23px;min-height:275px}
+.library-card-top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:13px}
+.library-type{font-size:10px;font-weight:900;letter-spacing:.055em;color:#166c9d;background:#e8f5fc;border-radius:9px;padding:6px 9px}
+.library-pages{font-size:11px;color:#77889a;font-weight:850}
+.library-card h2{color:#153d69;font:800 18px/1.35 Manrope,var(--sans);margin:0 0 8px}
+.library-edition{font-size:12px;font-weight:900;color:#8e7539;margin-bottom:11px}
+.library-card p{font-size:12px;color:#63768a;margin:0 0 13px}
+.library-audience{font-size:11px;color:#6d7b8b;margin-top:auto;padding:8px 0}
+.library-card-foot{display:flex;gap:15px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding-top:15px;margin-top:8px;border-top:1px solid #e9edf5}
+.library-card-foot span{font-size:11px;color:#8896a5}
+.download-link{background:linear-gradient(120deg,#0e448f,#0788b5);border:1px solid #0b5b96;border-radius:10px;color:white!important;padding:10px 14px;font-size:12px;font-weight:900;text-decoration:none;display:inline-flex;align-items:center;min-height:42px}
+.download-link:hover{filter:brightness(1.08)}
+.library-copyright{border:1px solid #d7e6f4;background:#edf5fd;padding:18px;border-radius:15px;margin:25px 0;color:#54718c;font-size:12px}
+.library-copyright strong{color:#163f69}
+.resource-pdf{align-items:center}
+.resource-pdf-copy{flex:1;min-width:150px}
+.resource-pdf-copy strong{display:block;font-size:12px;color:#193d66;line-height:1.5}
+.resource-pdf-copy span{display:block;color:#75899d;font-size:10px;margin-top:3px}
+.resource-download{display:inline-flex;background:#eaf4fc;color:#0f548c;border:1px solid #cde5f3;border-radius:9px;padding:9px 12px;font-weight:900;font-size:11px;text-decoration:none;min-height:38px;align-items:center}
+.resource-download:hover{background:#daeefd}
+.resource-help{font-size:11px!important;margin:0 0 14px!important;color:#71869b!important}
+.library-all{border:0;background:none;color:#0b659c;font-size:12px;font-weight:900;text-align:left;padding:13px 0 0}
+.library-all:hover{text-decoration:underline}
+@media(max-width:800px){.library-grid{grid-template-columns:1fr}}
+@media(max-width:560px){.library-card{padding:18px}.library-summary{display:block}.library-card-foot{align-items:start}}
