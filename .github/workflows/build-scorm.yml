@@ -34,6 +34,25 @@ jobs:
       - name: Validate course content and SCORM manifest
         run: |
           node -e "global.window = {}; require('./course-data.js'); const c=window.WRHA_COURSE; if(!c||c.modules.length!==9||c.modules.some(m=>m.scenario.choices.filter(x=>x.correct).length!==1)) process.exit(1); console.log('Validated nine modules and scenario answers')"
+          node <<'NODE'
+          global.window={};
+          require('./video-library.js');
+          const items=window.WRHA_VIDEO_LIBRARY;
+          if(!Array.isArray(items)||items.length!==9)throw Error('Expected exactly nine learning videos');
+          const vids=new Set(), mods=new Set();
+          for(const v of items){
+            if(!/^[A-Za-z0-9_-]{11}$/.test(v.videoId))throw Error('Invalid YouTube video ID: '+v.id);
+            if(vids.has(v.videoId))throw Error('Duplicate YouTube video: '+v.videoId);
+            vids.add(v.videoId);
+            if(!Array.isArray(v.modules)||v.modules.length!==1||!Number.isInteger(v.modules[0]))throw Error('Expected exactly one module for '+v.id);
+            if(mods.has(v.modules[0]))throw Error('Module has multiple videos: '+v.modules[0]);
+            mods.add(v.modules[0]);
+            if(!v.before||!Array.isArray(v.watchFor)||v.watchFor.length<2||!Array.isArray(v.after)||v.after.length<2||!v.localScenario||!v.caveat)throw Error('Missing observation or Jamaican application: '+v.id);
+            if(!/^https:\/\//.test(v.source))throw Error('Unsafe publisher URL: '+v.id);
+          }
+          for(let i=1;i<=9;i++)if(!mods.has(i))throw Error('Missing video for module '+i);
+          console.log('Verified nine unique videos, nine module assignments and all reflection prompts');
+          NODE
           python3 - <<'PY'
           from pathlib import Path
           import xml.etree.ElementTree as ET
