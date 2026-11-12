@@ -193,6 +193,11 @@
     const videoUrl="https://www.youtube.com/watch?v="+encodeURIComponent(video.videoId);
     const observations=(video.watchFor||[]).map(item=>'<li>'+htmlEscape(item)+'</li>').join("");
     const reflections=(video.after||[]).map(item=>'<li>'+htmlEscape(item)+'</li>').join("");
+    const preWatchSafety=module.id===7
+      ? '<div class="training-video-safety" role="note"><strong>Jamaica emergency reminder:</strong> This Canadian video may instruct viewers to call 911. Do not use that number for Jamaican emergency referral. Follow the approved WRHA emergency response process.</div>'
+      : module.id===6
+        ? '<div class="training-video-safety" role="note"><strong>Scope reminder:</strong> This video uses a paediatric obesity case. Learn the Ask–Assess–Advise–Agree–Assist sequence, not paediatric treatment decisions.</div>'
+        : '';
     return '<section class="lesson-video-learning" aria-label="Video-based learning demonstration">'+
       '<div class="video-section-heading"><div class="video-section-kicker">LEARN BY WATCHING · MODULE '+module.id+'</div>'+
       '<h2>Watch counselling in practice</h2>'+
@@ -203,6 +208,7 @@
         '<h3>'+htmlEscape(video.title)+'</h3>'+
         '<p class="training-video-provider">'+htmlEscape(video.provider)+' · '+htmlEscape(video.duration||"Training video")+'</p>'+
         '<div class="training-video-before"><span class="training-step-number">01</span><div><strong>Before you watch</strong><p>'+htmlEscape(video.before)+'</p></div></div>'+
+        preWatchSafety+
         '<div class="training-video-frame" id="training-video-'+safeId+'">'+
           '<button type="button" class="training-video-launch" data-load-video="'+safeId+'" aria-label="Load video: '+htmlEscape(video.title)+'">'+
             '<span class="training-video-play" aria-hidden="true">▶</span>'+
