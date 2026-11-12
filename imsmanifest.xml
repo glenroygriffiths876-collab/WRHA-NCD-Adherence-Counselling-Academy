@@ -21,6 +21,7 @@
       <file href="styles.css"/>
       <file href="premium.css"/>
       <file href="course.css"/>
+      <file href="expanded-lessons.css"/>
       <file href="illustrations.css"/>
       <file href="readability.css"/>
       <file href="ambient-motion.js"/>
@@ -34,6 +35,13 @@
       <file href="vendor/pdfjs/pdf.worker.min.js"/>
       <file href="video-library.js"/>
       <file href="course-data.js"/>
+      <file href="lessons-unit-1.js"/>
+      <file href="lessons-unit-2.js"/>
+      <file href="lessons-module-7.js"/>
+      <file href="lessons-module-8.js"/>
+      <file href="lessons-module-9.js"/>
+      <file href="practice-tools.js"/>
+      <file href="expanded-lesson-renderer.js"/>
       <file href="guideline-library.js"/>
       <file href="scorm.js"/>
       <file href="app.js"/>
