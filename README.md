@@ -5,8 +5,15 @@ A **development prototype** of an interactive, Moodle-compatible learning experi
 **Programme:** *Adherence Counselling for Non-Communicable Diseases: Equipping Community Health Aides to Support Better Health Outcomes*  
 **Theme:** *Listen. Support. Motivate. Connect.*
 
+## Comprehensive 27-lesson curriculum — 12 November 2026
+The development branch expands the existing **nine modules into 27 guided lessons** with original Jamaican examples, applied activities, 27 immediate-feedback lesson checks and an optional **18-question cross-module practice review**. Ten blank, downloadable training tools support the 5 A's, barrier assessment, home visits, consent, referral, documentation and supervision. The original concise module notes remain available for quick reference.
+
+**Important:** Study duration is provisionally about 15 hours plus professional practice, **not yet pilot validated**. This prototype is not an approved clinical programme or official Moodle certification system. The HSTU source review was partial and no restricted course materials were copied.
+
+See [full curriculum, change log, assessment proposal and remaining sign-offs](COMPREHENSIVE-COURSE-EXPANSION-2026.md).
+
 ## Scope
-- Nine learning modules aligned to the supplied WRHA participant manual and training proposal.
+- Nine modules with 27 substantive learner-facing lessons, case applications and optional quick-reference notes, aligned to the supplied WRHA participant manual and training proposal.
 - A **self-paced course interface** with an orientation section, three logical learning units, course index, automatic resume and open access to every lesson (no prerequisite locks).
 - **Online teaching in all nine modules**; the in-person observed practical assessment is retained as a separate certification condition.
 - The original programme proposed a phased blended schedule. The current prototype uses a fully self-paced online learning journey, while retaining facilitator-led practical competency assessment.
@@ -51,7 +58,7 @@ The official logo supplied by the project owner has been restored losslessly. `a
 See [Moodle native course blueprint](MOODLE-COURSE-BLUEPRINT.md) for implementing the course in WRHA Moodle. The current SCORM prototype presents one learning experience and is not itself a native Moodle course format.
 
 ## Video-based learning
-Eight externally hosted YouTube counselling and adherence demonstration videos are curated in `video-library.js`, including NCD adherence, motivational interviewing, OARS and teach-back. Each module displays up to two relevant videos with a reflective observation prompt. These are optional, load only on click, and provide direct YouTube fallback links; their suitability for final WRHA training and embed availability must be checked by the content review team. See `VIDEO-REVIEW.md`.
+Nine distinct primary YouTube videos, one per module, are curated in `video-library.js`. Each has a guided observation prompt and a direct YouTube fallback. Viewing is optional. Full playback, captions, rights, fit and Moodle embed behaviour still require review. See `VIDEO-REVIEW.md`.
 
 ## In-page MOHW PDF reader — HSTU-style implementation
 The Guidelines & PDFs page now displays **12 Ministry documents**, with the actual first page of each PDF shown as a cover image. The import process successfully retrieved all 12 public PDFs on 11 November 2026 and rendered original-cover WebP images. The academy uses the *exact same PDF.js reader and worker files* bundled with the HSTU Research Data Repository, offering page navigation, zoom and a graceful failure state; it no longer attempts to iframe the Ministry download pages.

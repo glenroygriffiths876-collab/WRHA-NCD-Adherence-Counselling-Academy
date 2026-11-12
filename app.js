@@ -122,7 +122,7 @@
     const status=done?"Completed":lock?"Locked":"Ready to learn",cls=done?"complete":lock?"locked":"available";
     const visual=chaVisualFor(module.id);
     return '<div class="course-activity '+cls+'"><span class="activity-thumb">'+(visual?chaImage(visual.src,"","activity-thumbnail",true):'<span class="activity-icon" aria-hidden="true">▤</span>')+'<span class="activity-thumb-status" aria-hidden="true">'+(done?'✓':'')+'</span></span>'+
-      '<div class="activity-description"><div class="activity-kicker">MODULE '+String(module.id).padStart(2,"0")+' · INTERACTIVE LESSON</div><h3>'+htmlEscape(module.title)+'</h3><p>'+htmlEscape(module.summary)+'</p><span class="activity-duration">◷ '+htmlEscape(module.duration)+'</span></div>'+
+      '<div class="activity-description"><div class="activity-kicker">MODULE '+String(module.id).padStart(2,"0")+' · THREE GUIDED LESSONS</div><h3>'+htmlEscape(module.title)+'</h3><p>'+htmlEscape(module.summary)+'</p><span class="activity-duration">◷ '+htmlEscape(module.duration)+'</span></div>'+
       '<div class="activity-action"><span class="module-status '+cls+'">'+status+'</span>'+
       '<button class="activity-open" type="button" data-open-module="'+module.id+'" '+(lock?'disabled aria-label="Module '+module.id+' locked until earlier lessons are completed"':'')+'>'+
       (done?'Review lesson ↗':lock?'Locked':'Start lesson →')+'</button></div></div>';
@@ -253,10 +253,12 @@
     $("#lesson-status").textContent = state.completed.includes(module.id) ? "Completed" : "Practice at your own pace · all lessons available";
     displayLessonIllustration(module);
     $("#lesson-list").innerHTML=modules.map(m=>{const locked=!unlocked(m.id);return '<button class="lesson-side-link '+(m.id===module.id?'current ':'')+(state.completed.includes(m.id)?'completed':'')+'" data-open-module="'+m.id+'" '+(locked?'disabled title="All modules available"':'')+'><span>'+(state.completed.includes(m.id)?'✓':locked?'•':m.id)+'</span>'+htmlEscape(m.title)+'</button>';}).join("");
+    const originalNotes = module.sections.map((section,i) => '<section class="lesson-section"><h2>'+String(i+1).padStart(2,"0")+'. '+htmlEscape(section.title)+'</h2><p>'+htmlEscape(section.text)+'</p><div class="lesson-points">'+ section.points.map(p=>'<div class="lesson-point">'+htmlEscape(p)+'</div>').join("")+'</div></section>').join("");
+    const expanded = typeof window.WRHA_renderExpandedLessons==="function" ? window.WRHA_renderExpandedLessons(module) : "";
     $("#lesson-content").innerHTML =
       '<section class="learning-objectives"><strong>After this module, you should be able to:</strong><ul>' +
       module.objectives.map(o => '<li>' + htmlEscape(o) + '</li>').join("") + '</ul></section>' +
-      module.sections.map((section,i) => '<section class="lesson-section"><h2>'+String(i+1).padStart(2,"0")+'. '+htmlEscape(section.title)+'</h2><p>'+htmlEscape(section.text)+'</p><div class="lesson-points">'+ section.points.map(p=>'<div class="lesson-point">'+htmlEscape(p)+'</div>').join("")+'</div></section>').join("") + "";
+      (expanded ? expanded + '<details class="deep-quick-summary"><summary>Open the original WRHA quick-reference notes</summary>'+originalNotes+'</details>' : originalNotes);
     const scenario = module.scenario;
     // Resource and demonstration panels appear before the practice scenario.
     const existing=$("#lesson-content").innerHTML;
