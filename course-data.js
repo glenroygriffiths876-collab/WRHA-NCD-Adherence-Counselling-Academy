@@ -1,4 +1,4 @@
-/* WRHA NCD Adherence Academy — prototype instructional content.
+/* WRHA NCD Adherence Academy — original concise notes retained as optional quick references.
    Adapted and condensed from the WRHA proposal, CHA participant manual and facilitator pack.
    For clinical review. Original high-stakes assessment keys are intentionally excluded. */
 window.WRHA_COURSE = {
@@ -7,7 +7,7 @@ window.WRHA_COURSE = {
  theme: "Listen. Support. Motivate. Connect.",
  modules: [
   {
-   id: 1, title: "Understanding NCDs", phase: "Online foundation", icon: "♥", duration: "20–30 min",
+   id: 1, title: "Understanding NCDs", phase: "Online foundation", icon: "♥", duration: "~75 min",
    summary: "Understand the NCDs affecting Jamaican families and why continuous care matters.",
    objectives: ["Name major NCDs and their effects.", "Describe modifiable risks and common complications.", "Explain why clients need continued care even when they feel well."],
    sections: [
@@ -18,7 +18,7 @@ window.WRHA_COURSE = {
    scenario:{type:"Knowledge check",prompt:"During a home visit, a man with hypertension says, “Mi feel good now, so the pressure gone.” Which is the most helpful response?",choices:[{text:"Agree that he no longer needs clinic visits.",correct:false,feedback:"Hypertension may remain present even when someone feels well."},{text:"Explain gently that pressure can remain high without symptoms, then ask about his treatment plan.",correct:true,feedback:"Correct. The response offers simple information and invites a respectful discussion."},{text:"Warn him that he is definitely about to have a stroke.",correct:false,feedback:"Avoid alarmist statements and making an individual diagnosis."}]}
   },
   {
-   id:2,title:"What Is Adherence?",phase:"Online foundation",icon:"◎",duration:"20 min",
+   id:2,title:"What Is Adherence?",phase:"Online foundation",icon:"◎",duration: "~75 min",
    summary:"Move from compliance to shared, person-centred treatment plans.",
    objectives:["Distinguish compliance, adherence and concordance.","Recognise that adherence involves more than medication.","Use language that respects the client's choices."],
    sections:[
@@ -29,7 +29,7 @@ window.WRHA_COURSE = {
    scenario:{type:"Practice decision",prompt:"A client says she cannot visit the clinic on Fridays because she works at a hotel. What demonstrates person-centred adherence support?",choices:[{text:"Label her non-compliant.",correct:false,feedback:"Labels conceal the real barrier and undermine trust."},{text:"Explore the difficulty and refer her to the clinic team to discuss an achievable arrangement.",correct:true,feedback:"Correct. It respects circumstances while maintaining appropriate referral."},{text:"Tell her to stop treatment until her work schedule changes.",correct:false,feedback:"A CHA must not recommend stopping treatment."}]}
   },
   {
-   id:3,title:"Why People Don't Adhere",phase:"Online foundation",icon:"◈",duration:"25–35 min",
+   id:3,title:"Why People Don't Adhere",phase:"Online foundation",icon:"◈",duration: "~90 min",
    summary:"Recognise the human, treatment, social and health-system barriers behind missed care.",
    objectives:["Identify the four broad groups of adherence barriers.","Explore multiple barriers without assumptions.","Select appropriate support and referral responses."],
    sections:[
@@ -40,7 +40,7 @@ window.WRHA_COURSE = {
    scenario:{type:"Barrier identification",prompt:"A pharmacy repeatedly has no stock of a prescribed tablet. Which category best describes that barrier?",choices:[{text:"Only a client knowledge problem.",correct:false,feedback:"A medicine stockout is not caused by poor client knowledge."},{text:"A health-system barrier that should be reported through the care team.",correct:true,feedback:"Correct. Explore continuity-of-care options with authorised staff."},{text:"Proof that the treatment is unnecessary.",correct:false,feedback:"Medication supply problems do not justify discontinuation without clinical review."}]}
   },
   {
-   id:4,title:"Communication Skills",phase:"In-person workshop",icon:"◌",duration:"25–35 min",
+   id:4,title:"Communication Skills",phase:"In-person workshop",icon:"◌",duration: "~110 min",
    summary:"Practise active listening, empathy, reflection and respectful questions.",
    objectives:["Use open-ended questions and non-judgmental language.","Demonstrate attentive listening and accurate reflections.","Summarise the client's barriers before planning."],
    sections:[
@@ -51,7 +51,7 @@ window.WRHA_COURSE = {
    scenario:{type:"Communication practice",prompt:"A CHA learns that a client missed clinic. Which response best opens the conversation?",choices:[{text:"“What made it difficult for you to attend?”",correct:true,feedback:"Correct. This invites discussion without judgement."},{text:"“You cannot keep behaving like this.”",correct:false,feedback:"This response is accusatory and may cause the client to withdraw."},{text:"“I will report you if this happens again.”",correct:false,feedback:"Threats are not person-centred counselling."}]}
   },
   {
-   id:5,title:"Motivational Interviewing",phase:"In-person workshop",icon:"✧",duration:"25–35 min",
+   id:5,title:"Motivational Interviewing",phase:"In-person workshop",icon:"✧",duration: "~120 min",
    summary:"Practise OARS, confidence rulers and change talk.",
    objectives:["Describe the spirit of motivational interviewing.","Use the OARS communication skills.","Elicit rather than impose the client's motivation."],
    sections:[
@@ -62,7 +62,7 @@ window.WRHA_COURSE = {
    scenario:{type:"MI practice",prompt:"A client rates her confidence at 5/10. Which follow-up question is most consistent with motivational interviewing?",choices:[{text:"“Why only five?”",correct:false,feedback:"This may invite a defensive explanation of failure."},{text:"“Why five and not two?”",correct:true,feedback:"Correct. The client can identify existing strengths and reasons for confidence."},{text:"“You need to get to ten today.”",correct:false,feedback:"MI does not impose a required confidence rating."}]}
   },
   {
-   id:6,title:"The 5 A's & Adherence Assessment",phase:"In-person workshop",icon:"⑤",duration:"25–35 min",
+   id:6,title:"The 5 A's & Adherence Assessment",phase:"In-person workshop",icon:"⑤",duration: "~110 min",
    summary:"Apply Ask, Assess, Advise, Agree and Assist to a realistic client encounter.",
    objectives:["Apply the WRHA manual's 5 A's in order.","Assess medication, clinic, lifestyle and barrier domains.","Agree achievable steps and appropriate follow-up."],
    sections:[
@@ -73,7 +73,7 @@ window.WRHA_COURSE = {
    scenario:{type:"5 A's sequence",prompt:"After listening to barriers and sharing information, the CHA and client decide on a feasible reminder. Which A does that represent?",choices:[{text:"Ask",correct:false,feedback:"Ask explores current behaviour."},{text:"Agree",correct:true,feedback:"Correct. Agree means making a realistic plan together."},{text:"Assess",correct:false,feedback:"Assess identifies barriers and readiness to change."}]}
   },
   {
-   id:7,title:"Scope, Confidentiality & Danger Signs",phase:"In-person workshop",icon:"⚕",duration:"25–35 min",
+   id:7,title:"Scope, Confidentiality & Danger Signs",phase:"In-person workshop",icon:"⚕",duration: "~100 min",
    summary:"Know what CHAs can do, what requires referral and when to escalate immediately.",
    objectives:["Distinguish counselling support from clinical decision-making.","Protect confidential client information.","Recognise red flags and follow WRHA escalation protocols."],
    sections:[
@@ -84,7 +84,7 @@ window.WRHA_COURSE = {
    scenario:{type:"Referral judgement",prompt:"A client suddenly develops one-sided arm weakness and slurred speech during a home visit. What should the CHA do?",choices:[{text:"Schedule routine counselling next week.",correct:false,feedback:"These are possible stroke symptoms and require urgent escalation."},{text:"Activate the local emergency referral procedure immediately, note onset and notify the care team.",correct:true,feedback:"Correct. This is a potential emergency. Follow the approved WRHA response pathway."},{text:"Try a different tablet dose.",correct:false,feedback:"A CHA must not change medication or delay urgent care."}]}
   },
   {
-   id:8,title:"Supporting Self-Management at Home",phase:"Online continuity",icon:"⌂",duration:"20–30 min",
+   id:8,title:"Supporting Self-Management at Home",phase:"Online continuity",icon:"⌂",duration: "~120 min",
    summary:"Help clients make workable routines using reminders, teach-back and support networks.",
    objectives:["Practise teach-back and health-literate communication.","Identify workable reminders and refill support.","Involve family or community supports with permission."],
    sections:[
@@ -95,7 +95,7 @@ window.WRHA_COURSE = {
    scenario:{type:"Teach-back practice",prompt:"A client nods when you explain a new agreed routine. How can the CHA best check that the explanation was clear?",choices:[{text:"Ask, “You understand, right?”",correct:false,feedback:"Many people will agree even when the explanation was unclear."},{text:"Invite the client to describe the routine in their own words.",correct:true,feedback:"Correct. Teach-back checks your explanation without blaming the client."},{text:"Repeat the same speech faster.",correct:false,feedback:"Use plain language, demonstration and teach-back instead."}]}
   },
   {
-   id:9,title:"Referral, Documentation & Follow-Up",phase:"Online continuity",icon:"↗",duration:"20–30 min",
+   id:9,title:"Referral, Documentation & Follow-Up",phase:"Online continuity",icon:"↗",duration: "~110 min",
    summary:"Close the loop: record concerns, refer appropriately and check what happened next.",
    objectives:["Write objective, non-stigmatising documentation.","Explain the referral and escalation process.","Plan follow-up and check referral completion."],
    sections:[
