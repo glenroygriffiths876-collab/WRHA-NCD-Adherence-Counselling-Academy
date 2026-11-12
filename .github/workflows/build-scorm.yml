@@ -30,6 +30,7 @@ jobs:
           node --check lessons-module-9.js
           node --check practice-tools.js
           node --check expanded-lesson-renderer.js
+          node --check extended-assessment.js
           node --check module-visuals.js
           node --check video-library.js
           node --check manual-reader.js
@@ -57,6 +58,9 @@ jobs:
             }
           }
           if(ids.size!==27||!Array.isArray(t)||t.length!==10)throw Error('Expected 27 lessons and 10 tools');
+          global.document={addEventListener:()=>{}};
+          require('./extended-assessment.js');
+          if(window.WRHA_EXTENDED_PRACTICE_COUNT!==18)throw Error('Expected 18 extended assessment questions');
           console.log('Validated '+ids.size+' substantive lessons, 27 formative checks, and '+t.length+' printable learning tools');
           NODE
           node <<'NODE'
@@ -82,7 +86,7 @@ jobs:
           from pathlib import Path
           import xml.etree.ElementTree as ET
           ET.parse('imsmanifest.xml')
-          for name in ('index.html','styles.css','premium.css','course.css','expanded-lessons.css','lessons-unit-1.js','lessons-unit-2.js','lessons-module-7.js','lessons-module-8.js','lessons-module-9.js','practice-tools.js','expanded-lesson-renderer.js','illustrations.css','readability.css','ambient-motion.js','module-visuals.js','videos.css','manual-reader.css','manual-covers.css','manual-reader.js','manual-assets.js','vendor/pdfjs/pdf.min.js','vendor/pdfjs/pdf.worker.min.js','video-library.js','motion.js','logo-loader.js','assets/original-logo-data.js','course-data.js','guideline-library.js','app.js','scorm.js','assets/wrha-logo.svg'):
+          for name in ('index.html','styles.css','premium.css','course.css','expanded-lessons.css','lessons-unit-1.js','lessons-unit-2.js','lessons-module-7.js','lessons-module-8.js','lessons-module-9.js','practice-tools.js','expanded-lesson-renderer.js','extended-assessment.js','illustrations.css','readability.css','ambient-motion.js','module-visuals.js','videos.css','manual-reader.css','manual-covers.css','manual-reader.js','manual-assets.js','vendor/pdfjs/pdf.min.js','vendor/pdfjs/pdf.worker.min.js','video-library.js','motion.js','logo-loader.js','assets/original-logo-data.js','course-data.js','guideline-library.js','app.js','scorm.js','assets/wrha-logo.svg'):
               assert Path(name).exists(), name
           for photo in ['cha-ncd-overview','cha-adherence-conversation','cha-barriers-home-visit',
                         'cha-communication-education','cha-motivational-interviewing','cha-five-as-assessment',
@@ -137,7 +141,7 @@ jobs:
       - name: Build SCORM 1.2 ZIP
         run: |
           zip -q -r WRHA-NCD-Adherence-Academy-SCORM12-PROTOTYPE.zip \
-            imsmanifest.xml index.html styles.css premium.css course.css expanded-lessons.css lessons-unit-1.js lessons-unit-2.js lessons-module-7.js lessons-module-8.js lessons-module-9.js practice-tools.js expanded-lesson-renderer.js illustrations.css readability.css ambient-motion.js module-visuals.js videos.css manual-reader.css manual-covers.css course-data.js video-library.js guideline-library.js manual-assets.js manual-reader.js vendor/pdfjs/pdf.min.js vendor/pdfjs/pdf.worker.min.js app.js motion.js scorm.js logo-loader.js assets/original-logo-data.js assets/wrha-logo-original.png
+            imsmanifest.xml index.html styles.css premium.css course.css expanded-lessons.css lessons-unit-1.js lessons-unit-2.js lessons-module-7.js lessons-module-8.js lessons-module-9.js practice-tools.js expanded-lesson-renderer.js extended-assessment.js illustrations.css readability.css ambient-motion.js module-visuals.js videos.css manual-reader.css manual-covers.css course-data.js video-library.js guideline-library.js manual-assets.js manual-reader.js vendor/pdfjs/pdf.min.js vendor/pdfjs/pdf.worker.min.js app.js motion.js scorm.js logo-loader.js assets/original-logo-data.js assets/wrha-logo-original.png
           if [ -d assets/cha-hd ]; then zip -q -r WRHA-NCD-Adherence-Academy-SCORM12-PROTOTYPE.zip assets/cha-hd; fi
           if [ -d documents/pdf-library ] && [ -d media/pdf-covers ]; then
             zip -q -r WRHA-NCD-Adherence-Academy-SCORM12-PROTOTYPE.zip documents/pdf-library media/pdf-covers
