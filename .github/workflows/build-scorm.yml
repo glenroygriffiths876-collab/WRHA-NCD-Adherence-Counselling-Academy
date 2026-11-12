@@ -2,7 +2,7 @@ name: Validate and package WRHA Moodle prototype
 
 on:
   push:
-    branches: [main]
+    branches: [main, academy-comprehensive-27-lessons-20261112]
   workflow_dispatch:
 
 permissions:
@@ -23,6 +23,13 @@ jobs:
           node --check logo-loader.js
           node --check assets/original-logo-data.js
           node --check course-data.js
+          node --check lessons-unit-1.js
+          node --check lessons-unit-2.js
+          node --check lessons-module-7.js
+          node --check lessons-module-8.js
+          node --check lessons-module-9.js
+          node --check practice-tools.js
+          node --check expanded-lesson-renderer.js
           node --check module-visuals.js
           node --check video-library.js
           node --check manual-reader.js
@@ -34,6 +41,24 @@ jobs:
       - name: Validate course content and SCORM manifest
         run: |
           node -e "global.window = {}; require('./course-data.js'); const c=window.WRHA_COURSE; if(!c||c.modules.length!==9||c.modules.some(m=>m.scenario.choices.filter(x=>x.correct).length!==1)) process.exit(1); console.log('Validated nine modules and scenario answers')"
+          node <<'NODE'
+          global.window={};
+          for(const p of ['lessons-unit-1.js','lessons-unit-2.js','lessons-module-7.js','lessons-module-8.js','lessons-module-9.js','practice-tools.js'])require('./'+p);
+          const x=window.WRHA_EXPANDED_LESSONS,t=window.WRHA_PRACTICE_TOOLS;
+          if(!x||Object.keys(x).length!==9)throw Error('Expected nine expanded modules');
+          const ids=new Set();
+          for(let i=1;i<=9;i++){
+            if(!Array.isArray(x[i])||x[i].length!==3)throw Error('Expected three complete lessons in module '+i);
+            for(const [j,l] of x[i].entries()){
+              if(l.id!==i+'.'+(j+1)||ids.has(l.id))throw Error('Duplicate or misplaced lesson '+l.id);
+              ids.add(l.id);
+              if(!l.objective||!Array.isArray(l.p)||l.p.length<3||l.p.some(p=>p.length<100)||!l.case||!l.activity||!l.takeaway||!l.ref)throw Error('Incomplete teaching for '+l.id);
+              if(!l.check||l.check.a.length!==3||l.check.why.length!==3||!Number.isInteger(l.check.correct)||l.check.correct<0||l.check.correct>2)throw Error('Invalid formative question '+l.id);
+            }
+          }
+          if(ids.size!==27||!Array.isArray(t)||t.length!==10)throw Error('Expected 27 lessons and 10 tools');
+          console.log('Validated '+ids.size+' substantive lessons, 27 formative checks, and '+t.length+' printable learning tools');
+          NODE
           node <<'NODE'
           global.window={};
           require('./video-library.js');
@@ -57,7 +82,7 @@ jobs:
           from pathlib import Path
           import xml.etree.ElementTree as ET
           ET.parse('imsmanifest.xml')
-          for name in ('index.html','styles.css','premium.css','course.css','illustrations.css','readability.css','ambient-motion.js','module-visuals.js','videos.css','manual-reader.css','manual-covers.css','manual-reader.js','manual-assets.js','vendor/pdfjs/pdf.min.js','vendor/pdfjs/pdf.worker.min.js','video-library.js','motion.js','logo-loader.js','assets/original-logo-data.js','course-data.js','guideline-library.js','app.js','scorm.js','assets/wrha-logo.svg'):
+          for name in ('index.html','styles.css','premium.css','course.css','expanded-lessons.css','lessons-unit-1.js','lessons-unit-2.js','lessons-module-7.js','lessons-module-8.js','lessons-module-9.js','practice-tools.js','expanded-lesson-renderer.js','illustrations.css','readability.css','ambient-motion.js','module-visuals.js','videos.css','manual-reader.css','manual-covers.css','manual-reader.js','manual-assets.js','vendor/pdfjs/pdf.min.js','vendor/pdfjs/pdf.worker.min.js','video-library.js','motion.js','logo-loader.js','assets/original-logo-data.js','course-data.js','guideline-library.js','app.js','scorm.js','assets/wrha-logo.svg'):
               assert Path(name).exists(), name
           for photo in ['cha-ncd-overview','cha-adherence-conversation','cha-barriers-home-visit',
                         'cha-communication-education','cha-motivational-interviewing','cha-five-as-assessment',
@@ -112,7 +137,7 @@ jobs:
       - name: Build SCORM 1.2 ZIP
         run: |
           zip -q -r WRHA-NCD-Adherence-Academy-SCORM12-PROTOTYPE.zip \
-            imsmanifest.xml index.html styles.css premium.css course.css illustrations.css readability.css ambient-motion.js module-visuals.js videos.css manual-reader.css manual-covers.css course-data.js video-library.js guideline-library.js manual-assets.js manual-reader.js vendor/pdfjs/pdf.min.js vendor/pdfjs/pdf.worker.min.js app.js motion.js scorm.js logo-loader.js assets/original-logo-data.js assets/wrha-logo-original.png
+            imsmanifest.xml index.html styles.css premium.css course.css expanded-lessons.css lessons-unit-1.js lessons-unit-2.js lessons-module-7.js lessons-module-8.js lessons-module-9.js practice-tools.js expanded-lesson-renderer.js illustrations.css readability.css ambient-motion.js module-visuals.js videos.css manual-reader.css manual-covers.css course-data.js video-library.js guideline-library.js manual-assets.js manual-reader.js vendor/pdfjs/pdf.min.js vendor/pdfjs/pdf.worker.min.js app.js motion.js scorm.js logo-loader.js assets/original-logo-data.js assets/wrha-logo-original.png
           if [ -d assets/cha-hd ]; then zip -q -r WRHA-NCD-Adherence-Academy-SCORM12-PROTOTYPE.zip assets/cha-hd; fi
           if [ -d documents/pdf-library ] && [ -d media/pdf-covers ]; then
             zip -q -r WRHA-NCD-Adherence-Academy-SCORM12-PROTOTYPE.zip documents/pdf-library media/pdf-covers
