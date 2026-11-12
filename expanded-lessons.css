@@ -56,3 +56,23 @@
 @media(max-width:540px){.deep-learning-intro{padding:20px 18px}.deep-lesson{padding:22px 16px}.deep-narrative p{font-size:14px;line-height:1.77}.deep-applied,.deep-activity,.deep-check{padding:16px}.deep-check-options{gap:11px}.deep-choice{min-height:48px}.deep-tools{padding:20px 14px}}
 @media(prefers-reduced-motion:reduce){.deep-chapter-nav a,.deep-choice{transition:none}}
 @media print{.deep-choice,.deep-check-feedback,.deep-tool-download{display:none!important}.deep-lesson{break-inside:avoid;box-shadow:none}.deep-chapter-nav{display:none}.deep-tools{background:white}}
+
+.deep-quick-summary{border:1px dashed #cbddea;border-radius:13px;margin:29px 0 20px;padding:14px 16px;background:#f9fbfe}
+.deep-quick-summary summary{cursor:pointer;color:#285f83;font-size:13px;font-weight:780;padding:4px 0}
+.deep-quick-summary .lesson-section{margin-top:15px}
+.extended-assessment{padding:27px!important;margin-top:22px;border-radius:17px}
+.extended-assessment h2{font:820 20px/1.4 Manrope,var(--sans);color:#1b4b70;margin:8px 0}
+.extended-assessment>p{font-size:13px;color:#536f84;line-height:1.75;margin:0 0 19px}
+.extended-assessment #expanded-knowledge-practice{min-height:55px}
+.extended-progress{display:flex;justify-content:space-between;gap:15px;color:#247aa4;font-weight:800;font-size:11px;letter-spacing:.025em}
+.extended-track{height:6px;border-radius:99px;overflow:hidden;background:#e7edf3;margin:13px 0 22px}
+.extended-track span{display:block;background:#0c86ac;height:100%;transition:width .15s}
+#expanded-knowledge-practice h3{font:800 16px/1.55 Manrope,var(--sans);color:#244f72;margin:0 0 15px}
+.extended-choices{display:grid;gap:10px;margin-bottom:18px}
+.extended-choices .deep-choice[disabled]{cursor:default}
+.extended-next{margin-top:14px}
+.extended-summary h3{font:850 25px Manrope,var(--sans)!important;color:#1c526f;margin:10px 0}
+.extended-summary p{font-size:13px;line-height:1.7;color:#4a687d}
+.extended-topic-results{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin:18px 0}
+.extended-topic-results span{background:#f0f6fa;border-radius:8px;padding:9px 7px;color:#285f7d;font-size:11px;font-weight:760;text-align:center}
+@media(max-width:540px){.extended-topic-results{grid-template-columns:repeat(2,minmax(0,1fr))}.extended-assessment{padding:18px!important}}
