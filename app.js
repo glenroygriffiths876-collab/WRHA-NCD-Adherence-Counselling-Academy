@@ -185,32 +185,40 @@
     if(selected.length)displaySelectedGuideline();
   }
   function renderVideoLearning(module) {
-    const catalog = Array.isArray(window.WRHA_VIDEO_LIBRARY) ? window.WRHA_VIDEO_LIBRARY : [];
-    const matched = catalog.filter(video => video.modules.includes(module.id))
-      .sort((a,b) => Number((b.featuredFor||[]).includes(module.id)) - Number((a.featuredFor||[]).includes(module.id)));
-    if(!matched.length)return "";
-    // Keep the lesson focused: one primary video and no more than one optional second example.
-    const shown = matched.slice(0,2);
-    return '<section class="lesson-video-learning" aria-label="Video demonstrations">' +
-      '<div class="video-section-heading"><div class="video-section-kicker">WATCH · OBSERVE · REFLECT</div>' +
-      '<h2>See counselling in practice</h2>' +
-      '<p>Watch a demonstration and reflect on how the communication techniques could be applied in a Jamaican CHA encounter. Watching is optional and never locks a lesson.</p></div>' +
-      shown.map((video,i)=>'<article class="training-video-card">' +
+    const library=Array.isArray(window.WRHA_VIDEO_LIBRARY)?window.WRHA_VIDEO_LIBRARY:[];
+    // A single, uniquely assigned primary video for each module. Viewing is optional.
+    const video=library.find(item=>Array.isArray(item.modules)&&item.modules.length===1&&item.modules[0]===module.id);
+    if(!video)return "";
+    const safeId=htmlEscape(video.id);
+    const videoUrl="https://www.youtube.com/watch?v="+encodeURIComponent(video.videoId);
+    const observations=(video.watchFor||[]).map(item=>'<li>'+htmlEscape(item)+'</li>').join("");
+    const reflections=(video.after||[]).map(item=>'<li>'+htmlEscape(item)+'</li>').join("");
+    return '<section class="lesson-video-learning" aria-label="Video-based learning demonstration">'+
+      '<div class="video-section-heading"><div class="video-section-kicker">LEARN BY WATCHING · MODULE '+module.id+'</div>'+
+      '<h2>Watch counselling in practice</h2>'+
+      '<p>One carefully selected video for this module. You may watch, pause, reflect, or skip it; all lessons stay open.</p></div>'+
+      '<article class="training-video-card">'+
         '<div class="training-video-top"><span class="training-video-type">'+htmlEscape(video.category)+'</span>'+
-        (i===0?'<span class="training-video-tag">Suggested viewing</span>':'<span class="training-video-tag">Additional example</span>')+'</div>'+
+        '<span class="training-video-tag">Unique to Module '+module.id+'</span></div>'+
         '<h3>'+htmlEscape(video.title)+'</h3>'+
-        '<p class="training-video-provider">'+htmlEscape(video.provider)+'</p>'+
-        '<div class="training-video-frame" id="training-video-'+htmlEscape(video.id)+'">'+
-          '<button type="button" class="training-video-launch" data-load-video="'+htmlEscape(video.id)+'" aria-label="Play '+htmlEscape(video.title)+' from YouTube">'+
-          '<span class="training-video-play" aria-hidden="true">▶</span><span>Watch demonstration</span>'+
-          '<small>YouTube video · loads on request</small></button></div>'+
+        '<p class="training-video-provider">'+htmlEscape(video.provider)+' · '+htmlEscape(video.duration||"Training video")+'</p>'+
+        '<div class="training-video-before"><span class="training-step-number">01</span><div><strong>Before you watch</strong><p>'+htmlEscape(video.before)+'</p></div></div>'+
+        '<div class="training-video-frame" id="training-video-'+safeId+'">'+
+          '<button type="button" class="training-video-launch" data-load-video="'+safeId+'" aria-label="Load video: '+htmlEscape(video.title)+'">'+
+            '<span class="training-video-play" aria-hidden="true">▶</span>'+
+            '<span>Play video demonstration</span><small>YouTube player loads only when clicked</small>'+
+          '</button></div>'+
         '<p class="training-video-why">'+htmlEscape(video.rationale)+'</p>'+
-        '<div class="training-video-reflect"><strong>After watching</strong><p>'+htmlEscape(video.prompt)+'</p></div>'+
-        '<p class="training-video-note">'+htmlEscape(video.caveat)+'</p>'+
-        '<div class="training-video-links"><a href="https://www.youtube.com/watch?v='+encodeURIComponent(video.videoId)+'" target="_blank" rel="noopener noreferrer">Open on YouTube ↗</a>'+
-        '<a href="'+htmlEscape(video.source)+'" target="_blank" rel="noopener noreferrer">About this resource ↗</a></div>'+
-      '</article>').join("")+
-      '<p class="video-section-notice">These are external training demonstrations, not Jamaican clinical protocols. If YouTube does not play within Moodle, use “Open on YouTube.”</p></section>';
+        '<div class="training-video-observe"><div class="training-step-title"><span class="training-step-number">02</span><strong>Watch for these behaviours</strong></div><ul>'+observations+'</ul></div>'+
+        '<div class="training-video-reflect"><div class="training-step-title"><span class="training-step-number">03</span><strong>Reflect on what you saw</strong></div><ol>'+reflections+'</ol></div>'+
+        '<div class="training-video-jamaica"><div class="training-step-title"><span class="training-step-number">04</span><strong>Apply it in Jamaica</strong></div><p>'+htmlEscape(video.localScenario)+'</p></div>'+
+        '<p class="training-video-note"><strong>Clinical context:</strong> '+htmlEscape(video.caveat)+'</p>'+
+        '<div class="training-video-links">'+
+          '<a href="'+videoUrl+'" target="_blank" rel="noopener noreferrer">Open on YouTube ↗</a>'+
+          '<a href="'+htmlEscape(video.source)+'" target="_blank" rel="noopener noreferrer">Publisher / teaching reference ↗</a></div>'+
+      '</article>'+
+      '<p class="video-section-notice">External teaching material; not an approved Jamaican clinical protocol. If embedded playback is unavailable in Moodle, use the YouTube link. No video affects course access or official grades.</p>'+
+      '</section>';
   }
   function loadTrainingVideo(id){
     const catalog=window.WRHA_VIDEO_LIBRARY||[];
