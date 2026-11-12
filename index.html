@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="premium.css">
   <link rel="stylesheet" href="course.css">
+  <link rel="stylesheet" href="expanded-lessons.css?v=20261112">
   <link rel="stylesheet" href="illustrations.css">
   <link rel="stylesheet" href="readability.css">
   <link rel="stylesheet" href="videos.css">
@@ -43,9 +44,9 @@
     <div class="hero">
       <div class="hero-copy"><div class="hero-overline"><span class="tiny-star">✦</span> SELF-PACED PROFESSIONAL LEARNING</div>
         <h1 id="home-heading">Learn at your pace.<br><em>Counsel with confidence.</em></h1>
-        <p>Nine guided lessons, realistic Jamaican situations, and short knowledge checks — all in one clear learning journey.</p>
+        <p>Nine comprehensive modules, 27 guided lessons, original Jamaican case studies and practical knowledge checks — all in one learning journey.</p>
         <div class="hero-buttons"><button class="button button-white" id="continue-course" data-action="continue-learning">Start learning <span aria-hidden="true">↗</span></button><button class="button button-glass" data-nav="modules">View course content</button></div>
-        <div class="hero-chips"><span>9 self-paced modules</span><span>Interactive practice</span><span>Progress saved</span></div>
+        <div class="hero-chips"><span>9 modules · 27 lessons</span><span>Interactive practice</span><span>Progress saved</span></div>
       </div>
       <div class="hero-aside"><div class="ring-outer"><div class="ring-inner"><strong id="hero-percent">0%</strong><small>completed</small></div></div><div class="hero-aside-title">Your learning journey</div><p><strong id="hero-count">0 of 9</strong> modules completed</p><div class="progress-track"><span id="hero-progress"></span></div><small>Practice completion is separate from official certification.</small></div>
     </div>
@@ -61,7 +62,7 @@
     </div>
     <div class="section-title compact"><div><div class="overline">COURSE MAP</div><h2>What you will learn</h2><p>Three carefully arranged units bring together all nine modules.</p></div><button class="button button-outline" data-nav="modules">Open course content →</button></div>
     <div class="unit-preview-grid" id="home-unit-preview"></div>
-    <div class="insight-panel"><span class="insight-icon">✳</span><div><strong>Important: learning and certification are different</strong><p>All nine lessons are self-paced. Final certification also requires an approved Moodle examination and an observed practical counselling assessment recorded by an authorised facilitator.</p></div></div>
+    <div class="insight-panel"><span class="insight-icon">✳</span><div><strong>Important: learning and certification are different</strong><p>All 27 lessons across nine modules are self-paced. Final certification also requires an approved Moodle examination and an observed practical counselling assessment recorded by an authorised facilitator.</p></div></div>
   </section>
 
   <section id="screen-modules" class="screen" hidden aria-labelledby="modules-heading">
@@ -78,7 +79,7 @@
           <div class="course-progress-text"><strong id="course-progress-title">Your learning progress</strong><span id="course-progress-caption">0 of 9 activities complete</span><div class="course-progress-track"><span id="course-progress-bar"></span></div></div>
           <button type="button" class="button button-primary" data-action="continue-learning" id="content-continue">Continue →</button>
         </div>
-        <div class="orientation-card" id="course-orientation"><div class="orientation-heading"><span class="orientation-symbol" aria-hidden="true">✦</span><div><div class="overline">START HERE</div><h2>Welcome to your course</h2></div></div><p>There are nine interactive modules arranged in three learning units. All lessons are available at any time. Each includes objectives, teaching content, Jamaican case studies, downloadable references and an optional knowledge check.</p><p><strong>Assessment pathway:</strong> WRHA Moodle can provide a baseline pre-test before learning and a formally graded post-test after the lessons. These are separate from the practice checks in this prototype.</p><p><strong>Practical workshop:</strong> Facilitator-assessed counselling skills remain a separate certification requirement. All nine online lessons are freely accessible regardless of progress.</p></div>
+        <div class="orientation-card" id="course-orientation"><div class="orientation-heading"><span class="orientation-symbol" aria-hidden="true">✦</span><div><div class="overline">START HERE</div><h2>Welcome to your course</h2></div></div><p>There are 27 guided lessons across nine modules in three learning units. Every lesson is available at any time. Each includes objectives, teaching content, Jamaican case studies, downloadable references and an optional knowledge check.</p><p><strong>Assessment pathway:</strong> WRHA Moodle can provide a baseline pre-test before learning and a formally graded post-test after the lessons. These are separate from the practice checks in this prototype.</p><p><strong>Practical workshop:</strong> Facilitator-assessed counselling skills remain a separate certification requirement. All nine online lessons are freely accessible regardless of progress.</p></div>
         <div id="course-sections" class="course-sections" aria-label="Learning units"></div>
         <section class="completion-section" id="course-completion"><div class="unit-heading"><span class="unit-label">FINAL STEP</span><h2>Assessment &amp; completion</h2><p>Finish learning, then demonstrate your competence through the approved assessment process.</p></div><div class="completion-activity-list">
           <button type="button" class="completion-activity" data-nav="assessment"><span class="activity-symbol">✓</span><span><strong>Knowledge review</strong><small>Interactive practice in this prototype; official post-test administered in Moodle</small></span><span aria-hidden="true">↗</span></button>
@@ -161,7 +162,7 @@
 
 <section id="screen-lesson" class="screen" hidden aria-labelledby="lesson-title">
     <div class="lesson-heading"><button class="text-button" data-nav="modules">← Course content</button><span id="lesson-phase" class="eyebrow-pill"></span></div>
-    <div class="lesson-layout"><aside class="lesson-sidebar"><div class="side-header">COURSE INDEX</div><nav id="lesson-list" aria-label="Module selection"></nav><div class="sidebar-help">Browse all nine lessons whenever you wish. Knowledge checks track practice progress; competency is recorded separately by the facilitator.</div></aside>
+    <div class="lesson-layout"><aside class="lesson-sidebar"><div class="side-header">COURSE INDEX</div><nav id="lesson-list" aria-label="Module selection"></nav><div class="sidebar-help">Browse all nine modules and their 27 lessons whenever you wish. Knowledge checks track practice progress; competency is recorded separately by the facilitator.</div></aside>
       <article class="lesson-article"><div class="lesson-cover illustrated-lesson-cover"><div class="lesson-cover-copy"><span class="lesson-overline" id="lesson-number"></span><h1 id="lesson-title"></h1><p id="lesson-description"></p><div class="lesson-meta"><span id="lesson-duration"></span><span>·</span><span id="lesson-status"></span></div></div><figure id="lesson-figure" class="lesson-illustration" aria-label="Illustrative Jamaican community health scene"></figure></div><div class="lesson-content" id="lesson-content"></div><div id="scenario-block" class="scenario-card"></div><div class="lesson-actions"><button id="previous-module" class="button button-outline">← Previous</button><button id="next-module" class="button button-primary">Next module →</button></div></article>
     </div>
   </section>
@@ -184,6 +185,13 @@
 <script src="assets/original-logo-data.js"></script>
 <script src="logo-loader.js"></script>
 <script src="course-data.js"></script>
+<script src="lessons-unit-1.js?v=20261112"></script>
+<script src="lessons-unit-2.js?v=20261112"></script>
+<script src="lessons-module-7.js?v=20261112"></script>
+<script src="lessons-module-8.js?v=20261112"></script>
+<script src="lessons-module-9.js?v=20261112"></script>
+<script src="practice-tools.js?v=20261112"></script>
+<script src="expanded-lesson-renderer.js?v=20261112"></script>
 <script src="module-visuals.js?v=hd-20261111"></script>
 <script src="guideline-library.js"></script>
 <script src="manual-assets.js"></script>
@@ -191,7 +199,7 @@
 <script src="manual-reader.js"></script>
 <script src="video-library.js?v=curated9-20261111"></script>
 <script src="scorm.js"></script>
-<script src="app.js?v=videos-20261111"></script>
+<script src="app.js?v=27-lessons-20261112"></script>
 <script src="motion.js"></script>
 <script src="ambient-motion.js"></script>
 </body></html>
