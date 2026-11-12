@@ -66,3 +66,6 @@ The PDFs are public MOHW publications, reproduced with source attribution for tr
 
 ## Jamaican CHA illustrations
 Six individual scenes were cropped from the supplied collage and placed at `assets/cha-scenes/` as locally hosted WebP images. The nine lesson headers, course-content activity rows and course-home unit previews use an appropriate scene through `module-visuals.js` and `illustrations.css`. The images are **illustrative training scenes**, not verified photos of WRHA staff or patients. They retain the original source dimensions; they have not been falsely upscaled or passed off as higher-resolution originals. All nine lessons remain freely accessible, and the existing video, guideline-library and assessment logic remains unchanged.
+
+## Nine unique video learning demonstrations (November 2026)
+The academy now has **exactly one distinct primary YouTube video per module**, with publisher references and a four-stage guided observation activity (prepare, watch, reflect, apply in Jamaica). The old overlapping eight-video mapping was replaced. YouTube loads only after a user click, and no videos gate course access or certification. See [VIDEO-REVIEW.md](VIDEO-REVIEW.md) for sourcing, clinical caveats and remaining audiovisual/Moodle/licensing approval checks.
