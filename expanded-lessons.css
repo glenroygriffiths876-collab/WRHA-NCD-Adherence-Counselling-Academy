@@ -1,0 +1,58 @@
+/* Comprehensive 27-lesson NCD Academy experience. Scoped to expanded lessons. */
+.deep-learning-intro{background:linear-gradient(125deg,#f2f9fd 0%,#fff 83%);border:1px solid #d6e9f2;border-radius:19px;padding:29px 30px;margin:24px 0 30px}
+.deep-learning-intro h2{font-size:clamp(21px,2.4vw,28px);font-weight:850;color:#163c62;line-height:1.25;margin:6px 0 8px;letter-spacing:-.035em}
+.deep-learning-intro p{color:#526b83;font-size:14px;line-height:1.8;margin:0}
+.deep-section-kicker,.deep-lesson-topline,.deep-check-heading,.deep-tool-meta{font-size:10px;letter-spacing:.115em;font-weight:900;color:#247ca5}
+.deep-chapter-nav{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:24px}
+.deep-chapter-nav a{display:block;min-width:0;text-decoration:none;border-radius:12px;padding:13px 12px;background:#fff;border:1px solid #dbe8f3;font-size:11px;line-height:1.5;font-weight:750;color:#21466a;transition:background-color .15s,border-color .15s}
+.deep-chapter-nav a:hover,.deep-chapter-nav a:focus-visible{background:#e6f5fc;border-color:#78b4d3;text-decoration:underline;outline-offset:3px}
+.deep-chapter-nav span{display:block;color:#1683ae;font-size:11px;font-weight:900;margin-bottom:4px}
+.deep-lesson{scroll-margin-top:110px;display:block;padding:30px 31px;margin:23px 0;border-radius:19px;background:#fff;border:1px solid #dbe6f0;box-shadow:0 4px 18px rgba(18,62,98,.028);color:#30495f}
+.deep-lesson-topline{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:13px}
+.deep-lesson>h2{font:850 clamp(21px,2.2vw,27px)/1.25 Manrope,var(--sans);color:#12395f;margin:0 0 19px;letter-spacing:-.025em}
+.deep-objective{border-left:4px solid #1386b0;background:#f4fafd;padding:14px 17px;border-radius:0 10px 10px 0;margin:0 0 25px}
+.deep-objective strong{color:#205778;font-size:12px;letter-spacing:.02em}
+.deep-objective p{margin:5px 0 0;font-size:13px;line-height:1.65;color:#4d6b82}
+.deep-narrative p{font-size:15px;line-height:1.88;color:#2b4259;margin:0 0 19px}
+.deep-narrative p:last-child{margin-bottom:25px}
+.deep-applied,.deep-activity,.deep-check{border-radius:14px;padding:20px 22px;margin:19px 0}
+.deep-applied{background:#f4f8fc;border:1px solid #e0eaf4}
+.deep-activity{background:#f7faf7;border:1px solid #dde9df}
+.deep-applied h3,.deep-activity h3{font:850 16px/1.35 Manrope,var(--sans);color:#215177;margin:0 0 9px}
+.deep-applied p,.deep-activity p{color:#3d576d;font-size:13px;line-height:1.8;margin:0}
+.deep-activity p.deep-activity-note{font-size:11px;color:#71857b;margin-top:13px}
+.deep-check{background:#fff;border:1px solid #cfe3f1;padding:24px}
+.deep-check-heading{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:10px}
+.deep-check h3{font:800 16px/1.55 Manrope,var(--sans);color:#1f4567;margin:0 0 16px}
+.deep-check-options{display:grid;gap:9px}
+.deep-choice{border:1px solid #d9e5ef;background:#fbfdff;color:#274961;border-radius:11px;padding:13px 15px;text-align:left;font:650 13px/1.55 var(--sans);white-space:normal;cursor:pointer;transition:background-color .15s,border-color .15s}
+.deep-choice:hover,.deep-choice:focus-visible{background:#eaf6fb;border-color:#79bad5;outline-offset:3px}
+.deep-choice.is-right{border-color:#48a187;background:#e9f8f2;color:#145442}
+.deep-choice.is-wrong{border-color:#db958a;background:#fff1ee;color:#9a4032}
+.deep-check-feedback{margin-top:16px;padding:14px 16px;border-radius:11px;background:#f4f8fb;color:#335873;font-size:13px;line-height:1.65}
+.deep-check-feedback:empty{display:none}
+.deep-check-feedback.is-right{background:#ebf8f1;color:#215d48}
+.deep-check-feedback.is-wrong{background:#fff6ed;color:#775324}
+.deep-check-feedback strong{font-size:13px}
+.deep-check-feedback p{margin:5px 0 0}
+.deep-takeaway{margin-top:24px;border-top:1px solid #e9eff4;padding-top:18px}
+.deep-takeaway strong{font-size:11px;color:#0d729a;text-transform:uppercase;letter-spacing:.1em}
+.deep-takeaway p{margin:6px 0 0;font-size:14px;line-height:1.7;font-weight:730;color:#225376}
+.deep-reference{font-size:11px;line-height:1.65;color:#7b8d9f;margin:16px 0 0}
+.deep-tools{margin:30px 0;background:#f8fbfe;border:1px solid #dbe8f0;border-radius:18px;padding:26px}
+.deep-tools h2{font-size:21px;color:#17476f;margin:7px 0 10px}
+.deep-tools>p{color:#536e84;font-size:13px;line-height:1.75;margin:0 0 20px}
+.deep-tools-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.deep-tool{background:#fff;border:1px solid #e0e8f0;border-radius:13px;padding:19px}
+.deep-tool h3{font-size:15px;color:#245275;margin:6px 0 7px}
+.deep-tool>p{font-size:12px;color:#5e7589;line-height:1.65;margin:0 0 13px}
+.deep-tool details{font-size:12px;color:#3d596e;line-height:1.6;margin-bottom:14px}
+.deep-tool summary{font-weight:750;cursor:pointer;padding:6px 0;color:#1c7095}
+.deep-tool ol{padding-left:19px;margin:10px 0}
+.deep-tool li{margin-bottom:6px}
+.deep-tool-download{border:0;border-radius:9px;background:#185e93;color:#fff;padding:10px 12px;font:750 11px var(--sans);cursor:pointer}
+.deep-tool-download:hover,.deep-tool-download:focus-visible{background:#104a78;outline-offset:3px}
+@media(max-width:900px){.deep-chapter-nav{grid-template-columns:1fr}.deep-tools-grid{grid-template-columns:1fr}.deep-lesson{padding:25px 21px}}
+@media(max-width:540px){.deep-learning-intro{padding:20px 18px}.deep-lesson{padding:22px 16px}.deep-narrative p{font-size:14px;line-height:1.77}.deep-applied,.deep-activity,.deep-check{padding:16px}.deep-check-options{gap:11px}.deep-choice{min-height:48px}.deep-tools{padding:20px 14px}}
+@media(prefers-reduced-motion:reduce){.deep-chapter-nav a,.deep-choice{transition:none}}
+@media print{.deep-choice,.deep-check-feedback,.deep-tool-download{display:none!important}.deep-lesson{break-inside:avoid;box-shadow:none}.deep-chapter-nav{display:none}.deep-tools{background:white}}
