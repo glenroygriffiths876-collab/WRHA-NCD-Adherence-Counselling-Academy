@@ -28,3 +28,38 @@
 .video-section-notice{font-size:11px;line-height:1.7;color:#778a9e;margin:7px 0 0}
 @media(max-width:620px){.lesson-video-learning{padding:14px}.training-video-card{padding:14px}.training-video-frame{border-radius:10px}}
 @media(prefers-reduced-motion:reduce){.training-video-play{transition:none}}
+
+/* v1.0 · One high-quality teaching video per module, with guided observations */
+.training-video-before{display:flex;align-items:flex-start;gap:12px;padding:15px 17px;margin:17px 0 16px;
+  border:1px solid #dcebf5;border-radius:12px;background:#f4f9fd}
+.training-step-number{flex:0 0 29px;height:29px;width:29px;display:grid;place-items:center;
+  border-radius:50%;font-size:12px;font-weight:900;color:#17578b;background:#e1eff9}
+.training-video-before strong,.training-step-title strong{font-size:15px;color:#234c75}
+.training-video-before p{font-size:14px;line-height:1.7;color:#526d84;margin:6px 0 0}
+.training-video-observe,.training-video-jamaica{margin:18px 0;padding:18px;border:1px solid #e1eaf2;border-radius:12px;background:#fcfdff}
+.training-step-title{display:flex;align-items:center;gap:11px;margin:0 0 12px}
+.training-video-observe ul,.training-video-reflect ol{padding-left:24px;margin:9px 0 0;display:grid;gap:11px}
+.training-video-observe li,.training-video-reflect li,.training-video-jamaica p{font-size:14px;line-height:1.7;color:#526d84}
+.training-video-reflect{margin:18px 0;padding:19px 18px 19px 16px;background:#edf6fc;border-left:4px solid #3d95bd}
+.training-video-reflect strong{font-size:15px}
+.training-video-reflect p{font-size:14px}
+.training-video-jamaica{background:#f5faf6;border-color:#dcebe2}
+.training-video-jamaica .training-step-number{color:#357c55;background:#e6f2ea}
+.training-video-jamaica p{margin:0}
+.training-video-note{background:#fdfaf4;border:1px solid #eee2c9;padding:12px 14px;border-radius:10px;color:#775f47;font-size:12px}
+.training-video-note strong{color:#675036}
+.training-video-card h3{font-size:19px;line-height:1.4}
+.training-video-provider{font-size:12px;line-height:1.6}
+.training-video-why{font-size:14px;line-height:1.75}
+.training-video-links a{font-size:13px}
+.video-section-notice{font-size:12px}
+.training-video-launch{font-size:16px}
+.training-video-launch small{font-size:12px}
+.training-video-type,.training-video-tag{font-size:11px}
+@media(max-width:620px){
+ .training-video-before,.training-video-observe,.training-video-jamaica{padding:13px}
+ .training-video-card h3{font-size:17px}
+ .training-video-before p,.training-video-observe li,.training-video-reflect li,.training-video-jamaica p{font-size:13px}
+ .training-video-reflect{padding:14px}
+ .training-step-title strong{font-size:14px}
+}
