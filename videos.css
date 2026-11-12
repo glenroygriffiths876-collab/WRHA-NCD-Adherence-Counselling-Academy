@@ -63,3 +63,8 @@
  .training-video-reflect{padding:14px}
  .training-step-title strong{font-size:14px}
 }
+
+/* Important clinical context shown before playing affected videos. */
+.training-video-safety{border:1px solid #efd2a2;border-left:4px solid #b87922;background:#fff9ee;border-radius:10px;padding:13px 16px;margin:0 0 16px;color:#78541b;font-size:13px;line-height:1.7}
+.training-video-safety strong{color:#6d460f}
+@media(max-width:620px){.training-video-safety{font-size:12px;padding:12px}}
